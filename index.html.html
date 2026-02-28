@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>SkillStack</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131a;
+    --surface2: #1c1c27;
+    --border: #2a2a3a;
+    --accent: #7c6af7;
+    --accent2: #a78bfa;
+    --gold: #f59e0b;
+    --green: #10b981;
+    --red: #ef4444;
+    --text: #f0f0ff;
+    --muted: #6b6b8a;
+    --muted2: #4a4a64;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    max-width: 480px;
+    margin: 0 auto;
+    padding-bottom: 90px;
+  }
+
+  /* NAV */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 100%; max-width: 480px;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    display: flex; z-index: 100;
+  }
+  .nav-btn {
+    flex: 1; padding: 10px 0 14px;
+    background: none; border: none; color: var(--muted);
+    font-size: 10px; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    transition: color .2s;
+    letter-spacing: .3px;
+  }
+  .nav-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .nav-btn.active { color: var(--accent2); }
+
+  /* SCREENS */
+  .screen { display: none; padding: 0 0 16px; }
+  .screen.active { display: block; }
+
+  /* PAGE HEADER */
+  .page-header { padding: 24px 16px 14px; }
+  .page-header h1 { font-size: 22px; font-weight: 700; letter-spacing: -.4px; }
+
+  /* STAT ROW */
+  .stat-row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px; padding: 0 16px 6px;
+  }
+  .stat-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 13px; padding: 13px 10px; text-align: center;
+  }
+  .stat-card .val { font-size: 24px; font-weight: 800; color: var(--accent2); }
+  .stat-card .lbl { font-size: 9px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: .6px; }
+
+  .streak-line {
+    padding: 8px 16px 14px;
+    font-size: 12px; color: var(--muted);
+  }
+  .streak-line strong { color: var(--gold); }
+
+  /* AI RECOMMENDATION */
+  .rec-block { padding: 0 16px 14px; }
+  .rec-sentence {
+    font-size: 13px; color: #c8c8e8; line-height: 1.5;
+    margin-bottom: 6px;
+  }
+  .tip-btn {
+    background: none; border: none;
+    color: var(--muted); font-size: 11px;
+    cursor: pointer; padding: 0; font-family: inherit;
+    letter-spacing: .2px;
+    transition: color .2s;
+  }
+  .tip-btn:hover { color: var(--accent2); }
+  .tip-box {
+    margin-top: 10px;
+    padding: 11px 13px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 11px;
+    font-size: 12px; color: #b0b0cc; line-height: 1.55;
+  }
+
+  /* HEATMAP */
+  .heatmap-wrap { padding: 0 16px 14px; }
+  .heatmap-grid {
+    display: grid; grid-template-columns: repeat(13, 1fr); gap: 3px;
+  }
+  .hm-cell {
+    aspect-ratio: 1; border-radius: 3px; background: var(--surface2);
+  }
+  .hm-cell[data-level="1"] { background: rgba(124,106,247,.2); }
+  .hm-cell[data-level="2"] { background: rgba(124,106,247,.45); }
+  .hm-cell[data-level="3"] { background: rgba(124,106,247,.72); }
+  .hm-cell[data-level="4"] { background: rgba(167,139,250,1); }
+
+  /* BALANCE BAR */
+  .balance-wrap { padding: 0 16px 16px; }
+  .balance-row { display: flex; align-items: center; gap: 9px; margin-bottom: 5px; }
+  .balance-icon { font-size: 13px; width: 16px; text-align: center; flex-shrink: 0; }
+  .balance-name { font-size: 11px; color: var(--muted); width: 68px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .balance-bar-bg { flex: 1; background: var(--surface2); border-radius: 99px; height: 4px; overflow: hidden; }
+  .balance-bar-fill { height: 100%; border-radius: 99px; transition: width .5s ease; }
+  .balance-pct { font-size: 10px; color: var(--muted); width: 24px; text-align: right; flex-shrink: 0; }
+  .balance-note { font-size: 10px; color: var(--muted2); margin-top: 3px; }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.2px; color: var(--muted);
+    padding: 0 16px 8px;
+  }
+
+  /* SKILL CARD (list) */
+  .skill-card {
+    margin: 0 16px 8px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 13px; padding: 13px 14px;
+    cursor: pointer; transition: border-color .2s;
+  }
+  .skill-card:hover { border-color: var(--accent); }
+  .skill-card-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 9px;
+  }
+  .skill-card-left { display: flex; align-items: center; gap: 10px; }
+  .skill-icon { font-size: 20px; }
+  .skill-name { font-size: 14px; font-weight: 700; }
+  .skill-sublabel { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .level-badge { font-size: 11px; font-weight: 700; white-space: nowrap; }
+  .xp-bar-bg { background: var(--surface2); border-radius: 99px; height: 3px; overflow: hidden; }
+  .xp-bar-fill { height: 100%; border-radius: 99px; transition: width .5s ease; }
+
+  /* LOG FAB */
+  .log-fab-wrap {
+    position: fixed; bottom: 76px; right: 16px;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    z-index: 99;
+  }
+  .log-fab {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border: none; color: white; font-size: 26px;
+    cursor: pointer; box-shadow: 0 4px 20px rgba(124,106,247,.4);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .15s;
+  }
+  .log-fab:active { transform: scale(.92); }
+  .log-fab-label { font-size: 9px; color: var(--muted); letter-spacing: .3px; }
+
+  /* MODALS */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,.75); z-index: 200;
+    align-items: flex-end; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 22px 22px 0 0;
+    padding: 20px 18px 36px;
+    width: 100%; max-width: 480px;
+    max-height: 92vh; overflow-y: auto;
+  }
+  .modal-handle {
+    width: 34px; height: 4px; background: var(--border);
+    border-radius: 99px; margin: 0 auto 16px;
+  }
+  .modal h2 { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+
+  /* FORMS */
+  label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 5px; }
+  input, select, textarea {
+    width: 100%; background: var(--surface2);
+    border: 1px solid var(--border); border-radius: 11px;
+    color: var(--text); padding: 12px 13px; font-size: 16px;
+    margin-bottom: 14px; outline: none;
+    -webkit-appearance: none; font-family: inherit;
+  }
+  input:focus, select:focus { border-color: var(--accent); }
+  select option { background: var(--surface2); }
+  textarea { resize: vertical; min-height: 72px; }
+
+  .btn {
+    width: 100%; padding: 13px;
+    border: none; border-radius: 12px;
+    font-size: 15px; font-weight: 700;
+    cursor: pointer; transition: opacity .2s, transform .1s;
+    font-family: inherit;
+  }
+  .btn:active { transform: scale(.98); }
+  .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; }
+  .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); margin-top: 8px; }
+  .btn-ghost-danger {
+    background: none; border: none;
+    color: var(--muted); font-size: 13px; cursor: pointer;
+    padding: 10px 0 0; font-family: inherit;
+    text-decoration: underline; text-underline-offset: 3px;
+    display: block; width: 100%; text-align: center;
+    transition: color .2s;
+  }
+  .btn-ghost-danger:hover { color: var(--red); }
+
+  /* INTENSITY TOGGLE */
+  .intensity-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+  .intensity-option {
+    padding: 12px; border-radius: 11px;
+    border: 2px solid var(--border); background: var(--surface2);
+    cursor: pointer; text-align: center; transition: all .2s;
+  }
+  .intensity-option.selected.light { border-color: #3b82f6; background: rgba(59,130,246,.1); }
+  .intensity-option.selected.heavy { border-color: #a855f7; background: rgba(168,85,247,.1); }
+  .intensity-option .i-icon { font-size: 18px; }
+  .intensity-option .i-label { font-size: 13px; font-weight: 700; margin: 3px 0 1px; }
+  .intensity-option .i-desc { font-size: 10px; color: var(--muted); }
+
+  /* DOPAMINE */
+  .dopamine {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,.9); z-index: 300;
+    align-items: center; justify-content: center;
+    flex-direction: column; text-align: center; padding: 40px;
+  }
+  .dopamine.show { display: flex; }
+  .d-icon { font-size: 56px; margin-bottom: 12px; animation: pop .3s ease; }
+  .d-xp { font-size: 20px; font-weight: 800; color: var(--accent2); margin-bottom: 4px; }
+  .d-title { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+  .d-sub { font-size: 13px; color: var(--muted); }
+  .d-levelup {
+    font-size: 15px; font-weight: 700; margin-top: 6px;
+    background: linear-gradient(135deg, var(--gold), #f97316);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .d-hint { margin-top: 28px; font-size: 11px; color: var(--muted2); }
+  @keyframes pop { 0%{transform:scale(0)} 70%{transform:scale(1.1)} 100%{transform:scale(1)} }
+
+  /* ONBOARDING */
+  #onboarding {
+    position: fixed; inset: 0; background: var(--bg);
+    z-index: 400; display: flex; flex-direction: column;
+    padding: 44px 22px 36px; overflow-y: auto;
+  }
+  #onboarding.done { display: none; }
+  .ob-logo { font-size: 28px; font-weight: 900; color: var(--accent2); margin-bottom: 3px; }
+  .ob-tagline { color: var(--muted); font-size: 13px; margin-bottom: 32px; }
+  .ob-step { display: none; flex-direction: column; flex: 1; }
+  .ob-step.active { display: flex; }
+  .ob-q { font-size: 20px; font-weight: 800; line-height: 1.3; margin-bottom: 8px; }
+  .ob-hint { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
+  .ob-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
+  .chip {
+    padding: 7px 13px; border-radius: 99px;
+    border: 1.5px solid var(--border); background: var(--surface);
+    color: var(--text); font-size: 13px; cursor: pointer; transition: all .2s;
+  }
+  .chip.selected { border-color: var(--accent); background: rgba(124,106,247,.15); color: var(--accent2); }
+  .ob-progress { display: flex; gap: 5px; margin-bottom: 24px; }
+  .ob-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--border); transition: background .3s; }
+  .ob-dot.done { background: var(--accent2); }
+
+  /* SKILL DETAIL */
+  #screen-detail { padding-bottom: 16px; }
+  .detail-back {
+    background: none; border: none; color: var(--muted);
+    font-size: 13px; cursor: pointer; padding: 20px 16px 6px;
+    display: flex; align-items: center; gap: 5px; font-family: inherit;
+    transition: color .2s;
+  }
+  .detail-back:hover { color: var(--text); }
+  .detail-header { padding: 4px 16px 16px; }
+  .detail-icon { font-size: 34px; margin-bottom: 6px; }
+  .detail-name { font-size: 21px; font-weight: 800; margin-bottom: 2px; }
+  .detail-lvl-line { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+  .detail-xp-bg { background: var(--surface2); border-radius: 99px; height: 5px; overflow: hidden; margin-bottom: 5px; }
+  .detail-xp-fill { height: 100%; border-radius: 99px; transition: width .5s ease; }
+  .detail-xp-label { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); }
+  .detail-divider { height: 1px; background: var(--border); margin: 18px 16px 0; }
+
+  /* SKILL TREE */
+  .tree-wrap { padding: 18px 16px 0; }
+  .tree-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--muted); margin-bottom: 14px;
+  }
+  .tree-path { position: relative; padding-left: 28px; }
+  .tree-path::before {
+    content: ''; position: absolute;
+    left: 9px; top: 10px; bottom: 10px;
+    width: 2px; background: var(--border);
+  }
+  .tree-node {
+    position: relative; padding: 0 0 16px 0; display: flex; align-items: flex-start;
+  }
+  .tree-node:last-child { padding-bottom: 0; }
+  .tree-dot {
+    position: absolute; left: -28px; top: 2px;
+    width: 18px; height: 18px; border-radius: 50%;
+    border: 2px solid var(--border); background: var(--surface2);
+    display: flex; align-items: center; justify-content: center;
+    transition: all .3s;
+  }
+  .tree-node.unlocked .tree-dot {
+    border-color: var(--accent2); background: rgba(167,139,250,.2);
+  }
+  .tree-dot-check { font-size: 9px; color: var(--accent2); font-weight: 900; display: none; }
+  .tree-node.unlocked .tree-dot-check { display: block; }
+  .tree-dot-lock { font-size: 9px; color: var(--muted2); display: block; }
+  .tree-node.unlocked .tree-dot-lock { display: none; }
+  .tree-body { flex: 1; }
+  .tree-name {
+    font-size: 13px; font-weight: 700; color: var(--muted2);
+    margin-bottom: 2px; transition: color .3s;
+  }
+  .tree-node.unlocked .tree-name { color: var(--text); }
+  .tree-effect { font-size: 11px; color: var(--muted); line-height: 1.4; }
+  .tree-unlock-at { font-size: 10px; color: var(--muted2); margin-top: 2px; }
+  .tree-node.unlocked .tree-unlock-at { color: rgba(167,139,250,.6); }
+  .tree-meta-badge {
+    display: inline-block; font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .5px;
+    color: var(--gold); border: 1px solid rgba(245,158,11,.3);
+    border-radius: 4px; padding: 1px 5px; margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* AI TIP IN DETAIL */
+  .detail-tip-wrap { padding: 18px 16px 0; }
+  .detail-tip-box {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 11px; padding: 12px 13px;
+    font-size: 12px; color: #b0b0cc; line-height: 1.55;
+    margin-bottom: 8px;
+  }
+  .detail-tip-refresh {
+    background: none; border: none;
+    color: var(--muted); font-size: 11px; cursor: pointer;
+    padding: 0; font-family: inherit;
+    transition: color .2s;
+  }
+  .detail-tip-refresh:hover { color: var(--accent2); }
+
+  /* DETAIL ACTIONS */
+  .detail-actions { padding: 18px 16px 0; }
+
+  /* HISTORY */
+  .session-item {
+    margin: 0 16px 7px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 12px 13px;
+    display: flex; align-items: center; gap: 11px;
+  }
+  .session-icon { font-size: 19px; }
+  .session-info { flex: 1; }
+  .session-name { font-size: 13px; font-weight: 600; }
+  .session-meta { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .session-right { text-align: right; }
+  .session-min { font-size: 16px; font-weight: 800; color: var(--accent2); }
+  .session-xp { font-size: 10px; color: var(--muted); }
+  .badge {
+    display: inline-block; font-size: 9px; padding: 1px 6px;
+    border-radius: 99px; margin-left: 3px;
+  }
+  .badge-light { background: #1e2d4a; color: #93c5fd; }
+  .badge-heavy { background: #2d1a40; color: #d8b4fe; }
+
+  /* TIPS LIBRARY */
+  .tips-section { padding: 0 16px 6px; margin-top: 6px; }
+  .tips-section-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--muted); margin-bottom: 8px;
+  }
+  .tip-item {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 11px; padding: 11px 13px;
+    font-size: 12px; color: #b0b0cc; line-height: 1.5;
+    margin-bottom: 7px;
+  }
+
+  /* ADD SKILL */
+  .add-skill-btn {
+    margin: 4px 16px 20px; padding: 12px;
+    border: 2px dashed var(--border); border-radius: 13px;
+    background: transparent; color: var(--muted);
+    font-size: 13px; cursor: pointer; width: calc(100% - 32px);
+    font-family: inherit; transition: border-color .2s, color .2s;
+  }
+  .add-skill-btn:hover { border-color: var(--accent); color: var(--accent2); }
+
+  /* MISC */
+  .empty { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 13px; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+</style>
+</head>
+<body>
+
+<!-- ONBOARDING -->
+<div id="onboarding">
+  <div class="ob-logo">SkillStack</div>
+  <div class="ob-tagline">Build consistency across everything you want to learn.</div>
+  <div class="ob-progress" id="ob-progress"></div>
+
+  <div class="ob-step active" id="ob-step-0">
+    <div class="ob-q">What should we call you?</div>
+    <div class="ob-hint">A name or nickname is fine.</div>
+    <input type="text" id="ob-name" placeholder="Your name..." maxlength="30">
+    <button class="btn btn-primary" onclick="obNext(0)">Continue →</button>
+  </div>
+
+  <div class="ob-step" id="ob-step-1">
+    <div class="ob-q">What makes consistency hard for you?</div>
+    <div class="ob-hint">Pick all that apply.</div>
+    <div class="ob-chips">
+      <div class="chip" onclick="toggleChip(this)">I lose motivation quickly</div>
+      <div class="chip" onclick="toggleChip(this)">Too many things at once</div>
+      <div class="chip" onclick="toggleChip(this)">I don't feel progress</div>
+      <div class="chip" onclick="toggleChip(this)">Life gets in the way</div>
+      <div class="chip" onclick="toggleChip(this)">I forget to practice</div>
+      <div class="chip" onclick="toggleChip(this)">I get bored easily</div>
+    </div>
+    <button class="btn btn-primary" onclick="obNext(1)">Continue →</button>
+  </div>
+
+  <div class="ob-step" id="ob-step-2">
+    <div class="ob-q">How much time can you give per day?</div>
+    <div class="ob-hint">Be honest — even 10 minutes adds up.</div>
+    <div class="ob-chips">
+      <div class="chip" onclick="selectOne(this,'time')">5–10 min</div>
+      <div class="chip" onclick="selectOne(this,'time')">15–30 min</div>
+      <div class="chip" onclick="selectOne(this,'time')">30–60 min</div>
+      <div class="chip" onclick="selectOne(this,'time')">1+ hours</div>
+    </div>
+    <button class="btn btn-primary" onclick="obNext(2)">Continue →</button>
+  </div>
+
+  <div class="ob-step" id="ob-step-3">
+    <div class="ob-q">Add your first skill.</div>
+    <div class="ob-hint">Start with one. You can add more later.</div>
+    <label>What do you want to learn or build?</label>
+    <input type="text" id="ob-skill-name" placeholder="e.g. Spanish, Piano, Running...">
+    <label>Type</label>
+    <select id="ob-skill-type">
+      <option value="skill">Skill (e.g. language, coding)</option>
+      <option value="project">Project (e.g. finish a song)</option>
+      <option value="habit">Habit (e.g. daily reading)</option>
+    </select>
+    <label>Pick an emoji</label>
+    <div class="ob-chips" id="ob-emoji-chips">
+      <div class="chip" onclick="selectOne(this,'emoji')">🎸</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🗣️</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">💻</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">📚</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🏃</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🎨</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">✍️</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🧮</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🎵</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🌍</div>
+    </div>
+    <button class="btn btn-primary" onclick="obFinish()">Start tracking</button>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app" style="display:none">
+
+  <!-- HOME -->
+  <div id="screen-home" class="screen active">
+    <div class="page-header">
+      <h1 id="home-greeting">Good morning</h1>
+    </div>
+
+    <!-- Stats: 3 cards + streak line -->
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="val" id="stat-hours">0</div>
+        <div class="lbl">Hours</div>
+      </div>
+      <div class="stat-card">
+        <div class="val" id="stat-sessions">0</div>
+        <div class="lbl">Sessions</div>
+      </div>
+      <div class="stat-card">
+        <div class="val" id="stat-skills">0</div>
+        <div class="lbl">Skills</div>
+      </div>
+    </div>
+    <div class="streak-line" id="streak-line">0 day streak — every session counts</div>
+
+    <!-- AI recommendation — always visible when skills exist -->
+    <div id="rec-area"></div>
+
+    <!-- Heatmap — visible when sessions exist -->
+    <div id="heatmap-area"></div>
+
+    <!-- Balance — visible when 2+ skills have data this week -->
+    <div id="balance-area"></div>
+
+    <!-- Skill list -->
+    <div class="section-title" id="skills-section-title" style="display:none">Skills</div>
+    <div id="skill-list-home"></div>
+    <div id="home-empty" class="empty" style="display:none">Add your first skill to start tracking.</div>
+  </div>
+
+  <!-- SKILLS TAB -->
+  <div id="screen-skills" class="screen">
+    <div class="page-header"><h1>Skills</h1></div>
+    <div id="skill-list-skills"></div>
+    <button class="add-skill-btn" onclick="openAddSkill()">+ Add skill</button>
+  </div>
+
+  <!-- SKILL DETAIL -->
+  <div id="screen-detail" class="screen">
+    <button class="detail-back" id="detail-back-btn" onclick="goBackFromDetail()">← Skills</button>
+    <div id="detail-content"></div>
+  </div>
+
+  <!-- HISTORY -->
+  <div id="screen-log" class="screen">
+    <div class="page-header"><h1>History</h1></div>
+    <div id="session-list"></div>
+    <div id="log-empty" class="empty" style="display:none">No sessions yet.</div>
+  </div>
+
+  <!-- TIPS LIBRARY -->
+  <div id="screen-tips" class="screen">
+    <div class="page-header"><h1>Learning Tips</h1></div>
+    <div id="tips-content"></div>
+  </div>
+
+</div>
+
+<!-- LOG FAB -->
+<div class="log-fab-wrap" id="log-fab-wrap" style="display:none">
+  <button class="log-fab" onclick="openLogSession()">+</button>
+  <span class="log-fab-label">Quick log</span>
+</div>
+
+<!-- NAV -->
+<nav class="bottom-nav" id="bottom-nav" style="display:none">
+  <button class="nav-btn active" onclick="showScreen('home',this)">
+    <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></svg>
+    Home
+  </button>
+  <button class="nav-btn" onclick="showScreen('skills',this)">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+    Skills
+  </button>
+  <button class="nav-btn" onclick="showScreen('log',this)">
+    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="4" x2="9" y2="9"/><line x1="15" y1="4" x2="15" y2="9"/></svg>
+    History
+  </button>
+  <button class="nav-btn" onclick="showScreen('tips',this)">
+    <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 017 7c0 2.9-1.75 5.4-4.3 6.55L14 17H10l-.7-1.45A7 7 0 0112 2z"/><rect x="9" y="18" width="6" height="2" rx="1"/><rect x="10" y="21" width="4" height="1.5" rx=".75"/></svg>
+    Tips
+  </button>
+</nav>
+
+<!-- LOG MODAL -->
+<div class="modal-overlay" id="modal-log">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h2>Log a session</h2>
+    <label>Skill</label>
+    <select id="log-skill-select"></select>
+    <label>Minutes</label>
+    <input type="number" id="log-minutes" placeholder="e.g. 25" min="1" max="480">
+    <label>Intensity</label>
+    <div class="intensity-toggle">
+      <div class="intensity-option light selected" onclick="selectIntensity('light')">
+        <div class="i-icon">🎧</div>
+        <div class="i-label">Light</div>
+        <div class="i-desc">Podcast, reading, watch</div>
+      </div>
+      <div class="intensity-option heavy" onclick="selectIntensity('heavy')">
+        <div class="i-icon">🔥</div>
+        <div class="i-label">Heavy</div>
+        <div class="i-desc">Active practice, building</div>
+      </div>
+    </div>
+    <label>Note (optional)</label>
+    <textarea id="log-note" placeholder="What did you work on?"></textarea>
+    <button class="btn btn-primary" onclick="submitLog()">Log it</button>
+    <button class="btn btn-secondary" onclick="closeModal('modal-log')">Cancel</button>
+  </div>
+</div>
+
+<!-- ADD SKILL MODAL -->
+<div class="modal-overlay" id="modal-add-skill">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h2>Add a skill</h2>
+    <label>Name</label>
+    <input type="text" id="new-skill-name" placeholder="e.g. Spanish, Piano, Meditation...">
+    <label>Type</label>
+    <select id="new-skill-type">
+      <option value="skill">Skill</option>
+      <option value="project">Project</option>
+      <option value="habit">Habit</option>
+    </select>
+    <label>Pick an emoji</label>
+    <div class="ob-chips" style="margin-bottom:18px">
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🎸</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🗣️</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">💻</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">📚</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🏃</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🎨</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">✍️</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🧮</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🎵</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🌍</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🍳</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🧘</div>
+    </div>
+    <button class="btn btn-primary" onclick="submitAddSkill()">Add skill</button>
+    <button class="btn btn-secondary" onclick="closeModal('modal-add-skill')">Cancel</button>
+  </div>
+</div>
+
+<!-- DOPAMINE -->
+<div class="dopamine" id="dopamine" onclick="closeDopamine()">
+  <div class="d-icon" id="d-emoji">✓</div>
+  <div class="d-xp" id="d-xp">+0 XP</div>
+  <div class="d-title" id="d-title">Done</div>
+  <div class="d-sub" id="d-subtitle"></div>
+  <div class="d-levelup" id="d-level-up" style="display:none"></div>
+  <div class="d-hint">Tap to continue</div>
+</div>
+
+<script>
+// ============================================================
+//  DATA
+// ============================================================
+const DB = {
+  get: (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
+  set: (k, v) => localStorage.setItem(k, JSON.stringify(v))
+};
+
+let state = {
+  user:     DB.get('ss_user', null),
+  skills:   DB.get('ss_skills', []),
+  sessions: DB.get('ss_sessions', [])
+};
+
+function save() {
+  DB.set('ss_user', state.user);
+  DB.set('ss_skills', state.skills);
+  DB.set('ss_sessions', state.sessions);
+}
+
+// ============================================================
+//  LEVEL SYSTEM
+// ============================================================
+function xpForLevel(lvl) {
+  if (lvl <= 0) return 0;
+  return Math.floor(30 * Math.pow(1.10, lvl));
+}
+function getLevelFromXP(xp) {
+  let lvl = 0;
+  while (lvl < 99 && xp >= xpForLevel(lvl + 1)) { xp -= xpForLevel(lvl + 1); lvl++; }
+  return { level: Math.min(lvl, 99), remainingXP: xp, xpNeeded: xpForLevel(lvl + 1) };
+}
+function getLevelInfo(skill) { return getLevelFromXP(skill.xp || 0); }
+function levelLabel(lvl) {
+  if (lvl < 5)  return 'Beginner';
+  if (lvl < 15) return 'Apprentice';
+  if (lvl < 30) return 'Intermediate';
+  if (lvl < 50) return 'Advanced';
+  if (lvl < 75) return 'Expert';
+  if (lvl < 90) return 'Master';
+  return 'Legend';
+}
+function levelColor(lvl) {
+  if (lvl < 5)  return '#6b6b8a';
+  if (lvl < 15) return '#3b82f6';
+  if (lvl < 30) return '#10b981';
+  if (lvl < 50) return '#f59e0b';
+  if (lvl < 75) return '#f97316';
+  if (lvl < 90) return '#ef4444';
+  return '#a855f7';
+}
+
+// ============================================================
+//  PERKS — skill-specific + meta (affects categories)
+// ============================================================
+const PERK_DEFS = [
+  {
+    id: 'earlyGain',
+    name: 'Early Gain',
+    effect: 'First session each day: +12 bonus XP',
+    unlockLevel: 5,
+    meta: false,
+    apply: (ctx) => ctx.isFirstSkillSessionToday ? ctx.xp + 12 : ctx.xp
+  },
+  {
+    id: 'lightFlow',
+    name: 'Light Flow',
+    effect: 'Light sessions give +20% XP',
+    unlockLevel: 10,
+    meta: false,
+    apply: (ctx) => ctx.intensity === 'light' ? Math.round(ctx.xp * 1.20) : ctx.xp
+  },
+  {
+    id: 'deepWork',
+    name: 'Deep Work',
+    effect: 'Heavy sessions 30 min+: +25% XP',
+    unlockLevel: 20,
+    meta: false,
+    apply: (ctx) => (ctx.intensity === 'heavy' && ctx.minutes >= 30) ? Math.round(ctx.xp * 1.25) : ctx.xp
+  },
+  {
+    id: 'stackDay',
+    name: 'Stack Day',
+    effect: 'Log 2+ skills today: +10 XP per session',
+    unlockLevel: 30,
+    meta: false,
+    apply: (ctx) => ctx.otherSkillLoggedToday ? ctx.xp + 10 : ctx.xp
+  },
+  {
+    id: 'streakShield',
+    name: 'Streak Shield',
+    effect: 'Your streak survives one missed day',
+    unlockLevel: 35,
+    meta: false,
+    apply: (ctx) => ctx.xp  // applied in updateStreak
+  },
+  {
+    id: 'mobileLearner',
+    name: 'Mobile Learner',
+    effect: 'All light sessions across all skills: +10% XP',
+    unlockLevel: 50,
+    meta: true,
+    apply: (ctx) => ctx.intensity === 'light' ? Math.round(ctx.xp * 1.10) : ctx.xp
+  },
+  {
+    id: 'fullMastery',
+    name: 'Full Mastery',
+    effect: 'All XP gains: +10%',
+    unlockLevel: 75,
+    meta: true,
+    apply: (ctx) => Math.round(ctx.xp * 1.10)
+  }
+];
+
+function getUnlockedPerks(skill) {
+  const { level } = getLevelInfo(skill);
+  const out = {};
+  PERK_DEFS.forEach(p => { out[p.id] = level >= p.unlockLevel; });
+  return out;
+}
+
+// Meta perks: check any skill at required level
+function getMetaPerks() {
+  const out = {};
+  PERK_DEFS.filter(p => p.meta).forEach(p => {
+    out[p.id] = state.skills.some(s => getLevelInfo(s).level >= p.unlockLevel);
+  });
+  return out;
+}
+
+function computeXP(skill, minutes, intensity) {
+  const today = new Date().toDateString();
+  const isFirstSkillSessionToday = !state.sessions.some(s =>
+    s.skillId === skill.id && new Date(s.date).toDateString() === today
+  );
+  const otherSkillLoggedToday = state.sessions.some(s =>
+    s.skillId !== skill.id && new Date(s.date).toDateString() === today
+  );
+
+  const perks = getUnlockedPerks(skill);
+  const metaPerks = getMetaPerks();
+
+  let ctx = { xp: Math.round(minutes * (intensity === 'heavy' ? 1.5 : 1)), minutes, intensity, isFirstSkillSessionToday, otherSkillLoggedToday };
+
+  // Apply skill-specific perks in order
+  PERK_DEFS.filter(p => !p.meta && perks[p.id]).forEach(p => { ctx.xp = p.apply(ctx); });
+  // Apply meta perks
+  PERK_DEFS.filter(p => p.meta && metaPerks[p.id]).forEach(p => { ctx.xp = p.apply(ctx); });
+
+  return Math.max(1, ctx.xp);
+}
+
+// ============================================================
+//  AI — RECOMMENDATIONS + TIPS
+// ============================================================
+const TIP_POOL = [
+  // Neglect patterns
+  (s) => `You've skipped ${s} for a few days. A short podcast episode while walking could help.`,
+  (s) => `${s} needs a short reset. Even 10 minutes of passive review counts.`,
+  (s) => `${s} is falling behind. A light session today would close the gap.`,
+  // Balance patterns
+  (dom, low) => `Your time this week went mostly to ${dom}. A 15-minute ${low} session would rebalance things.`,
+  (dom, low) => `${low} has been quiet. A light session while commuting could bring it back.`,
+  // Light session hints
+  () => `Podcasts and passive listening during movement can be just as effective as structured practice for language skills.`,
+  () => `A 10-minute light session consistently beats a 60-minute heavy session done twice a week.`,
+  () => `If a skill feels heavy to start, try a lighter format first — a video, a podcast, or just reading.`,
+  () => `Combining two habits in one block — like listening while walking — halves the friction for both.`,
+  // Frequency nudges
+  () => `Consistency matters more than duration. Logging short sessions daily beats long sessions monthly.`,
+  () => `Even 5 minutes logged is a signal to your brain that this skill is active and worth returning to.`,
+];
+
+let lastTipSeed = -1;
+
+function generateRecommendationText() {
+  if (!state.skills.length || !state.sessions.length) return null;
+  const now = Date.now(), DAY = 86400000, WEEK = 7 * DAY;
+  function lastDate(id) {
+    const s = state.sessions.filter(x => x.skillId === id);
+    return s.length ? Math.max(...s.map(x => x.date)) : null;
+  }
+  function weekMins(id) {
+    return state.sessions.filter(x => x.skillId === id && now - x.date < WEEK).reduce((a, x) => a + x.minutes, 0);
+  }
+  const neglected = state.skills.filter(s => { const d = lastDate(s.id); return d ? (now - d) > 4 * DAY : true; });
+  if (neglected.length) return `${neglected[0].name} could use some more attention this week.`;
+  if (state.skills.length >= 2) {
+    const byM = state.skills.map(s => ({ s, m: weekMins(s.id) }));
+    const tot = byM.reduce((a, x) => a + x.m, 0);
+    if (tot > 0) {
+      const sorted = [...byM].sort((a, b) => b.m - a.m);
+      if (sorted[0].m / tot >= 0.70) {
+        return `A short ${sorted[sorted.length-1].s.name} session would rebalance your week.`;
+      }
+    }
+  }
+  return `${state.skills[0].name} is your most active skill this week.`;
+}
+
+function generateTip(skillHint) {
+  // Pick a contextual tip, avoiding the last used index
+  const now = Date.now(), DAY = 86400000, WEEK = 7 * DAY;
+  const candidates = [];
+  if (skillHint) {
+    const last = state.sessions.filter(s => s.skillId === skillHint.id);
+    const lastTs = last.length ? Math.max(...last.map(s => s.date)) : 0;
+    if ((now - lastTs) > 4 * DAY) {
+      candidates.push(TIP_POOL[0](skillHint.name));
+      candidates.push(TIP_POOL[1](skillHint.name));
+      candidates.push(TIP_POOL[2](skillHint.name));
+    }
+  }
+  if (state.skills.length >= 2) {
+    const byM = state.skills.map(s => ({ s, m: state.sessions.filter(x => x.skillId === s.id && now - x.date < WEEK).reduce((a, x) => a + x.minutes, 0) }));
+    const sorted = [...byM].sort((a, b) => b.m - a.m);
+    const tot = sorted.reduce((a, x) => a + x.m, 0);
+    if (tot > 0 && sorted[0].m / tot >= 0.60 && sorted.length >= 2) {
+      candidates.push(TIP_POOL[3](sorted[0].s.name, sorted[sorted.length-1].s.name));
+      candidates.push(TIP_POOL[4](sorted[0].s.name, sorted[sorted.length-1].s.name));
+    }
+  }
+  // Always have general fallback
+  const generals = TIP_POOL.slice(5).map(fn => fn());
+  candidates.push(...generals);
+  // Avoid repeating last seed
+  const filtered = candidates.filter((_, i) => i !== lastTipSeed % candidates.length);
+  const pick = filtered.length ? filtered[Math.floor(Math.random() * filtered.length)] : candidates[0];
+  lastTipSeed = candidates.indexOf(pick);
+  return pick;
+}
+
+// State for tip display
+let globalTip = null;
+let detailSkillId = null;
+let detailTip = null;
+let prevScreen = 'skills';
+
+// ============================================================
+//  ONBOARDING
+// ============================================================
+let obStep = 0, OB_STEPS = 4, selectedEmoji = '⭐';
+function initObProgress() {
+  const el = document.getElementById('ob-progress');
+  el.innerHTML = '';
+  for (let i = 0; i < OB_STEPS; i++) {
+    const d = document.createElement('div');
+    d.className = 'ob-dot' + (i < obStep ? ' done' : '');
+    el.appendChild(d);
+  }
+}
+function toggleChip(el) { el.classList.toggle('selected'); }
+function selectOne(el, group) {
+  document.querySelectorAll(`[onclick*="selectOne(this,'${group}')"]`).forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  if (group === 'emoji' || group === 'add-emoji') selectedEmoji = el.textContent.trim();
+}
+function obNext(step) {
+  if (step === 0) {
+    const name = document.getElementById('ob-name').value.trim();
+    if (!name) { alert('Please enter your name.'); return; }
+    state.user = { name, createdAt: Date.now(), streak: 0, lastSessionDate: null };
+  }
+  document.getElementById(`ob-step-${step}`).classList.remove('active');
+  obStep = step + 1;
+  document.getElementById(`ob-step-${obStep}`).classList.add('active');
+  initObProgress();
+}
+function obFinish() {
+  const name = document.getElementById('ob-skill-name').value.trim();
+  if (!name) { alert('Please enter a skill name.'); return; }
+  addSkillToState(name, document.getElementById('ob-skill-type').value, selectedEmoji || '⭐');
+  document.getElementById('onboarding').classList.add('done');
+  document.getElementById('app').style.display = 'block';
+  document.getElementById('bottom-nav').style.display = 'flex';
+  document.getElementById('log-fab-wrap').style.display = 'flex';
+  save(); renderAll();
+}
+
+// ============================================================
+//  NAVIGATION
+// ============================================================
+function showScreen(name, btn) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`screen-${name}`).classList.add('active');
+  if (btn) btn.classList.add('active');
+  renderAll();
+}
+
+function openSkillDetail(skillId, from) {
+  prevScreen = from || 'skills';
+  detailSkillId = skillId;
+  detailTip = null;
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  // Mark correct nav btn
+  const navMap = { home: 0, skills: 1, log: 2, tips: 3 };
+  if (navMap[prevScreen] !== undefined) document.querySelectorAll('.nav-btn')[navMap[prevScreen]].classList.add('active');
+  document.getElementById('screen-detail').classList.add('active');
+  document.getElementById('detail-back-btn').textContent = `← ${prevScreen === 'home' ? 'Home' : 'Skills'}`;
+  renderSkillDetail();
+}
+
+function goBackFromDetail() {
+  showScreen(prevScreen, document.querySelectorAll('.nav-btn')[prevScreen === 'home' ? 0 : 1]);
+}
+
+// ============================================================
+//  SKILLS CRUD
+// ============================================================
+function addSkillToState(name, type, emoji) {
+  state.skills.push({ id: Date.now(), name, type, icon: emoji, xp: 0, createdAt: Date.now() });
+}
+function openAddSkill() {
+  document.getElementById('new-skill-name').value = '';
+  selectedEmoji = '⭐';
+  document.querySelectorAll('[onclick*="add-emoji"]').forEach(c => c.classList.remove('selected'));
+  openModal('modal-add-skill');
+}
+function submitAddSkill() {
+  const name = document.getElementById('new-skill-name').value.trim();
+  if (!name) { alert('Please enter a skill name.'); return; }
+  addSkillToState(name, document.getElementById('new-skill-type').value, selectedEmoji || '⭐');
+  save(); closeModal('modal-add-skill'); renderAll();
+}
+function deleteSkill(id) {
+  if (!confirm('Delete this skill and all its session history?')) return;
+  state.skills = state.skills.filter(s => s.id !== id);
+  state.sessions = state.sessions.filter(s => s.skillId !== id);
+  save(); goBackFromDetail();
+}
+
+// ============================================================
+//  LOGGING
+// ============================================================
+let selectedIntensity = 'light';
+function openLogSession() {
+  const sel = document.getElementById('log-skill-select');
+  sel.innerHTML = state.skills.map(s => `<option value="${s.id}">${s.icon} ${s.name}</option>`).join('');
+  document.getElementById('log-minutes').value = '';
+  document.getElementById('log-note').value = '';
+  selectedIntensity = 'light'; selectIntensity('light');
+  openModal('modal-log');
+}
+function openLogForSkill(id) {
+  openLogSession();
+  setTimeout(() => { document.getElementById('log-skill-select').value = id; }, 50);
+}
+function selectIntensity(type) {
+  selectedIntensity = type;
+  document.querySelectorAll('.intensity-option').forEach(el => el.classList.remove('selected'));
+  document.querySelector(`.intensity-option.${type}`).classList.add('selected');
+}
+function submitLog() {
+  const skillId = parseInt(document.getElementById('log-skill-select').value);
+  const minutes = parseInt(document.getElementById('log-minutes').value);
+  const note = document.getElementById('log-note').value.trim();
+  if (!minutes || minutes < 1) { alert('Please enter minutes.'); return; }
+  const skill = state.skills.find(s => s.id === skillId);
+  const xpGain = computeXP(skill, minutes, selectedIntensity);
+  const oldLvl = getLevelInfo(skill).level;
+  skill.xp = (skill.xp || 0) + xpGain;
+  const newLvl = getLevelInfo(skill).level;
+  state.sessions.unshift({ id: Date.now(), skillId, skillName: skill.name, skillIcon: skill.icon, minutes, intensity: selectedIntensity, xpGain, note, date: Date.now() });
+  updateStreak(); save(); closeModal('modal-log'); renderAll();
+  showDopamine(skill, xpGain, oldLvl, newLvl, minutes);
+}
+function updateStreak() {
+  const today = new Date().toDateString();
+  const last = state.user.lastSessionDate;
+  if (last === today) return;
+  const yesterday = new Date(Date.now() - 86400000).toDateString();
+  const hasShield = state.skills.some(s => getUnlockedPerks(s).streakShield);
+  const twoDaysAgo = new Date(Date.now() - 2 * 86400000).toDateString();
+  state.user.streak = (last === yesterday || (hasShield && last === twoDaysAgo))
+    ? (state.user.streak || 0) + 1 : 1;
+  state.user.lastSessionDate = today;
+}
+function showDopamine(skill, xpGain, oldLvl, newLvl, minutes) {
+  const lvlUp = newLvl > oldLvl;
+  document.getElementById('d-emoji').textContent = lvlUp ? '↑' : skill.icon;
+  document.getElementById('d-xp').textContent = `+${xpGain} XP`;
+  document.getElementById('d-title').textContent = lvlUp ? `Level ${newLvl}` : `${minutes} min`;
+  document.getElementById('d-subtitle').textContent = `${skill.name} · ${selectedIntensity}`;
+  const lu = document.getElementById('d-level-up');
+  if (lvlUp) { lu.style.display = 'block'; lu.textContent = levelLabel(newLvl); } else lu.style.display = 'none';
+  document.getElementById('dopamine').classList.add('show');
+}
+function closeDopamine() { document.getElementById('dopamine').classList.remove('show'); }
+
+// ============================================================
+//  MODALS
+// ============================================================
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+});
+
+// ============================================================
+//  RENDER
+// ============================================================
+function renderAll() {
+  renderGreeting();
+  renderStats();
+  renderRec();
+  renderHeatmap();
+  renderBalance();
+  renderHomeSkills();
+  renderSkillsTab();
+  renderHistory();
+  renderTipsLibrary();
+  if (detailSkillId && document.getElementById('screen-detail').classList.contains('active')) {
+    renderSkillDetail();
+  }
+}
+
+function renderGreeting() {
+  if (!state.user) return;
+  const h = new Date().getHours();
+  const g = h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
+  const el = document.getElementById('home-greeting');
+  if (el) el.textContent = `${g}, ${state.user.name}`;
+}
+
+function renderStats() {
+  const totalMins = state.sessions.reduce((a, s) => a + s.minutes, 0);
+  const g = id => document.getElementById(id);
+  if (g('stat-hours')) g('stat-hours').textContent = (totalMins / 60).toFixed(1);
+  if (g('stat-sessions')) g('stat-sessions').textContent = state.sessions.length;
+  if (g('stat-skills')) g('stat-skills').textContent = state.skills.length;
+  const streak = state.user?.streak || 0;
+  const sl = g('streak-line');
+  if (sl) sl.innerHTML = `<strong>${streak} day streak</strong> — every session counts`;
+}
+
+function renderRec() {
+  const el = document.getElementById('rec-area');
+  if (!el) return;
+  if (!state.skills.length) { el.innerHTML = ''; return; }
+  const rec = generateRecommendationText() || `${state.skills[0].name} is your active skill this week.`;
+  const tipHtml = globalTip ? `<div class="tip-box">${globalTip}</div>` : '';
+  el.innerHTML = `<div class="rec-block">
+    <div class="rec-sentence">${rec}</div>
+    <button class="tip-btn" onclick="onGiveTip()">Give tip</button>
+    ${tipHtml}
+  </div>`;
+}
+
+function onGiveTip() {
+  // Pick skill to base tip on — prefer neglected
+  const now = Date.now(), DAY = 86400000;
+  const neglected = state.skills.find(s => {
+    const last = state.sessions.filter(x => x.skillId === s.id);
+    const ts = last.length ? Math.max(...last.map(x => x.date)) : 0;
+    return (now - ts) > 4 * DAY;
+  });
+  globalTip = generateTip(neglected || state.skills[0]);
+  renderRec();
+}
+
+function renderHeatmap() {
+  const el = document.getElementById('heatmap-area');
+  if (!el || !state.sessions.length) { if (el) el.innerHTML = ''; return; }
+  const byDay = {};
+  state.sessions.forEach(s => { const d = new Date(s.date).toDateString(); byDay[d] = (byDay[d]||0) + s.minutes; });
+  const start = new Date(); start.setDate(start.getDate() - 90);
+  const cells = [];
+  for (let i = 0; i <= 90; i++) {
+    const d = new Date(start); d.setDate(d.getDate() + i);
+    const m = byDay[d.toDateString()] || 0;
+    let lv = 0; if (m>0) lv=1; if (m>20) lv=2; if (m>45) lv=3; if (m>90) lv=4;
+    cells.push(`<div class="hm-cell" data-level="${lv}" title="${d.toLocaleDateString()}: ${m}min"></div>`);
+  }
+  el.innerHTML = `<div class="heatmap-wrap"><div class="heatmap-grid">${cells.join('')}</div></div>`;
+}
+
+function renderBalance() {
+  const el = document.getElementById('balance-area');
+  if (!el || state.skills.length < 2) { if (el) el.innerHTML = ''; return; }
+  const now = Date.now(), WEEK = 7*86400000;
+  const sd = state.skills.map(sk => ({
+    sk, m: state.sessions.filter(s => s.skillId === sk.id && now - s.date < WEEK).reduce((a,s)=>a+s.minutes,0)
+  }));
+  const tot = sd.reduce((a,x) => a + x.m, 0);
+  if (!tot) { el.innerHTML = ''; return; }
+  const pcts = sd.map(x => Math.round((x.m / tot) * 100));
+  const balanced = Math.max(...pcts) - Math.min(...pcts) <= 15;
+  const colors = ['#7c6af7','#10b981','#f59e0b','#3b82f6','#f97316','#a855f7'];
+  el.innerHTML = `<div class="balance-wrap">${
+    sd.map((x,i) => `<div class="balance-row">
+      <span class="balance-icon">${x.sk.icon}</span>
+      <span class="balance-name">${x.sk.name}</span>
+      <div class="balance-bar-bg"><div class="balance-bar-fill" style="width:${pcts[i]}%;background:${x.m?colors[i%6]:'var(--border)'}"></div></div>
+      <span class="balance-pct">${pcts[i]}%</span>
+    </div>`).join('')
+  }<div class="balance-note">${balanced ? 'Fairly even this week.' : 'Uneven this week.'}</div></div>`;
+}
+
+function skillCardHTML(skill, from) {
+  const { level, remainingXP, xpNeeded } = getLevelInfo(skill);
+  const pct = Math.min(100, Math.round((remainingXP / xpNeeded) * 100));
+  const color = levelColor(level);
+  return `<div class="skill-card" onclick="openSkillDetail(${skill.id},'${from}')">
+    <div class="skill-card-row">
+      <div class="skill-card-left">
+        <span class="skill-icon">${skill.icon}</span>
+        <div>
+          <div class="skill-name">${skill.name}</div>
+          <div class="skill-sublabel">${levelLabel(level)}</div>
+        </div>
+      </div>
+      <div class="level-badge" style="color:${color}">Lv ${level}</div>
+    </div>
+    <div class="xp-bar-bg"><div class="xp-bar-fill" style="width:${pct}%;background:${color}"></div></div>
+  </div>`;
+}
+
+function renderHomeSkills() {
+  const el = document.getElementById('skill-list-home');
+  const empty = document.getElementById('home-empty');
+  const lbl = document.getElementById('skills-section-title');
+  if (!el) return;
+  if (!state.skills.length) { el.innerHTML=''; empty.style.display='block'; lbl.style.display='none'; return; }
+  empty.style.display='none'; lbl.style.display='block';
+  el.innerHTML = state.skills.map(s => skillCardHTML(s, 'home')).join('');
+}
+
+function renderSkillsTab() {
+  const el = document.getElementById('skill-list-skills');
+  if (!el) return;
+  el.innerHTML = state.skills.map(s => skillCardHTML(s, 'skills')).join('');
+}
+
+function renderSkillDetail() {
+  const el = document.getElementById('detail-content');
+  if (!el) return;
+  const skill = state.skills.find(s => s.id === detailSkillId);
+  if (!skill) { el.innerHTML = ''; return; }
+
+  const { level, remainingXP, xpNeeded } = getLevelInfo(skill);
+  const pct = Math.min(100, Math.round((remainingXP / xpNeeded) * 100));
+  const color = levelColor(level);
+  const perks = getUnlockedPerks(skill);
+
+  if (!detailTip) detailTip = generateTip(skill);
+
+  const treeHTML = PERK_DEFS.map(p => {
+    const unlocked = perks[p.id];
+    const metaBadge = p.meta ? `<span class="tree-meta-badge">Global</span>` : '';
+    return `<div class="tree-node ${unlocked ? 'unlocked' : ''}">
+      <div class="tree-dot">
+        <span class="tree-dot-check">✓</span>
+        <span class="tree-dot-lock">·</span>
+      </div>
+      <div class="tree-body">
+        <div class="tree-name">${p.name}${metaBadge}</div>
+        <div class="tree-effect">${p.effect}</div>
+        <div class="tree-unlock-at">${unlocked ? 'Unlocked' : `Level ${p.unlockLevel}`}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  el.innerHTML = `
+    <div class="detail-header">
+      <div class="detail-icon">${skill.icon}</div>
+      <div class="detail-name">${skill.name}</div>
+      <div class="detail-lvl-line">Level ${level} · ${levelLabel(level)}</div>
+      <div class="detail-xp-bg"><div class="detail-xp-fill" style="width:${pct}%;background:${color}"></div></div>
+      <div class="detail-xp-label"><span>${levelLabel(level)}</span><span>${remainingXP} / ${xpNeeded} XP</span></div>
+    </div>
+
+    <div class="detail-divider"></div>
+
+    <div class="detail-tip-wrap">
+      <div class="section-title" style="padding:14px 0 8px">Tip for this skill</div>
+      <div class="detail-tip-box" id="detail-tip-box">${detailTip}</div>
+      <button class="detail-tip-refresh" onclick="refreshDetailTip()">Another tip</button>
+    </div>
+
+    <div class="detail-divider"></div>
+
+    <div class="tree-wrap">
+      <div class="tree-label">Skill progression</div>
+      <div class="tree-path">${treeHTML}</div>
+    </div>
+
+    <div class="detail-divider"></div>
+
+    <div class="detail-actions">
+      <button class="btn btn-primary" onclick="openLogForSkill(${skill.id})">Log a session</button>
+      <button class="btn-ghost-danger" onclick="deleteSkill(${skill.id})">Delete skill</button>
+    </div>`;
+}
+
+function refreshDetailTip() {
+  const skill = state.skills.find(s => s.id === detailSkillId);
+  detailTip = generateTip(skill);
+  const el = document.getElementById('detail-tip-box');
+  if (el) el.textContent = detailTip;
+}
+
+function renderHistory() {
+  const el = document.getElementById('session-list');
+  const empty = document.getElementById('log-empty');
+  if (!el) return;
+  if (!state.sessions.length) { el.innerHTML=''; if(empty) empty.style.display='block'; return; }
+  if (empty) empty.style.display='none';
+  el.innerHTML = state.sessions.map(s => {
+    const d = new Date(s.date).toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
+    const badge = `<span class="badge badge-${s.intensity}">${s.intensity}</span>`;
+    return `<div class="session-item">
+      <div class="session-icon">${s.skillIcon}</div>
+      <div class="session-info">
+        <div class="session-name">${s.skillName}</div>
+        <div class="session-meta">${d}${badge}</div>
+        ${s.note ? `<div style="font-size:10px;color:#66668a;margin-top:2px">${s.note}</div>` : ''}
+      </div>
+      <div class="session-right">
+        <div class="session-min">${s.minutes}m</div>
+        <div class="session-xp">+${s.xpGain} XP</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ============================================================
+//  TIPS LIBRARY
+// ============================================================
+const TIPS_LIBRARY = {
+  Languages: [
+    "Listen to podcasts in the target language during low-focus tasks — commuting, cooking, walking.",
+    "Shadow native speakers: repeat phrases out loud immediately after hearing them.",
+    "Change your phone interface language. Passive daily exposure adds up faster than it seems.",
+    "Write one sentence in your target language every day. Short and consistent beats long and rare.",
+    "Read children's books in your target language — the vocabulary is practical and the frequency is high."
+  ],
+  Focus: [
+    "Set a single specific goal before each session. 'Practice scales for 20 minutes' beats 'practice piano'.",
+    "Work in fixed blocks — even 20 focused minutes beats 90 distracted ones.",
+    "Log your session immediately after. The act of tracking reinforces the habit.",
+    "Remove your phone from the room during heavy practice. Interruptions cost more time than you think.",
+    "Energy matters as much as time. Schedule hard practice when you're alert, light sessions when tired."
+  ],
+  Movement: [
+    "Light language listening works well during movement — walking, cycling, household tasks.",
+    "Pair a new skill with physical activity you already do. It lowers resistance and doubles the output.",
+    "Movement breaks between study sessions restore focus faster than passive rest.",
+    "Audiobooks and podcasts during a commute or run are often underestimated as learning tools.",
+    "If a skill feels hard to start, try practicing it during a walk. Context change shifts resistance."
+  ],
+  General: [
+    "Consistency over intensity. 15 minutes daily compounds faster than 3 hours once a week.",
+    "When motivation drops, lower the session goal — even 5 minutes resets the pattern.",
+    "Missing a day is not failure. Starting again the next day is what matters.",
+    "Stacking a new skill onto an existing habit (e.g. vocabulary review with morning coffee) reduces friction.",
+    "Progress rarely feels linear. What looks like a plateau is often consolidation before a jump."
+  ]
+};
+
+function renderTipsLibrary() {
+  const el = document.getElementById('tips-content');
+  if (!el) return;
+  el.innerHTML = Object.entries(TIPS_LIBRARY).map(([cat, tips]) =>
+    `<div class="tips-section">
+      <div class="tips-section-label">${cat}</div>
+      ${tips.map(t => `<div class="tip-item">${t}</div>`).join('')}
+    </div>`
+  ).join('');
+}
+
+// ============================================================
+//  INIT
+// ============================================================
+function init() {
+  if (state.user) {
+    document.getElementById('onboarding').classList.add('done');
+    document.getElementById('app').style.display = 'block';
+    document.getElementById('bottom-nav').style.display = 'flex';
+    document.getElementById('log-fab-wrap').style.display = 'flex';
+    initObProgress();
+    renderAll();
+  } else {
+    initObProgress();
+  }
+}
+init();
+</script>
+</body>
+</html>
