@@ -17,28 +17,21 @@
     --red: #ef4444;
     --text: #f0f0ff;
     --muted: #6b6b8a;
-    --muted2: #4a4a64;
+    --muted2: #3a3a52;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   body {
-    background: var(--bg);
-    color: var(--text);
+    background: var(--bg); color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    min-height: 100vh;
-    max-width: 480px;
-    margin: 0 auto;
+    min-height: 100vh; max-width: 480px; margin: 0 auto;
     padding-bottom: 90px;
   }
-
   /* NAV */
   .bottom-nav {
     position: fixed; bottom: 0; left: 50%;
     transform: translateX(-50%);
     width: 100%; max-width: 480px;
-    background: var(--surface);
-    border-top: 1px solid var(--border);
+    background: var(--surface); border-top: 1px solid var(--border);
     display: flex; z-index: 100;
   }
   .nav-btn {
@@ -46,91 +39,62 @@
     background: none; border: none; color: var(--muted);
     font-size: 10px; cursor: pointer;
     display: flex; flex-direction: column; align-items: center; gap: 3px;
-    transition: color .2s;
-    letter-spacing: .3px;
+    transition: color .2s; letter-spacing: .3px;
   }
   .nav-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
   .nav-btn.active { color: var(--accent2); }
-
   /* SCREENS */
   .screen { display: none; padding: 0 0 16px; }
   .screen.active { display: block; }
-
   /* PAGE HEADER */
-  .page-header { padding: 24px 16px 14px; }
+  .page-header { padding: 22px 16px 12px; }
   .page-header h1 { font-size: 22px; font-weight: 700; letter-spacing: -.4px; }
-
   /* STAT ROW */
-  .stat-row {
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
-    gap: 8px; padding: 0 16px 6px;
-  }
+  .stat-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; padding: 0 16px 6px; }
   .stat-card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 13px; padding: 13px 10px; text-align: center;
   }
   .stat-card .val { font-size: 24px; font-weight: 800; color: var(--accent2); }
   .stat-card .lbl { font-size: 9px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: .6px; }
-
-  .streak-line {
-    padding: 8px 16px 14px;
-    font-size: 12px; color: var(--muted);
-  }
+  .streak-line { padding: 7px 16px 12px; font-size: 12px; color: var(--muted); }
   .streak-line strong { color: var(--gold); }
-
+  /* DAY/WEEK TOGGLE */
+  .view-toggle {
+    display: flex; margin: 0 16px 14px;
+    background: var(--surface2); border-radius: 9px;
+    padding: 3px; width: fit-content;
+  }
+  .toggle-btn {
+    padding: 6px 16px; border-radius: 7px;
+    border: none; background: none; color: var(--muted);
+    font-size: 12px; font-weight: 600; cursor: pointer;
+    font-family: inherit; transition: all .2s; letter-spacing: .2px;
+  }
+  .toggle-btn.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,.3); }
   /* AI RECOMMENDATION */
-  .rec-block { padding: 0 16px 14px; }
-  .rec-sentence {
-    font-size: 13px; color: #c8c8e8; line-height: 1.5;
-    margin-bottom: 6px;
-  }
-  .tip-btn {
-    background: none; border: none;
-    color: var(--muted); font-size: 11px;
-    cursor: pointer; padding: 0; font-family: inherit;
-    letter-spacing: .2px;
-    transition: color .2s;
-  }
-  .tip-btn:hover { color: var(--accent2); }
-  .tip-box {
-    margin-top: 10px;
-    padding: 11px 13px;
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 11px;
-    font-size: 12px; color: #b0b0cc; line-height: 1.55;
-  }
-
-  /* HEATMAP */
-  .heatmap-wrap { padding: 0 16px 14px; }
-  .heatmap-grid {
-    display: grid; grid-template-columns: repeat(13, 1fr); gap: 3px;
-  }
-  .hm-cell {
-    aspect-ratio: 1; border-radius: 3px; background: var(--surface2);
-  }
-  .hm-cell[data-level="1"] { background: rgba(124,106,247,.2); }
-  .hm-cell[data-level="2"] { background: rgba(124,106,247,.45); }
-  .hm-cell[data-level="3"] { background: rgba(124,106,247,.72); }
-  .hm-cell[data-level="4"] { background: rgba(167,139,250,1); }
-
-  /* BALANCE BAR */
-  .balance-wrap { padding: 0 16px 16px; }
-  .balance-row { display: flex; align-items: center; gap: 9px; margin-bottom: 5px; }
-  .balance-icon { font-size: 13px; width: 16px; text-align: center; flex-shrink: 0; }
-  .balance-name { font-size: 11px; color: var(--muted); width: 68px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .balance-bar-bg { flex: 1; background: var(--surface2); border-radius: 99px; height: 4px; overflow: hidden; }
-  .balance-bar-fill { height: 100%; border-radius: 99px; transition: width .5s ease; }
-  .balance-pct { font-size: 10px; color: var(--muted); width: 24px; text-align: right; flex-shrink: 0; }
-  .balance-note { font-size: 10px; color: var(--muted2); margin-top: 3px; }
-
+  .rec-line { margin: 0 16px 14px; font-size: 13px; color: #c0c0da; line-height: 1.5; }
+  /* SKILL DISTRIBUTION */
+  .distrib-wrap { padding: 0 16px 14px; }
+  .distrib-row { display: flex; align-items: center; gap: 9px; margin-bottom: 6px; }
+  .distrib-icon { font-size: 13px; width: 16px; text-align: center; flex-shrink: 0; }
+  .distrib-name { font-size: 11px; color: var(--muted); width: 64px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .distrib-bar-bg { flex: 1; background: var(--surface2); border-radius: 99px; height: 4px; overflow: hidden; }
+  .distrib-bar-fill { height: 100%; border-radius: 99px; transition: width .5s ease; }
+  .distrib-pct { font-size: 10px; color: var(--muted); width: 26px; text-align: right; flex-shrink: 0; }
+  .distrib-empty { font-size: 12px; color: var(--muted2); padding: 4px 0; }
+  /* 7-DAY HEATMAP */
+  .week-heatmap { padding: 0 16px 16px; }
+  .week-heatmap-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .wh-cell { aspect-ratio: 1; border-radius: 5px; background: var(--surface2); }
+  .wh-cell-label { font-size: 8px; color: var(--muted2); text-align: center; margin-top: 4px; letter-spacing: .3px; }
+  .wh-col { display: flex; flex-direction: column; gap: 2px; }
   /* SECTION TITLE */
   .section-title {
     font-size: 10px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1.2px; color: var(--muted);
-    padding: 0 16px 8px;
+    letter-spacing: 1.2px; color: var(--muted); padding: 0 16px 8px;
   }
-
-  /* SKILL CARD (list) */
+  /* SKILL CARD */
   .skill-card {
     margin: 0 16px 8px;
     background: var(--surface); border: 1px solid var(--border);
@@ -138,10 +102,7 @@
     cursor: pointer; transition: border-color .2s;
   }
   .skill-card:hover { border-color: var(--accent); }
-  .skill-card-row {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 9px;
-  }
+  .skill-card-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 9px; }
   .skill-card-left { display: flex; align-items: center; gap: 10px; }
   .skill-icon { font-size: 20px; }
   .skill-name { font-size: 14px; font-weight: 700; }
@@ -149,24 +110,40 @@
   .level-badge { font-size: 11px; font-weight: 700; white-space: nowrap; }
   .xp-bar-bg { background: var(--surface2); border-radius: 99px; height: 3px; overflow: hidden; }
   .xp-bar-fill { height: 100%; border-radius: 99px; transition: width .5s ease; }
-
-  /* LOG FAB */
-  .log-fab-wrap {
-    position: fixed; bottom: 76px; right: 16px;
-    display: flex; flex-direction: column; align-items: center; gap: 3px;
+  /* DUAL FAB */
+  .fab-stack {
+    position: fixed; bottom: 80px; right: 16px;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
     z-index: 99;
   }
-  .log-fab {
-    width: 52px; height: 52px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    border: none; color: white; font-size: 26px;
-    cursor: pointer; box-shadow: 0 4px 20px rgba(124,106,247,.4);
-    display: flex; align-items: center; justify-content: center;
-    transition: transform .15s;
+  .fab-item {
+    display: flex; align-items: center; gap: 8px;
   }
-  .log-fab:active { transform: scale(.92); }
-  .log-fab-label { font-size: 9px; color: var(--muted); letter-spacing: .3px; }
-
+  .fab-label {
+    font-size: 10px; color: var(--muted);
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 4px 9px; border-radius: 99px;
+    letter-spacing: .3px; white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,.3);
+  }
+  .fab-btn {
+    width: 48px; height: 48px; border-radius: 50%;
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .15s; flex-shrink: 0;
+  }
+  .fab-btn:active { transform: scale(.9); }
+  .fab-btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    box-shadow: 0 4px 16px rgba(124,106,247,.4);
+    font-size: 24px; color: white;
+  }
+  .fab-btn-secondary {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    box-shadow: 0 2px 10px rgba(0,0,0,.3);
+    font-size: 18px; color: var(--muted);
+  }
   /* MODALS */
   .modal-overlay {
     display: none; position: fixed; inset: 0;
@@ -176,20 +153,15 @@
   .modal-overlay.open { display: flex; }
   .modal {
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: 22px 22px 0 0;
-    padding: 20px 18px 36px;
-    width: 100%; max-width: 480px;
-    max-height: 92vh; overflow-y: auto;
+    border-radius: 22px 22px 0 0; padding: 20px 18px 40px;
+    width: 100%; max-width: 480px; max-height: 92vh; overflow-y: auto;
   }
-  .modal-handle {
-    width: 34px; height: 4px; background: var(--border);
-    border-radius: 99px; margin: 0 auto 16px;
-  }
-  .modal h2 { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
-
+  .modal-handle { width: 34px; height: 4px; background: var(--border); border-radius: 99px; margin: 0 auto 18px; }
+  .modal h2 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .modal-sub { font-size: 12px; color: var(--muted); margin-bottom: 20px; line-height: 1.5; }
   /* FORMS */
   label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 5px; }
-  input, select, textarea {
+  input[type="text"], input[type="number"], select, textarea {
     width: 100%; background: var(--surface2);
     border: 1px solid var(--border); border-radius: 11px;
     color: var(--text); padding: 12px 13px; font-size: 16px;
@@ -199,28 +171,23 @@
   input:focus, select:focus { border-color: var(--accent); }
   select option { background: var(--surface2); }
   textarea { resize: vertical; min-height: 72px; }
-
   .btn {
-    width: 100%; padding: 13px;
-    border: none; border-radius: 12px;
-    font-size: 15px; font-weight: 700;
-    cursor: pointer; transition: opacity .2s, transform .1s;
-    font-family: inherit;
+    width: 100%; padding: 13px; border: none; border-radius: 12px;
+    font-size: 15px; font-weight: 700; cursor: pointer;
+    transition: opacity .2s, transform .1s; font-family: inherit;
   }
   .btn:active { transform: scale(.98); }
   .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; }
   .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); margin-top: 8px; }
   .btn-ghost-danger {
-    background: none; border: none;
-    color: var(--muted); font-size: 13px; cursor: pointer;
-    padding: 10px 0 0; font-family: inherit;
-    text-decoration: underline; text-underline-offset: 3px;
-    display: block; width: 100%; text-align: center;
-    transition: color .2s;
+    background: none; border: none; color: var(--muted);
+    font-size: 13px; cursor: pointer; padding: 10px 0 0;
+    font-family: inherit; text-decoration: underline;
+    text-underline-offset: 3px; display: block;
+    width: 100%; text-align: center; transition: color .2s;
   }
   .btn-ghost-danger:hover { color: var(--red); }
-
-  /* INTENSITY TOGGLE */
+  /* INTENSITY */
   .intensity-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
   .intensity-option {
     padding: 12px; border-radius: 11px;
@@ -232,16 +199,15 @@
   .intensity-option .i-icon { font-size: 18px; }
   .intensity-option .i-label { font-size: 13px; font-weight: 700; margin: 3px 0 1px; }
   .intensity-option .i-desc { font-size: 10px; color: var(--muted); }
-
   /* DOPAMINE */
   .dopamine {
     display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,.9); z-index: 300;
+    background: rgba(0,0,0,.92); z-index: 300;
     align-items: center; justify-content: center;
     flex-direction: column; text-align: center; padding: 40px;
   }
   .dopamine.show { display: flex; }
-  .d-icon { font-size: 56px; margin-bottom: 12px; animation: pop .3s ease; }
+  .d-icon { font-size: 52px; margin-bottom: 12px; animation: pop .3s ease; }
   .d-xp { font-size: 20px; font-weight: 800; color: var(--accent2); margin-bottom: 4px; }
   .d-title { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
   .d-sub { font-size: 13px; color: var(--muted); }
@@ -250,14 +216,24 @@
     background: linear-gradient(135deg, var(--gold), #f97316);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   }
-  .d-hint { margin-top: 28px; font-size: 11px; color: var(--muted2); }
+  .d-xp-bar-wrap { width: 160px; margin: 14px auto 0; }
+  .d-xp-bar-bg { background: var(--surface2); border-radius: 99px; height: 5px; overflow: hidden; }
+  .d-xp-bar-fill {
+    height: 100%; border-radius: 99px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    width: 0; transition: width 1s ease .2s;
+  }
+  .d-hint { margin-top: 22px; font-size: 11px; color: #3a3a55; }
   @keyframes pop { 0%{transform:scale(0)} 70%{transform:scale(1.1)} 100%{transform:scale(1)} }
-
+  /* PLAN BONUS DOPAMINE */
+  .d-plan-bonus {
+    margin-top: 8px; font-size: 12px; color: var(--gold);
+    display: none;
+  }
   /* ONBOARDING */
   #onboarding {
-    position: fixed; inset: 0; background: var(--bg);
-    z-index: 400; display: flex; flex-direction: column;
-    padding: 44px 22px 36px; overflow-y: auto;
+    position: fixed; inset: 0; background: var(--bg); z-index: 400;
+    display: flex; flex-direction: column; padding: 44px 22px 36px; overflow-y: auto;
   }
   #onboarding.done { display: none; }
   .ob-logo { font-size: 28px; font-weight: 900; color: var(--accent2); margin-bottom: 3px; }
@@ -276,14 +252,11 @@
   .ob-progress { display: flex; gap: 5px; margin-bottom: 24px; }
   .ob-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--border); transition: background .3s; }
   .ob-dot.done { background: var(--accent2); }
-
   /* SKILL DETAIL */
-  #screen-detail { padding-bottom: 16px; }
   .detail-back {
     background: none; border: none; color: var(--muted);
     font-size: 13px; cursor: pointer; padding: 20px 16px 6px;
-    display: flex; align-items: center; gap: 5px; font-family: inherit;
-    transition: color .2s;
+    display: flex; align-items: center; gap: 5px; font-family: inherit; transition: color .2s;
   }
   .detail-back:hover { color: var(--text); }
   .detail-header { padding: 4px 16px 16px; }
@@ -293,74 +266,54 @@
   .detail-xp-bg { background: var(--surface2); border-radius: 99px; height: 5px; overflow: hidden; margin-bottom: 5px; }
   .detail-xp-fill { height: 100%; border-radius: 99px; transition: width .5s ease; }
   .detail-xp-label { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); }
-  .detail-divider { height: 1px; background: var(--border); margin: 18px 16px 0; }
-
+  .detail-stats-row { display: flex; gap: 8px; margin: 14px 0 0; }
+  .detail-stat { flex: 1; background: var(--surface2); border-radius: 10px; padding: 10px 12px; text-align: center; }
+  .detail-stat .ds-val { font-size: 18px; font-weight: 800; color: var(--text); }
+  .detail-stat .ds-lbl { font-size: 9px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: .5px; }
+  .detail-divider { height: 1px; background: var(--border); margin: 16px 16px 0; }
   /* SKILL TREE */
-  .tree-wrap { padding: 18px 16px 0; }
-  .tree-label {
-    font-size: 10px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1px; color: var(--muted); margin-bottom: 14px;
-  }
+  .tree-wrap { padding: 16px 16px 0; }
+  .tree-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 14px; }
   .tree-path { position: relative; padding-left: 28px; }
-  .tree-path::before {
-    content: ''; position: absolute;
-    left: 9px; top: 10px; bottom: 10px;
-    width: 2px; background: var(--border);
-  }
-  .tree-node {
-    position: relative; padding: 0 0 16px 0; display: flex; align-items: flex-start;
-  }
+  .tree-path::before { content: ''; position: absolute; left: 9px; top: 10px; bottom: 10px; width: 2px; background: var(--border); }
+  .tree-node { position: relative; padding: 0 0 14px; display: flex; align-items: flex-start; }
   .tree-node:last-child { padding-bottom: 0; }
   .tree-dot {
     position: absolute; left: -28px; top: 2px;
     width: 18px; height: 18px; border-radius: 50%;
     border: 2px solid var(--border); background: var(--surface2);
-    display: flex; align-items: center; justify-content: center;
-    transition: all .3s;
+    display: flex; align-items: center; justify-content: center; transition: all .3s;
   }
-  .tree-node.unlocked .tree-dot {
-    border-color: var(--accent2); background: rgba(167,139,250,.2);
-  }
+  .tree-node.unlocked .tree-dot { border-color: var(--accent2); background: rgba(167,139,250,.2); }
   .tree-dot-check { font-size: 9px; color: var(--accent2); font-weight: 900; display: none; }
   .tree-node.unlocked .tree-dot-check { display: block; }
-  .tree-dot-lock { font-size: 9px; color: var(--muted2); display: block; }
+  .tree-dot-lock { font-size: 9px; color: var(--muted2); }
   .tree-node.unlocked .tree-dot-lock { display: none; }
   .tree-body { flex: 1; }
-  .tree-name {
-    font-size: 13px; font-weight: 700; color: var(--muted2);
-    margin-bottom: 2px; transition: color .3s;
-  }
+  .tree-name { font-size: 13px; font-weight: 700; color: var(--muted2); margin-bottom: 2px; transition: color .3s; }
   .tree-node.unlocked .tree-name { color: var(--text); }
   .tree-effect { font-size: 11px; color: var(--muted); line-height: 1.4; }
   .tree-unlock-at { font-size: 10px; color: var(--muted2); margin-top: 2px; }
-  .tree-node.unlocked .tree-unlock-at { color: rgba(167,139,250,.6); }
+  .tree-node.unlocked .tree-unlock-at { color: rgba(167,139,250,.55); }
   .tree-meta-badge {
     display: inline-block; font-size: 9px; font-weight: 700;
     text-transform: uppercase; letter-spacing: .5px;
     color: var(--gold); border: 1px solid rgba(245,158,11,.3);
-    border-radius: 4px; padding: 1px 5px; margin-left: 6px;
-    vertical-align: middle;
+    border-radius: 4px; padding: 1px 5px; margin-left: 6px; vertical-align: middle;
   }
-
-  /* AI TIP IN DETAIL */
-  .detail-tip-wrap { padding: 18px 16px 0; }
+  /* DETAIL TIP */
+  .detail-tip-wrap { padding: 16px 16px 0; }
   .detail-tip-box {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 11px; padding: 12px 13px;
-    font-size: 12px; color: #b0b0cc; line-height: 1.55;
-    margin-bottom: 8px;
+    font-size: 12px; color: #b0b0cc; line-height: 1.55; margin-bottom: 8px;
   }
   .detail-tip-refresh {
-    background: none; border: none;
-    color: var(--muted); font-size: 11px; cursor: pointer;
-    padding: 0; font-family: inherit;
-    transition: color .2s;
+    background: none; border: none; color: var(--muted);
+    font-size: 11px; cursor: pointer; padding: 0; font-family: inherit; transition: color .2s;
   }
   .detail-tip-refresh:hover { color: var(--accent2); }
-
-  /* DETAIL ACTIONS */
-  .detail-actions { padding: 18px 16px 0; }
-
+  .detail-actions { padding: 16px 16px 0; }
   /* HISTORY */
   .session-item {
     margin: 0 16px 7px;
@@ -375,27 +328,18 @@
   .session-right { text-align: right; }
   .session-min { font-size: 16px; font-weight: 800; color: var(--accent2); }
   .session-xp { font-size: 10px; color: var(--muted); }
-  .badge {
-    display: inline-block; font-size: 9px; padding: 1px 6px;
-    border-radius: 99px; margin-left: 3px;
-  }
+  .badge { display: inline-block; font-size: 9px; padding: 1px 6px; border-radius: 99px; margin-left: 3px; }
   .badge-light { background: #1e2d4a; color: #93c5fd; }
   .badge-heavy { background: #2d1a40; color: #d8b4fe; }
-
   /* TIPS LIBRARY */
   .tips-section { padding: 0 16px 6px; margin-top: 6px; }
-  .tips-section-label {
-    font-size: 10px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1px; color: var(--muted); margin-bottom: 8px;
-  }
+  .tips-section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; }
   .tip-item {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 11px; padding: 11px 13px;
-    font-size: 12px; color: #b0b0cc; line-height: 1.5;
-    margin-bottom: 7px;
+    font-size: 12px; color: #b0b0cc; line-height: 1.5; margin-bottom: 7px;
   }
-
-  /* ADD SKILL */
+  /* ADD SKILL BTN */
   .add-skill-btn {
     margin: 4px 16px 20px; padding: 12px;
     border: 2px dashed var(--border); border-radius: 13px;
@@ -404,7 +348,83 @@
     font-family: inherit; transition: border-color .2s, color .2s;
   }
   .add-skill-btn:hover { border-color: var(--accent); color: var(--accent2); }
-
+  /* PLAN MODAL */
+  .plan-skill-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 11px 13px;
+    background: var(--surface2); border-radius: 11px;
+    margin-bottom: 8px;
+  }
+  .plan-skill-row .ps-check {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0; transition: all .2s;
+  }
+  .plan-skill-row.selected .ps-check {
+    border-color: var(--accent2); background: rgba(167,139,250,.2);
+  }
+  .plan-skill-row.selected .ps-check::after { content: '✓'; font-size: 10px; color: var(--accent2); font-weight: 900; }
+  .plan-skill-row .ps-icon { font-size: 18px; flex-shrink: 0; }
+  .plan-skill-row .ps-name { font-size: 14px; font-weight: 600; flex: 1; }
+  .plan-skill-row .ps-mins {
+    width: 64px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text); padding: 6px 8px;
+    font-size: 14px; text-align: center; outline: none; font-family: inherit;
+    -webkit-appearance: none; margin-bottom: 0;
+    display: none;
+  }
+  .plan-skill-row.selected .ps-mins { display: block; }
+  .plan-skill-row .ps-min-label {
+    font-size: 10px; color: var(--muted); flex-shrink: 0;
+    display: none;
+  }
+  .plan-skill-row.selected .ps-min-label { display: block; }
+  /* PLAN CHECK LIST (inside open modal) */
+  .plan-checklist-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 13px 14px;
+    background: var(--surface2); border-radius: 12px;
+    margin-bottom: 8px; cursor: pointer; transition: opacity .2s;
+  }
+  .plan-checklist-row.done { opacity: .55; }
+  .plan-check-circle {
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 2px solid var(--border); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .25s;
+  }
+  .plan-checklist-row.done .plan-check-circle {
+    border-color: var(--accent2); background: rgba(167,139,250,.25);
+  }
+  .plan-check-tick { font-size: 11px; color: var(--accent2); font-weight: 900; opacity: 0; transition: opacity .2s; }
+  .plan-checklist-row.done .plan-check-tick { opacity: 1; }
+  .plan-checklist-icon { font-size: 19px; }
+  .plan-checklist-info { flex: 1; }
+  .plan-checklist-name { font-size: 14px; font-weight: 600; }
+  .plan-checklist-target { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .plan-complete-banner {
+    background: rgba(167,139,250,.1); border: 1px solid rgba(167,139,250,.25);
+    border-radius: 12px; padding: 14px 16px; margin-bottom: 16px; text-align: center;
+  }
+  .plan-complete-banner .pcb-title { font-size: 14px; font-weight: 700; color: var(--accent2); margin-bottom: 3px; }
+  .plan-complete-banner .pcb-sub { font-size: 12px; color: var(--muted); }
+  .plan-section-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--muted); margin-bottom: 10px;
+  }
+  .plan-mode-tabs {
+    display: flex; gap: 0; margin-bottom: 20px;
+    background: var(--surface2); border-radius: 9px; padding: 3px; width: fit-content;
+  }
+  .plan-mode-tab {
+    padding: 6px 18px; border-radius: 7px; border: none;
+    background: none; color: var(--muted); font-size: 12px; font-weight: 600;
+    cursor: pointer; font-family: inherit; transition: all .2s;
+  }
+  .plan-mode-tab.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,.3); }
+  .plan-tab-content { display: none; }
+  .plan-tab-content.active { display: block; }
   /* MISC */
   .empty { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 13px; line-height: 1.7; }
   ::-webkit-scrollbar { width: 3px; }
@@ -412,20 +432,17 @@
 </style>
 </head>
 <body>
-
 <!-- ONBOARDING -->
 <div id="onboarding">
   <div class="ob-logo">SkillStack</div>
   <div class="ob-tagline">Build consistency across everything you want to learn.</div>
   <div class="ob-progress" id="ob-progress"></div>
-
   <div class="ob-step active" id="ob-step-0">
     <div class="ob-q">What should we call you?</div>
     <div class="ob-hint">A name or nickname is fine.</div>
     <input type="text" id="ob-name" placeholder="Your name..." maxlength="30">
     <button class="btn btn-primary" onclick="obNext(0)">Continue →</button>
   </div>
-
   <div class="ob-step" id="ob-step-1">
     <div class="ob-q">What makes consistency hard for you?</div>
     <div class="ob-hint">Pick all that apply.</div>
@@ -439,7 +456,6 @@
     </div>
     <button class="btn btn-primary" onclick="obNext(1)">Continue →</button>
   </div>
-
   <div class="ob-step" id="ob-step-2">
     <div class="ob-q">How much time can you give per day?</div>
     <div class="ob-hint">Be honest — even 10 minutes adds up.</div>
@@ -451,7 +467,6 @@
     </div>
     <button class="btn btn-primary" onclick="obNext(2)">Continue →</button>
   </div>
-
   <div class="ob-step" id="ob-step-3">
     <div class="ob-q">Add your first skill.</div>
     <div class="ob-hint">Start with one. You can add more later.</div>
@@ -479,82 +494,62 @@
     <button class="btn btn-primary" onclick="obFinish()">Start tracking</button>
   </div>
 </div>
-
 <!-- APP -->
 <div id="app" style="display:none">
-
   <!-- HOME -->
   <div id="screen-home" class="screen active">
-    <div class="page-header">
-      <h1 id="home-greeting">Good morning</h1>
-    </div>
-
-    <!-- Stats: 3 cards + streak line -->
+    <div class="page-header"><h1 id="home-greeting">Good morning</h1></div>
     <div class="stat-row">
-      <div class="stat-card">
-        <div class="val" id="stat-hours">0</div>
-        <div class="lbl">Hours</div>
-      </div>
-      <div class="stat-card">
-        <div class="val" id="stat-sessions">0</div>
-        <div class="lbl">Sessions</div>
-      </div>
-      <div class="stat-card">
-        <div class="val" id="stat-skills">0</div>
-        <div class="lbl">Skills</div>
-      </div>
+      <div class="stat-card"><div class="val" id="stat-hours">0</div><div class="lbl">Hours</div></div>
+      <div class="stat-card"><div class="val" id="stat-sessions">0</div><div class="lbl">Sessions</div></div>
+      <div class="stat-card"><div class="val" id="stat-skills">0</div><div class="lbl">Skills</div></div>
     </div>
-    <div class="streak-line" id="streak-line">0 day streak — every session counts</div>
-
-    <!-- AI recommendation — always visible when skills exist -->
+    <div class="streak-line" id="streak-line"></div>
+    <div class="view-toggle" id="view-toggle" style="display:none">
+      <button class="toggle-btn active" id="toggle-today" onclick="setView('today')">Today</button>
+      <button class="toggle-btn" id="toggle-week" onclick="setView('week')">This week</button>
+    </div>
     <div id="rec-area"></div>
-
-    <!-- Heatmap — visible when sessions exist -->
+    <div id="distrib-area"></div>
     <div id="heatmap-area"></div>
-
-    <!-- Balance — visible when 2+ skills have data this week -->
-    <div id="balance-area"></div>
-
-    <!-- Skill list -->
     <div class="section-title" id="skills-section-title" style="display:none">Skills</div>
     <div id="skill-list-home"></div>
     <div id="home-empty" class="empty" style="display:none">Add your first skill to start tracking.</div>
   </div>
-
   <!-- SKILLS TAB -->
   <div id="screen-skills" class="screen">
     <div class="page-header"><h1>Skills</h1></div>
     <div id="skill-list-skills"></div>
     <button class="add-skill-btn" onclick="openAddSkill()">+ Add skill</button>
   </div>
-
   <!-- SKILL DETAIL -->
   <div id="screen-detail" class="screen">
     <button class="detail-back" id="detail-back-btn" onclick="goBackFromDetail()">← Skills</button>
     <div id="detail-content"></div>
   </div>
-
   <!-- HISTORY -->
   <div id="screen-log" class="screen">
     <div class="page-header"><h1>History</h1></div>
     <div id="session-list"></div>
     <div id="log-empty" class="empty" style="display:none">No sessions yet.</div>
   </div>
-
   <!-- TIPS LIBRARY -->
   <div id="screen-tips" class="screen">
     <div class="page-header"><h1>Learning Tips</h1></div>
     <div id="tips-content"></div>
   </div>
-
 </div>
-
-<!-- LOG FAB -->
-<div class="log-fab-wrap" id="log-fab-wrap" style="display:none">
-  <button class="log-fab" onclick="openLogSession()">+</button>
-  <span class="log-fab-label">Quick log</span>
+<!-- DUAL FAB — always visible once app is ready -->
+<div class="fab-stack" id="fab-stack" style="display:none">
+  <div class="fab-item">
+    <span class="fab-label">Quick log</span>
+    <button class="fab-btn fab-btn-primary" onclick="openLogSession()">+</button>
+  </div>
+  <div class="fab-item">
+    <span class="fab-label">Plan today</span>
+    <button class="fab-btn fab-btn-secondary" onclick="openPlanModal()">☑</button>
+  </div>
 </div>
-
 <!-- NAV -->
 <nav class="bottom-nav" id="bottom-nav" style="display:none">
   <button class="nav-btn active" onclick="showScreen('home',this)">
@@ -574,7 +569,6 @@
     Tips
   </button>
 </nav>
-
 <!-- LOG MODAL -->
 <div class="modal-overlay" id="modal-log">
   <div class="modal">
@@ -587,14 +581,10 @@
     <label>Intensity</label>
     <div class="intensity-toggle">
       <div class="intensity-option light selected" onclick="selectIntensity('light')">
-        <div class="i-icon">🎧</div>
-        <div class="i-label">Light</div>
-        <div class="i-desc">Podcast, reading, watch</div>
+        <div class="i-icon">🎧</div><div class="i-label">Light</div><div class="i-desc">Podcast, reading, watch</div>
       </div>
       <div class="intensity-option heavy" onclick="selectIntensity('heavy')">
-        <div class="i-icon">🔥</div>
-        <div class="i-label">Heavy</div>
-        <div class="i-desc">Active practice, building</div>
+        <div class="i-icon">🔥</div><div class="i-label">Heavy</div><div class="i-desc">Active practice, building</div>
       </div>
     </div>
     <label>Note (optional)</label>
@@ -603,7 +593,6 @@
     <button class="btn btn-secondary" onclick="closeModal('modal-log')">Cancel</button>
   </div>
 </div>
-
 <!-- ADD SKILL MODAL -->
 <div class="modal-overlay" id="modal-add-skill">
   <div class="modal">
@@ -636,7 +625,14 @@
     <button class="btn btn-secondary" onclick="closeModal('modal-add-skill')">Cancel</button>
   </div>
 </div>
-
+<!-- PLAN TODAY MODAL -->
+<div class="modal-overlay" id="modal-plan">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h2>Plan today</h2>
+    <div id="plan-modal-body"></div>
+  </div>
+</div>
 <!-- DOPAMINE -->
 <div class="dopamine" id="dopamine" onclick="closeDopamine()">
   <div class="d-icon" id="d-emoji">✓</div>
@@ -644,32 +640,58 @@
   <div class="d-title" id="d-title">Done</div>
   <div class="d-sub" id="d-subtitle"></div>
   <div class="d-levelup" id="d-level-up" style="display:none"></div>
+  <div class="d-plan-bonus" id="d-plan-bonus"></div>
+  <div class="d-xp-bar-wrap">
+    <div class="d-xp-bar-bg"><div class="d-xp-bar-fill" id="d-xp-bar"></div></div>
+  </div>
   <div class="d-hint">Tap to continue</div>
 </div>
-
 <script>
 // ============================================================
-//  DATA
+// DATA
 // ============================================================
 const DB = {
-  get: (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
-  set: (k, v) => localStorage.setItem(k, JSON.stringify(v))
+  get: (k, d) => { try { const v = localStorage.getItem(k); return v !== null ? JSON.parse(v) : d; } catch { return d; } },
+  set: (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) { console.error('DB.set', k, e); } },
+  del: (k) => { try { localStorage.removeItem(k); } catch {} }
 };
-
 let state = {
-  user:     DB.get('ss_user', null),
-  skills:   DB.get('ss_skills', []),
-  sessions: DB.get('ss_sessions', [])
+  user: DB.get('ss_user', null),
+  skills: DB.get('ss_skills', []),
+  sessions: DB.get('ss_sessions', []),
+  plan: DB.get('ss_plan', { date: '', items: [], bonusGiven: false })
 };
-
 function save() {
   DB.set('ss_user', state.user);
   DB.set('ss_skills', state.skills);
   DB.set('ss_sessions', state.sessions);
+  DB.set('ss_plan', state.plan);
 }
-
+function ensurePlan() {
+  if (!state.plan) {
+    state.plan = { date: '', items: [], bonusGiven: false };
+    return;
+  }
+  if (!Array.isArray(state.plan.items)) {
+    state.plan.items = [];
+  }
+  if (typeof state.plan.bonusGiven === 'undefined') {
+    state.plan.bonusGiven = false;
+  }
+}
+// Plan: { date, items: [{skillId, targetMins, checked}], bonusGiven: false }
+// Resets daily
+function getPlan() {
+  ensurePlan();
+  const today = new Date().toDateString();
+  if (state.plan.date !== today) {
+    state.plan = { date: today, items: [], bonusGiven: false };
+    DB.set('ss_plan', state.plan);
+  }
+  return state.plan;
+}
 // ============================================================
-//  LEVEL SYSTEM
+// LEVEL SYSTEM
 // ============================================================
 function xpForLevel(lvl) {
   if (lvl <= 0) return 0;
@@ -682,7 +704,7 @@ function getLevelFromXP(xp) {
 }
 function getLevelInfo(skill) { return getLevelFromXP(skill.xp || 0); }
 function levelLabel(lvl) {
-  if (lvl < 5)  return 'Beginner';
+  if (lvl < 5) return 'Beginner';
   if (lvl < 15) return 'Apprentice';
   if (lvl < 30) return 'Intermediate';
   if (lvl < 50) return 'Advanced';
@@ -691,7 +713,7 @@ function levelLabel(lvl) {
   return 'Legend';
 }
 function levelColor(lvl) {
-  if (lvl < 5)  return '#6b6b8a';
+  if (lvl < 5) return '#6b6b8a';
   if (lvl < 15) return '#3b82f6';
   if (lvl < 30) return '#10b981';
   if (lvl < 50) return '#f59e0b';
@@ -699,77 +721,24 @@ function levelColor(lvl) {
   if (lvl < 90) return '#ef4444';
   return '#a855f7';
 }
-
 // ============================================================
-//  PERKS — skill-specific + meta (affects categories)
+// PERKS
 // ============================================================
 const PERK_DEFS = [
-  {
-    id: 'earlyGain',
-    name: 'Early Gain',
-    effect: 'First session each day: +12 bonus XP',
-    unlockLevel: 5,
-    meta: false,
-    apply: (ctx) => ctx.isFirstSkillSessionToday ? ctx.xp + 12 : ctx.xp
-  },
-  {
-    id: 'lightFlow',
-    name: 'Light Flow',
-    effect: 'Light sessions give +20% XP',
-    unlockLevel: 10,
-    meta: false,
-    apply: (ctx) => ctx.intensity === 'light' ? Math.round(ctx.xp * 1.20) : ctx.xp
-  },
-  {
-    id: 'deepWork',
-    name: 'Deep Work',
-    effect: 'Heavy sessions 30 min+: +25% XP',
-    unlockLevel: 20,
-    meta: false,
-    apply: (ctx) => (ctx.intensity === 'heavy' && ctx.minutes >= 30) ? Math.round(ctx.xp * 1.25) : ctx.xp
-  },
-  {
-    id: 'stackDay',
-    name: 'Stack Day',
-    effect: 'Log 2+ skills today: +10 XP per session',
-    unlockLevel: 30,
-    meta: false,
-    apply: (ctx) => ctx.otherSkillLoggedToday ? ctx.xp + 10 : ctx.xp
-  },
-  {
-    id: 'streakShield',
-    name: 'Streak Shield',
-    effect: 'Your streak survives one missed day',
-    unlockLevel: 35,
-    meta: false,
-    apply: (ctx) => ctx.xp  // applied in updateStreak
-  },
-  {
-    id: 'mobileLearner',
-    name: 'Mobile Learner',
-    effect: 'All light sessions across all skills: +10% XP',
-    unlockLevel: 50,
-    meta: true,
-    apply: (ctx) => ctx.intensity === 'light' ? Math.round(ctx.xp * 1.10) : ctx.xp
-  },
-  {
-    id: 'fullMastery',
-    name: 'Full Mastery',
-    effect: 'All XP gains: +10%',
-    unlockLevel: 75,
-    meta: true,
-    apply: (ctx) => Math.round(ctx.xp * 1.10)
-  }
+  { id: 'earlyGain', name: 'Early Gain', effect: 'First session each day: +12 bonus XP', unlockLevel: 5, meta: false, apply: (ctx) => ctx.isFirstSkillSessionToday ? ctx.xp + 12 : ctx.xp },
+  { id: 'lightFlow', name: 'Light Flow', effect: 'Light sessions give +20% XP', unlockLevel: 10, meta: false, apply: (ctx) => ctx.intensity === 'light' ? Math.round(ctx.xp * 1.20) : ctx.xp },
+  { id: 'deepWork', name: 'Deep Work', effect: 'Heavy sessions 30 min+: +25% XP', unlockLevel: 20, meta: false, apply: (ctx) => (ctx.intensity === 'heavy' && ctx.minutes >= 30) ? Math.round(ctx.xp * 1.25) : ctx.xp },
+  { id: 'stackDay', name: 'Stack Day', effect: 'Log 2+ skills today: +10 XP per session', unlockLevel: 30, meta: false, apply: (ctx) => ctx.otherSkillLoggedToday ? ctx.xp + 10 : ctx.xp },
+  { id: 'streakShield', name: 'Streak Shield', effect: 'Your streak survives one missed day', unlockLevel: 35, meta: false, apply: (ctx) => ctx.xp },
+  { id: 'mobileLearner',name: 'Mobile Learner',effect: 'All light sessions across all skills: +10% XP', unlockLevel: 50, meta: true, apply: (ctx) => ctx.intensity === 'light' ? Math.round(ctx.xp * 1.10) : ctx.xp },
+  { id: 'fullMastery', name: 'Full Mastery', effect: 'All XP gains: +10%', unlockLevel: 75, meta: true, apply: (ctx) => Math.round(ctx.xp * 1.10) }
 ];
-
 function getUnlockedPerks(skill) {
   const { level } = getLevelInfo(skill);
   const out = {};
   PERK_DEFS.forEach(p => { out[p.id] = level >= p.unlockLevel; });
   return out;
 }
-
-// Meta perks: check any skill at required level
 function getMetaPerks() {
   const out = {};
   PERK_DEFS.filter(p => p.meta).forEach(p => {
@@ -777,117 +746,80 @@ function getMetaPerks() {
   });
   return out;
 }
-
 function computeXP(skill, minutes, intensity) {
   const today = new Date().toDateString();
-  const isFirstSkillSessionToday = !state.sessions.some(s =>
-    s.skillId === skill.id && new Date(s.date).toDateString() === today
-  );
-  const otherSkillLoggedToday = state.sessions.some(s =>
-    s.skillId !== skill.id && new Date(s.date).toDateString() === today
-  );
-
+  const isFirstSkillSessionToday = !state.sessions.some(s => s.skillId === skill.id && new Date(s.date).toDateString() === today);
+  const otherSkillLoggedToday = state.sessions.some(s => s.skillId !== skill.id && new Date(s.date).toDateString() === today);
   const perks = getUnlockedPerks(skill);
   const metaPerks = getMetaPerks();
-
   let ctx = { xp: Math.round(minutes * (intensity === 'heavy' ? 1.5 : 1)), minutes, intensity, isFirstSkillSessionToday, otherSkillLoggedToday };
-
-  // Apply skill-specific perks in order
   PERK_DEFS.filter(p => !p.meta && perks[p.id]).forEach(p => { ctx.xp = p.apply(ctx); });
-  // Apply meta perks
   PERK_DEFS.filter(p => p.meta && metaPerks[p.id]).forEach(p => { ctx.xp = p.apply(ctx); });
-
   return Math.max(1, ctx.xp);
 }
-
 // ============================================================
-//  AI — RECOMMENDATIONS + TIPS
+// VIEW STATE
 // ============================================================
-const TIP_POOL = [
-  // Neglect patterns
-  (s) => `You've skipped ${s} for a few days. A short podcast episode while walking could help.`,
-  (s) => `${s} needs a short reset. Even 10 minutes of passive review counts.`,
-  (s) => `${s} is falling behind. A light session today would close the gap.`,
-  // Balance patterns
-  (dom, low) => `Your time this week went mostly to ${dom}. A 15-minute ${low} session would rebalance things.`,
-  (dom, low) => `${low} has been quiet. A light session while commuting could bring it back.`,
-  // Light session hints
-  () => `Podcasts and passive listening during movement can be just as effective as structured practice for language skills.`,
-  () => `A 10-minute light session consistently beats a 60-minute heavy session done twice a week.`,
-  () => `If a skill feels heavy to start, try a lighter format first — a video, a podcast, or just reading.`,
-  () => `Combining two habits in one block — like listening while walking — halves the friction for both.`,
-  // Frequency nudges
-  () => `Consistency matters more than duration. Logging short sessions daily beats long sessions monthly.`,
-  () => `Even 5 minutes logged is a signal to your brain that this skill is active and worth returning to.`,
-];
-
-let lastTipSeed = -1;
-
-function generateRecommendationText() {
+let currentView = 'today';
+function setView(v) {
+  currentView = v;
+  document.getElementById('toggle-today').classList.toggle('active', v === 'today');
+  document.getElementById('toggle-week').classList.toggle('active', v === 'week');
+  renderRec();
+  renderDistrib();
+}
+// ============================================================
+// AI RECOMMENDATIONS
+// ============================================================
+function generateRec() {
   if (!state.skills.length || !state.sessions.length) return null;
   const now = Date.now(), DAY = 86400000, WEEK = 7 * DAY;
-  function lastDate(id) {
-    const s = state.sessions.filter(x => x.skillId === id);
-    return s.length ? Math.max(...s.map(x => x.date)) : null;
+  const today = new Date().toDateString();
+  function minsInWindow(skillId) {
+    return state.sessions.filter(s => {
+      if (currentView === 'today') return s.skillId === skillId && new Date(s.date).toDateString() === today;
+      return s.skillId === skillId && now - s.date < WEEK;
+    }).reduce((a, s) => a + s.minutes, 0);
   }
-  function weekMins(id) {
-    return state.sessions.filter(x => x.skillId === id && now - x.date < WEEK).reduce((a, x) => a + x.minutes, 0);
+  function lastTs(skillId) {
+    const ss = state.sessions.filter(x => x.skillId === skillId);
+    return ss.length ? Math.max(...ss.map(x => x.date)) : null;
   }
-  const neglected = state.skills.filter(s => { const d = lastDate(s.id); return d ? (now - d) > 4 * DAY : true; });
-  if (neglected.length) return `${neglected[0].name} could use some more attention this week.`;
+  const neglected = state.skills.find(s => { const l = lastTs(s.id); return l ? (now - l) > 4 * DAY : true; });
+  if (neglected) {
+    const l = lastTs(neglected.id);
+    const days = l ? Math.floor((now - l) / DAY) : null;
+    if (days && days >= 4) return `You haven't touched ${neglected.name} in ${days} days.`;
+    return `${neglected.name} hasn't had any sessions yet.`;
+  }
   if (state.skills.length >= 2) {
-    const byM = state.skills.map(s => ({ s, m: weekMins(s.id) }));
+    const byM = state.skills.map(s => ({ s, m: minsInWindow(s.id) }));
     const tot = byM.reduce((a, x) => a + x.m, 0);
     if (tot > 0) {
       const sorted = [...byM].sort((a, b) => b.m - a.m);
       if (sorted[0].m / tot >= 0.70) {
-        return `A short ${sorted[sorted.length-1].s.name} session would rebalance your week.`;
+        return `${sorted[sorted.length - 1].s.name} is falling behind ${currentView === 'today' ? 'today' : 'this week'}.`;
       }
     }
   }
-  return `${state.skills[0].name} is your most active skill this week.`;
+  return null;
 }
-
-function generateTip(skillHint) {
-  // Pick a contextual tip, avoiding the last used index
-  const now = Date.now(), DAY = 86400000, WEEK = 7 * DAY;
-  const candidates = [];
-  if (skillHint) {
-    const last = state.sessions.filter(s => s.skillId === skillHint.id);
-    const lastTs = last.length ? Math.max(...last.map(s => s.date)) : 0;
-    if ((now - lastTs) > 4 * DAY) {
-      candidates.push(TIP_POOL[0](skillHint.name));
-      candidates.push(TIP_POOL[1](skillHint.name));
-      candidates.push(TIP_POOL[2](skillHint.name));
-    }
-  }
-  if (state.skills.length >= 2) {
-    const byM = state.skills.map(s => ({ s, m: state.sessions.filter(x => x.skillId === s.id && now - x.date < WEEK).reduce((a, x) => a + x.minutes, 0) }));
-    const sorted = [...byM].sort((a, b) => b.m - a.m);
-    const tot = sorted.reduce((a, x) => a + x.m, 0);
-    if (tot > 0 && sorted[0].m / tot >= 0.60 && sorted.length >= 2) {
-      candidates.push(TIP_POOL[3](sorted[0].s.name, sorted[sorted.length-1].s.name));
-      candidates.push(TIP_POOL[4](sorted[0].s.name, sorted[sorted.length-1].s.name));
-    }
-  }
-  // Always have general fallback
-  const generals = TIP_POOL.slice(5).map(fn => fn());
-  candidates.push(...generals);
-  // Avoid repeating last seed
-  const filtered = candidates.filter((_, i) => i !== lastTipSeed % candidates.length);
-  const pick = filtered.length ? filtered[Math.floor(Math.random() * filtered.length)] : candidates[0];
-  lastTipSeed = candidates.indexOf(pick);
-  return pick;
-}
-
-// State for tip display
-let globalTip = null;
-let detailSkillId = null;
-let detailTip = null;
-let prevScreen = 'skills';
-
 // ============================================================
-//  ONBOARDING
+// SKILL DISTRIBUTION
+// ============================================================
+function getDistribData() {
+  const now = Date.now(), WEEK = 7 * 86400000;
+  const today = new Date().toDateString();
+  return state.skills.map(sk => ({
+    sk,
+    m: state.sessions.filter(s => {
+      if (currentView === 'today') return s.skillId === sk.id && new Date(s.date).toDateString() === today;
+      return s.skillId === sk.id && now - s.date < WEEK;
+    }).reduce((a, s) => a + s.minutes, 0)
+  }));
+}
+// ============================================================
+// ONBOARDING
 // ============================================================
 let obStep = 0, OB_STEPS = 4, selectedEmoji = '⭐';
 function initObProgress() {
@@ -923,41 +855,38 @@ function obFinish() {
   document.getElementById('onboarding').classList.add('done');
   document.getElementById('app').style.display = 'block';
   document.getElementById('bottom-nav').style.display = 'flex';
-  document.getElementById('log-fab-wrap').style.display = 'flex';
+  document.getElementById('fab-stack').style.display = 'flex';
   save(); renderAll();
 }
-
 // ============================================================
-//  NAVIGATION
+// NAVIGATION
 // ============================================================
+let detailSkillId = null, detailTip = null, prevScreen = 'skills';
 function showScreen(name, btn) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(`screen-${name}`).classList.add('active');
+  document.getElementById('screen-' + name).classList.add('active');
   if (btn) btn.classList.add('active');
   renderAll();
 }
-
 function openSkillDetail(skillId, from) {
   prevScreen = from || 'skills';
-  detailSkillId = skillId;
+  detailSkillId = Number(skillId);
   detailTip = null;
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  // Mark correct nav btn
   const navMap = { home: 0, skills: 1, log: 2, tips: 3 };
   if (navMap[prevScreen] !== undefined) document.querySelectorAll('.nav-btn')[navMap[prevScreen]].classList.add('active');
   document.getElementById('screen-detail').classList.add('active');
-  document.getElementById('detail-back-btn').textContent = `← ${prevScreen === 'home' ? 'Home' : 'Skills'}`;
+  document.getElementById('detail-back-btn').textContent = '← ' + (prevScreen === 'home' ? 'Home' : 'Skills');
   renderSkillDetail();
 }
-
 function goBackFromDetail() {
+  detailSkillId = null;
   showScreen(prevScreen, document.querySelectorAll('.nav-btn')[prevScreen === 'home' ? 0 : 1]);
 }
-
 // ============================================================
-//  SKILLS CRUD
+// SKILLS CRUD
 // ============================================================
 function addSkillToState(name, type, emoji) {
   state.skills.push({ id: Date.now(), name, type, icon: emoji, xp: 0, createdAt: Date.now() });
@@ -974,33 +903,50 @@ function submitAddSkill() {
   addSkillToState(name, document.getElementById('new-skill-type').value, selectedEmoji || '⭐');
   save(); closeModal('modal-add-skill'); renderAll();
 }
-function deleteSkill(id) {
-  if (!confirm('Delete this skill and all its session history?')) return;
+function deleteSkill(skillId) {
+  const id = Number(skillId);
+  const skill = state.skills.find(s => s.id === id);
+  if (!skill) return;
+  if (!confirm('Delete "' + skill.name + '"? All XP and session history will be permanently removed.')) return;
+  // Remove skill
   state.skills = state.skills.filter(s => s.id !== id);
+  // Remove all sessions for this skill
   state.sessions = state.sessions.filter(s => s.skillId !== id);
-  save(); goBackFromDetail();
+  // Remove from plan
+  const plan = getPlan();
+  plan.items = plan.items.filter(it => it.skillId !== id);
+  state.plan = plan;
+  // Write all to localStorage immediately
+  DB.set('ss_skills', state.skills);
+  DB.set('ss_sessions', state.sessions);
+  DB.set('ss_plan', state.plan);
+  // Navigate back first, then re-render
+  detailSkillId = null;
+  goBackFromDetail();
+  renderAll();
 }
-
 // ============================================================
-//  LOGGING
+// LOGGING
 // ============================================================
 let selectedIntensity = 'light';
 function openLogSession() {
+  if (!state.skills.length) { alert('Add a skill first.'); return; }
   const sel = document.getElementById('log-skill-select');
-  sel.innerHTML = state.skills.map(s => `<option value="${s.id}">${s.icon} ${s.name}</option>`).join('');
+  sel.innerHTML = state.skills.map(s => '<option value="' + s.id + '">' + s.icon + ' ' + s.name + '</option>').join('');
   document.getElementById('log-minutes').value = '';
   document.getElementById('log-note').value = '';
   selectedIntensity = 'light'; selectIntensity('light');
   openModal('modal-log');
 }
-function openLogForSkill(id) {
+function openLogForSkill(skillId) {
   openLogSession();
+  const id = Number(skillId);
   setTimeout(() => { document.getElementById('log-skill-select').value = id; }, 50);
 }
 function selectIntensity(type) {
   selectedIntensity = type;
   document.querySelectorAll('.intensity-option').forEach(el => el.classList.remove('selected'));
-  document.querySelector(`.intensity-option.${type}`).classList.add('selected');
+  document.querySelector('.intensity-option.' + type).classList.add('selected');
 }
 function submitLog() {
   const skillId = parseInt(document.getElementById('log-skill-select').value);
@@ -1008,12 +954,19 @@ function submitLog() {
   const note = document.getElementById('log-note').value.trim();
   if (!minutes || minutes < 1) { alert('Please enter minutes.'); return; }
   const skill = state.skills.find(s => s.id === skillId);
+  if (!skill) return;
   const xpGain = computeXP(skill, minutes, selectedIntensity);
   const oldLvl = getLevelInfo(skill).level;
   skill.xp = (skill.xp || 0) + xpGain;
   const newLvl = getLevelInfo(skill).level;
-  state.sessions.unshift({ id: Date.now(), skillId, skillName: skill.name, skillIcon: skill.icon, minutes, intensity: selectedIntensity, xpGain, note, date: Date.now() });
-  updateStreak(); save(); closeModal('modal-log'); renderAll();
+  state.sessions.unshift({
+    id: Date.now(), skillId, skillName: skill.name, skillIcon: skill.icon,
+    minutes, intensity: selectedIntensity, xpGain, note, date: Date.now()
+  });
+  updateStreak();
+  save();
+  closeModal('modal-log');
+  renderAll();
   showDopamine(skill, xpGain, oldLvl, newLvl, minutes);
 }
 function updateStreak() {
@@ -1027,36 +980,200 @@ function updateStreak() {
     ? (state.user.streak || 0) + 1 : 1;
   state.user.lastSessionDate = today;
 }
-function showDopamine(skill, xpGain, oldLvl, newLvl, minutes) {
+function showDopamine(skill, xpGain, oldLvl, newLvl, minutes, planBonusXP) {
   const lvlUp = newLvl > oldLvl;
   document.getElementById('d-emoji').textContent = lvlUp ? '↑' : skill.icon;
-  document.getElementById('d-xp').textContent = `+${xpGain} XP`;
-  document.getElementById('d-title').textContent = lvlUp ? `Level ${newLvl}` : `${minutes} min`;
-  document.getElementById('d-subtitle').textContent = `${skill.name} · ${selectedIntensity}`;
+  document.getElementById('d-xp').textContent = '+' + xpGain + ' XP';
+  document.getElementById('d-title').textContent = lvlUp ? 'Level ' + newLvl : minutes + ' min';
+  document.getElementById('d-subtitle').textContent = skill.name + ' · ' + selectedIntensity;
   const lu = document.getElementById('d-level-up');
-  if (lvlUp) { lu.style.display = 'block'; lu.textContent = levelLabel(newLvl); } else lu.style.display = 'none';
+  lu.style.display = lvlUp ? 'block' : 'none';
+  if (lvlUp) lu.textContent = levelLabel(newLvl);
+  const pb = document.getElementById('d-plan-bonus');
+  if (planBonusXP) { pb.style.display = 'block'; pb.textContent = '+' + planBonusXP + ' plan bonus XP'; }
+  else { pb.style.display = 'none'; }
+  const { remainingXP, xpNeeded } = getLevelInfo(skill);
+  const pct = Math.min(100, Math.round((remainingXP / xpNeeded) * 100));
+  const bar = document.getElementById('d-xp-bar');
+  bar.style.width = '0';
   document.getElementById('dopamine').classList.add('show');
+  setTimeout(() => { bar.style.width = pct + '%'; }, 100);
 }
 function closeDopamine() { document.getElementById('dopamine').classList.remove('show'); }
-
 // ============================================================
-//  MODALS
+// PLAN TODAY
+// ============================================================
+// Plan mode: 'setup' (select skills + set targets) or 'checklist' (check off)
+let planMode = 'checklist'; // default to checklist if plan exists, otherwise setup
+function openPlanModal() {
+  const plan = getPlan();
+  // If no items set, open in setup mode; otherwise checklist
+  planMode = plan.items.length === 0 ? 'setup' : 'checklist';
+  renderPlanModal();
+  openModal('modal-plan');
+}
+function renderPlanModal() {
+  const plan = getPlan();
+  const hasItems = plan.items.length > 0;
+  const allChecked = hasItems && plan.items.every(it => it.checked);
+  const body = document.getElementById('plan-modal-body');
+  // Mode tabs — show setup tab always; checklist tab only if plan has items
+  const checklistTabHtml = hasItems
+    ? '<button class="plan-mode-tab' + (planMode === 'checklist' ? ' active' : '') + '" onclick="switchPlanMode(\'checklist\')">Check off</button>'
+    : '';
+  let content = '';
+  if (planMode === 'setup') {
+    if (!state.skills.length) {
+      content = '<p style="color:var(--muted);font-size:13px">Add skills first.</p>';
+    } else {
+      content = '<div class="plan-section-label">Select skills and set a target</div>';
+      content += state.skills.map(sk => {
+        const existing = plan.items.find(it => it.skillId === sk.id);
+        const isSelected = !!existing;
+        const targetVal = existing ? existing.targetMins : '';
+        return '<div class="plan-skill-row' + (isSelected ? ' selected' : '') + '" id="psr-' + sk.id + '" onclick="togglePlanSkill(' + sk.id + ')">'
+          + '<div class="ps-check"></div>'
+          + '<span class="ps-icon">' + sk.icon + '</span>'
+          + '<span class="ps-name">' + sk.name + '</span>'
+          + '<input class="ps-mins" type="number" placeholder="min" min="1" max="480"'
+          + ' value="' + targetVal + '"'
+          + ' onclick="event.stopPropagation()"'
+          + ' onchange="updatePlanTarget(' + sk.id + ', this.value)"'
+          + ' id="pt-' + sk.id + '">'
+          + '<span class="ps-min-label">min</span>'
+          + '</div>';
+      }).join('');
+      content += '<button class="btn btn-primary" style="margin-top:16px" onclick="savePlanSetup()">Save plan</button>';
+      content += '<button class="btn btn-secondary" onclick="closeModal(\'modal-plan\')">Close</button>';
+    }
+  } else {
+    // Checklist mode
+    if (allChecked && !plan.bonusGiven) {
+      // Grant bonus XP now
+      const BONUS_PER_SKILL = 20;
+      plan.items.forEach(it => {
+        const s = state.skills.find(x => x.id === it.skillId);
+        if (s) s.xp = (s.xp || 0) + BONUS_PER_SKILL;
+      });
+      plan.bonusGiven = true;
+      state.plan = plan;
+      DB.set('ss_skills', state.skills);
+      DB.set('ss_plan', state.plan);
+    }
+    if (allChecked) {
+      const BONUS_PER_SKILL = 20;
+      const total = plan.items.length * BONUS_PER_SKILL;
+      content += '<div class="plan-complete-banner">'
+        + '<div class="pcb-title">Plan complete</div>'
+        + '<div class="pcb-sub">+' + total + ' bonus XP distributed across ' + plan.items.length + ' skill' + (plan.items.length > 1 ? 's' : '') + '</div>'
+        + '</div>';
+    }
+    content += '<div class="plan-section-label">Today\'s plan</div>';
+    content += plan.items.map(it => {
+      const s = state.skills.find(x => x.id === it.skillId);
+      if (!s) return '';
+      return '<div class="plan-checklist-row' + (it.checked ? ' done' : '') + '" onclick="togglePlanCheck(' + it.skillId + ')">'
+        + '<div class="plan-check-circle"><span class="plan-check-tick">✓</span></div>'
+        + '<span class="plan-checklist-icon">' + s.icon + '</span>'
+        + '<div class="plan-checklist-info">'
+        + '<div class="plan-checklist-name">' + s.name + '</div>'
+        + (it.targetMins ? '<div class="plan-checklist-target">Target: ' + it.targetMins + ' min</div>' : '')
+        + '</div>'
+        + '</div>';
+    }).join('');
+    content += '<button class="btn btn-secondary" style="margin-top:16px" onclick="switchPlanMode(\'setup\')">Edit plan</button>';
+    content += '<button class="btn btn-secondary" onclick="closeModal(\'modal-plan\')" style="margin-top:8px">Close</button>';
+  }
+  const tabsHtml = '<div class="plan-mode-tabs">'
+    + '<button class="plan-mode-tab' + (planMode === 'setup' ? ' active' : '') + '" onclick="switchPlanMode(\'setup\')">Set up</button>'
+    + checklistTabHtml
+    + '</div>';
+  body.innerHTML = (hasItems || planMode === 'setup' ? tabsHtml : '') + content;
+}
+function switchPlanMode(mode) {
+  planMode = mode;
+  renderPlanModal();
+}
+function togglePlanSkill(skillId) {
+  const id = Number(skillId);
+  const plan = getPlan();
+  const idx = plan.items.findIndex(it => it.skillId === id);
+  if (idx >= 0) {
+    plan.items.splice(idx, 1);
+  } else {
+    plan.items.push({ skillId: id, targetMins: null, checked: false });
+  }
+  state.plan = plan;
+  // Re-render just the modal (don't close it)
+  renderPlanModal();
+}
+function updatePlanTarget(skillId, val) {
+  const id = Number(skillId);
+  const plan = getPlan();
+  const item = plan.items.find(it => it.skillId === id);
+  if (item) item.targetMins = parseInt(val) || null;
+  state.plan = plan;
+}
+function savePlanSetup() {
+  // Read current target inputs before saving
+  const plan = getPlan();
+  plan.items.forEach(it => {
+    const inp = document.getElementById('pt-' + it.skillId);
+    if (inp) it.targetMins = parseInt(inp.value) || null;
+  });
+  // Reset checked state and bonus on plan change
+  plan.items.forEach(it => { it.checked = false; });
+  plan.bonusGiven = false;
+  state.plan = plan;
+  DB.set('ss_plan', state.plan);
+  if (plan.items.length > 0) {
+    planMode = 'checklist';
+    renderPlanModal();
+  } else {
+    closeModal('modal-plan');
+  }
+}
+function togglePlanCheck(skillId) {
+  const id = Number(skillId);
+  const plan = getPlan();
+  const item = plan.items.find(it => it.skillId === id);
+  if (!item) return;
+  item.checked = !item.checked;
+  state.plan = plan;
+  // Check if all done — grant bonus once
+  const allChecked = plan.items.length > 0 && plan.items.every(it => it.checked);
+  if (allChecked && !plan.bonusGiven) {
+    const BONUS_PER_SKILL = 20;
+    plan.items.forEach(it => {
+      const s = state.skills.find(x => x.id === it.skillId);
+      if (s) s.xp = (s.xp || 0) + BONUS_PER_SKILL;
+    });
+    plan.bonusGiven = true;
+    DB.set('ss_skills', state.skills);
+  }
+  DB.set('ss_plan', state.plan);
+  renderPlanModal();
+  // Also re-render skill cards in background
+  renderSkillsTab();
+  renderHomeSkills();
+}
+// ============================================================
+// MODALS
 // ============================================================
 function openModal(id) { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 document.querySelectorAll('.modal-overlay').forEach(o => {
-  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+  o.addEventListener('click', function(e) { if (e.target === o) o.classList.remove('open'); });
 });
-
 // ============================================================
-//  RENDER
+// RENDER
 // ============================================================
 function renderAll() {
   renderGreeting();
   renderStats();
   renderRec();
+  renderDistrib();
   renderHeatmap();
-  renderBalance();
   renderHomeSkills();
   renderSkillsTab();
   renderHistory();
@@ -1065,218 +1182,210 @@ function renderAll() {
     renderSkillDetail();
   }
 }
-
 function renderGreeting() {
   if (!state.user) return;
   const h = new Date().getHours();
   const g = h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
   const el = document.getElementById('home-greeting');
-  if (el) el.textContent = `${g}, ${state.user.name}`;
+  if (el) el.textContent = g + ', ' + state.user.name;
 }
-
 function renderStats() {
   const totalMins = state.sessions.reduce((a, s) => a + s.minutes, 0);
   const g = id => document.getElementById(id);
   if (g('stat-hours')) g('stat-hours').textContent = (totalMins / 60).toFixed(1);
   if (g('stat-sessions')) g('stat-sessions').textContent = state.sessions.length;
   if (g('stat-skills')) g('stat-skills').textContent = state.skills.length;
-  const streak = state.user?.streak || 0;
+  const streak = state.user && state.user.streak || 0;
   const sl = g('streak-line');
-  if (sl) sl.innerHTML = `<strong>${streak} day streak</strong> — every session counts`;
+  if (sl) sl.innerHTML = streak > 0 ? '<strong>' + streak + ' day streak</strong> — every session counts' : '';
+  const tog = g('view-toggle');
+  if (tog) tog.style.display = state.skills.length > 0 ? 'flex' : 'none';
 }
-
 function renderRec() {
   const el = document.getElementById('rec-area');
   if (!el) return;
-  if (!state.skills.length) { el.innerHTML = ''; return; }
-  const rec = generateRecommendationText() || `${state.skills[0].name} is your active skill this week.`;
-  const tipHtml = globalTip ? `<div class="tip-box">${globalTip}</div>` : '';
-  el.innerHTML = `<div class="rec-block">
-    <div class="rec-sentence">${rec}</div>
-    <button class="tip-btn" onclick="onGiveTip()">Give tip</button>
-    ${tipHtml}
-  </div>`;
+  const rec = generateRec();
+  el.innerHTML = rec ? '<div class="rec-line">' + rec + '</div>' : '';
 }
-
-function onGiveTip() {
-  // Pick skill to base tip on — prefer neglected
-  const now = Date.now(), DAY = 86400000;
-  const neglected = state.skills.find(s => {
-    const last = state.sessions.filter(x => x.skillId === s.id);
-    const ts = last.length ? Math.max(...last.map(x => x.date)) : 0;
-    return (now - ts) > 4 * DAY;
-  });
-  globalTip = generateTip(neglected || state.skills[0]);
-  renderRec();
+function renderDistrib() {
+  const el = document.getElementById('distrib-area');
+  if (!el || state.skills.length === 0) { if (el) el.innerHTML = ''; return; }
+  const data = getDistribData();
+  const tot = data.reduce((a, x) => a + x.m, 0);
+  const colors = ['#7c6af7','#10b981','#f59e0b','#3b82f6','#f97316','#a855f7'];
+  if (tot === 0) {
+    el.innerHTML = '<div class="distrib-wrap"><div class="distrib-empty">Nothing logged ' + (currentView === 'today' ? 'today' : 'this week') + ' yet.</div></div>';
+    return;
+  }
+  const pcts = data.map(x => Math.round((x.m / tot) * 100));
+  el.innerHTML = '<div class="distrib-wrap">' + data.map((x, i) =>
+    '<div class="distrib-row">'
+    + '<span class="distrib-icon">' + x.sk.icon + '</span>'
+    + '<span class="distrib-name">' + x.sk.name + '</span>'
+    + '<div class="distrib-bar-bg"><div class="distrib-bar-fill" style="width:' + pcts[i] + '%;background:' + (x.m ? colors[i % 6] : 'var(--border)') + '"></div></div>'
+    + '<span class="distrib-pct">' + pcts[i] + '%</span>'
+    + '</div>'
+  ).join('') + '</div>';
 }
-
 function renderHeatmap() {
   const el = document.getElementById('heatmap-area');
-  if (!el || !state.sessions.length) { if (el) el.innerHTML = ''; return; }
-  const byDay = {};
-  state.sessions.forEach(s => { const d = new Date(s.date).toDateString(); byDay[d] = (byDay[d]||0) + s.minutes; });
-  const start = new Date(); start.setDate(start.getDate() - 90);
-  const cells = [];
-  for (let i = 0; i <= 90; i++) {
-    const d = new Date(start); d.setDate(d.getDate() + i);
-    const m = byDay[d.toDateString()] || 0;
-    let lv = 0; if (m>0) lv=1; if (m>20) lv=2; if (m>45) lv=3; if (m>90) lv=4;
-    cells.push(`<div class="hm-cell" data-level="${lv}" title="${d.toLocaleDateString()}: ${m}min"></div>`);
+  if (!el) return;
+  const now = new Date();
+  const dow = now.getDay();
+  const monday = new Date(now);
+  monday.setDate(now.getDate() - ((dow + 6) % 7));
+  const days = ['M','T','W','T','F','S','S'];
+  const weekDays = [];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    const dStr = d.toDateString();
+    const mins = state.sessions.filter(s => new Date(s.date).toDateString() === dStr).reduce((a, s) => a + s.minutes, 0);
+    weekDays.push({ label: days[i], mins, isFuture: d > now });
   }
-  el.innerHTML = `<div class="heatmap-wrap"><div class="heatmap-grid">${cells.join('')}</div></div>`;
+  const maxMins = Math.max(...weekDays.map(d => d.mins), 1);
+  function cellColor(mins) {
+    if (mins === 0) return 'var(--surface2)';
+    const r = mins / maxMins;
+    if (r < 0.25) return 'rgba(236,72,153,.2)';
+    if (r < 0.55) return 'rgba(236,72,153,.45)';
+    if (r < 0.80) return 'rgba(236,72,153,.7)';
+    return 'rgba(236,72,153,.95)';
+  }
+  el.innerHTML = '<div class="week-heatmap"><div class="week-heatmap-grid">'
+    + weekDays.map((d, i) =>
+        '<div class="wh-col">'
+        + '<div class="wh-cell" style="background:' + cellColor(d.mins) + (d.isFuture ? ';opacity:.3' : '') + '" title="' + d.mins + 'min"></div>'
+        + '<div class="wh-cell-label">' + d.label + '</div>'
+        + '</div>'
+      ).join('')
+    + '</div></div>';
 }
-
-function renderBalance() {
-  const el = document.getElementById('balance-area');
-  if (!el || state.skills.length < 2) { if (el) el.innerHTML = ''; return; }
-  const now = Date.now(), WEEK = 7*86400000;
-  const sd = state.skills.map(sk => ({
-    sk, m: state.sessions.filter(s => s.skillId === sk.id && now - s.date < WEEK).reduce((a,s)=>a+s.minutes,0)
-  }));
-  const tot = sd.reduce((a,x) => a + x.m, 0);
-  if (!tot) { el.innerHTML = ''; return; }
-  const pcts = sd.map(x => Math.round((x.m / tot) * 100));
-  const balanced = Math.max(...pcts) - Math.min(...pcts) <= 15;
-  const colors = ['#7c6af7','#10b981','#f59e0b','#3b82f6','#f97316','#a855f7'];
-  el.innerHTML = `<div class="balance-wrap">${
-    sd.map((x,i) => `<div class="balance-row">
-      <span class="balance-icon">${x.sk.icon}</span>
-      <span class="balance-name">${x.sk.name}</span>
-      <div class="balance-bar-bg"><div class="balance-bar-fill" style="width:${pcts[i]}%;background:${x.m?colors[i%6]:'var(--border)'}"></div></div>
-      <span class="balance-pct">${pcts[i]}%</span>
-    </div>`).join('')
-  }<div class="balance-note">${balanced ? 'Fairly even this week.' : 'Uneven this week.'}</div></div>`;
-}
-
 function skillCardHTML(skill, from) {
   const { level, remainingXP, xpNeeded } = getLevelInfo(skill);
   const pct = Math.min(100, Math.round((remainingXP / xpNeeded) * 100));
   const color = levelColor(level);
-  return `<div class="skill-card" onclick="openSkillDetail(${skill.id},'${from}')">
-    <div class="skill-card-row">
-      <div class="skill-card-left">
-        <span class="skill-icon">${skill.icon}</span>
-        <div>
-          <div class="skill-name">${skill.name}</div>
-          <div class="skill-sublabel">${levelLabel(level)}</div>
-        </div>
-      </div>
-      <div class="level-badge" style="color:${color}">Lv ${level}</div>
-    </div>
-    <div class="xp-bar-bg"><div class="xp-bar-fill" style="width:${pct}%;background:${color}"></div></div>
-  </div>`;
+  return '<div class="skill-card" onclick="openSkillDetail(' + skill.id + ',\'' + from + '\')">'
+    + '<div class="skill-card-row">'
+    + '<div class="skill-card-left">'
+    + '<span class="skill-icon">' + skill.icon + '</span>'
+    + '<div><div class="skill-name">' + skill.name + '</div><div class="skill-sublabel">' + levelLabel(level) + '</div></div>'
+    + '</div>'
+    + '<div class="level-badge" style="color:' + color + '">Lv ' + level + '</div>'
+    + '</div>'
+    + '<div class="xp-bar-bg"><div class="xp-bar-fill" style="width:' + pct + '%;background:' + color + '"></div></div>'
+    + '</div>';
 }
-
 function renderHomeSkills() {
   const el = document.getElementById('skill-list-home');
   const empty = document.getElementById('home-empty');
   const lbl = document.getElementById('skills-section-title');
   if (!el) return;
-  if (!state.skills.length) { el.innerHTML=''; empty.style.display='block'; lbl.style.display='none'; return; }
-  empty.style.display='none'; lbl.style.display='block';
+  if (!state.skills.length) { el.innerHTML = ''; empty.style.display = 'block'; lbl.style.display = 'none'; return; }
+  empty.style.display = 'none'; lbl.style.display = 'block';
   el.innerHTML = state.skills.map(s => skillCardHTML(s, 'home')).join('');
 }
-
 function renderSkillsTab() {
   const el = document.getElementById('skill-list-skills');
   if (!el) return;
   el.innerHTML = state.skills.map(s => skillCardHTML(s, 'skills')).join('');
 }
-
 function renderSkillDetail() {
   const el = document.getElementById('detail-content');
   if (!el) return;
   const skill = state.skills.find(s => s.id === detailSkillId);
-  if (!skill) { el.innerHTML = ''; return; }
-
+  if (!skill) { el.innerHTML = '<div class="empty">Skill not found.</div>'; return; }
   const { level, remainingXP, xpNeeded } = getLevelInfo(skill);
   const pct = Math.min(100, Math.round((remainingXP / xpNeeded) * 100));
   const color = levelColor(level);
   const perks = getUnlockedPerks(skill);
-
-  if (!detailTip) detailTip = generateTip(skill);
-
+  const skillSessions = state.sessions.filter(s => s.skillId === skill.id);
+  const skillMins = skillSessions.reduce((a, s) => a + s.minutes, 0);
+  if (!detailTip) detailTip = generateSkillTip(skill);
   const treeHTML = PERK_DEFS.map(p => {
     const unlocked = perks[p.id];
-    const metaBadge = p.meta ? `<span class="tree-meta-badge">Global</span>` : '';
-    return `<div class="tree-node ${unlocked ? 'unlocked' : ''}">
-      <div class="tree-dot">
-        <span class="tree-dot-check">✓</span>
-        <span class="tree-dot-lock">·</span>
-      </div>
-      <div class="tree-body">
-        <div class="tree-name">${p.name}${metaBadge}</div>
-        <div class="tree-effect">${p.effect}</div>
-        <div class="tree-unlock-at">${unlocked ? 'Unlocked' : `Level ${p.unlockLevel}`}</div>
-      </div>
-    </div>`;
+    const metaBadge = p.meta ? '<span class="tree-meta-badge">Global</span>' : '';
+    return '<div class="tree-node ' + (unlocked ? 'unlocked' : '') + '">'
+      + '<div class="tree-dot"><span class="tree-dot-check">✓</span><span class="tree-dot-lock">·</span></div>'
+      + '<div class="tree-body">'
+      + '<div class="tree-name">' + p.name + metaBadge + '</div>'
+      + '<div class="tree-effect">' + p.effect + '</div>'
+      + '<div class="tree-unlock-at">' + (unlocked ? 'Unlocked' : 'Level ' + p.unlockLevel) + '</div>'
+      + '</div></div>';
   }).join('');
-
-  el.innerHTML = `
-    <div class="detail-header">
-      <div class="detail-icon">${skill.icon}</div>
-      <div class="detail-name">${skill.name}</div>
-      <div class="detail-lvl-line">Level ${level} · ${levelLabel(level)}</div>
-      <div class="detail-xp-bg"><div class="detail-xp-fill" style="width:${pct}%;background:${color}"></div></div>
-      <div class="detail-xp-label"><span>${levelLabel(level)}</span><span>${remainingXP} / ${xpNeeded} XP</span></div>
-    </div>
-
-    <div class="detail-divider"></div>
-
-    <div class="detail-tip-wrap">
-      <div class="section-title" style="padding:14px 0 8px">Tip for this skill</div>
-      <div class="detail-tip-box" id="detail-tip-box">${detailTip}</div>
-      <button class="detail-tip-refresh" onclick="refreshDetailTip()">Another tip</button>
-    </div>
-
-    <div class="detail-divider"></div>
-
-    <div class="tree-wrap">
-      <div class="tree-label">Skill progression</div>
-      <div class="tree-path">${treeHTML}</div>
-    </div>
-
-    <div class="detail-divider"></div>
-
-    <div class="detail-actions">
-      <button class="btn btn-primary" onclick="openLogForSkill(${skill.id})">Log a session</button>
-      <button class="btn-ghost-danger" onclick="deleteSkill(${skill.id})">Delete skill</button>
-    </div>`;
+  el.innerHTML =
+    '<div class="detail-header">'
+    + '<div class="detail-icon">' + skill.icon + '</div>'
+    + '<div class="detail-name">' + skill.name + '</div>'
+    + '<div class="detail-lvl-line">Level ' + level + ' · ' + levelLabel(level) + '</div>'
+    + '<div class="detail-xp-bg"><div class="detail-xp-fill" style="width:' + pct + '%;background:' + color + '"></div></div>'
+    + '<div class="detail-xp-label"><span>' + levelLabel(level) + '</span><span>' + remainingXP + ' / ' + xpNeeded + ' XP</span></div>'
+    + '<div class="detail-stats-row">'
+    + '<div class="detail-stat"><div class="ds-val">' + (skillMins / 60).toFixed(1) + 'h</div><div class="ds-lbl">Total time</div></div>'
+    + '<div class="detail-stat"><div class="ds-val">' + skillSessions.length + '</div><div class="ds-lbl">Sessions</div></div>'
+    + '<div class="detail-stat"><div class="ds-val">Lv ' + level + '</div><div class="ds-lbl">Level</div></div>'
+    + '</div></div>'
+    + '<div class="detail-divider"></div>'
+    + '<div class="detail-tip-wrap">'
+    + '<div class="section-title" style="padding:14px 0 8px">Tip</div>'
+    + '<div class="detail-tip-box" id="detail-tip-box">' + detailTip + '</div>'
+    + '<button class="detail-tip-refresh" onclick="refreshDetailTip()">Another tip</button>'
+    + '</div>'
+    + '<div class="detail-divider"></div>'
+    + '<div class="tree-wrap"><div class="tree-label">Skill progression</div><div class="tree-path">' + treeHTML + '</div></div>'
+    + '<div class="detail-divider"></div>'
+    + '<div class="detail-actions">'
+    + '<button class="btn btn-primary" onclick="openLogForSkill(' + skill.id + ')">Log a session</button>'
+    + '<button class="btn-ghost-danger" onclick="deleteSkill(' + skill.id + ')">Delete skill</button>'
+    + '</div>';
 }
-
+function generateSkillTip(skill) {
+  const now = Date.now(), DAY = 86400000;
+  const sessions = state.sessions.filter(s => s.skillId === skill.id);
+  const lastTs = sessions.length ? Math.max(...sessions.map(s => s.date)) : null;
+  const daysSince = lastTs ? Math.floor((now - lastTs) / DAY) : null;
+  const totalMins = sessions.reduce((a, s) => a + s.minutes, 0);
+  const lightCount = sessions.filter(s => s.intensity === 'light').length;
+  const heavyCount = sessions.filter(s => s.intensity === 'heavy').length;
+  const tips = [];
+  if (daysSince !== null && daysSince >= 3) tips.push(skill.name + ' hasn\'t had a session in ' + daysSince + ' days. Even 10 minutes today would break the gap.');
+  if (lightCount > heavyCount * 2 && sessions.length >= 4) tips.push('Most of your ' + skill.name + ' sessions have been light. A focused heavy session could accelerate progress.');
+  if (heavyCount > lightCount * 2 && sessions.length >= 4) tips.push('Your ' + skill.name + ' practice leans heavy. Adding light sessions between hard ones helps retention.');
+  if (totalMins > 0 && totalMins < 60) tips.push('You\'ve logged ' + totalMins + ' minutes of ' + skill.name + ' so far. Short daily sessions build the habit faster.');
+  if (sessions.length >= 10 && daysSince !== null && daysSince <= 2) tips.push(skill.name + ' is showing strong consistency. Keep sessions varied to maintain engagement.');
+  if (tips.length === 0) tips.push('Logging ' + skill.name + ' sessions consistently — even short ones — builds stronger retention than occasional long blocks.');
+  return tips[Math.floor(Math.random() * tips.length)];
+}
 function refreshDetailTip() {
   const skill = state.skills.find(s => s.id === detailSkillId);
-  detailTip = generateTip(skill);
+  if (!skill) return;
+  detailTip = generateSkillTip(skill);
   const el = document.getElementById('detail-tip-box');
   if (el) el.textContent = detailTip;
 }
-
 function renderHistory() {
   const el = document.getElementById('session-list');
   const empty = document.getElementById('log-empty');
   if (!el) return;
-  if (!state.sessions.length) { el.innerHTML=''; if(empty) empty.style.display='block'; return; }
-  if (empty) empty.style.display='none';
+  if (!state.sessions.length) { el.innerHTML = ''; if (empty) empty.style.display = 'block'; return; }
+  if (empty) empty.style.display = 'none';
   el.innerHTML = state.sessions.map(s => {
     const d = new Date(s.date).toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
-    const badge = `<span class="badge badge-${s.intensity}">${s.intensity}</span>`;
-    return `<div class="session-item">
-      <div class="session-icon">${s.skillIcon}</div>
-      <div class="session-info">
-        <div class="session-name">${s.skillName}</div>
-        <div class="session-meta">${d}${badge}</div>
-        ${s.note ? `<div style="font-size:10px;color:#66668a;margin-top:2px">${s.note}</div>` : ''}
-      </div>
-      <div class="session-right">
-        <div class="session-min">${s.minutes}m</div>
-        <div class="session-xp">+${s.xpGain} XP</div>
-      </div>
-    </div>`;
+    return '<div class="session-item">'
+      + '<div class="session-icon">' + s.skillIcon + '</div>'
+      + '<div class="session-info">'
+      + '<div class="session-name">' + s.skillName + '</div>'
+      + '<div class="session-meta">' + d + '<span class="badge badge-' + s.intensity + '">' + s.intensity + '</span></div>'
+      + (s.note ? '<div style="font-size:10px;color:#55556a;margin-top:2px">' + s.note + '</div>' : '')
+      + '</div>'
+      + '<div class="session-right">'
+      + '<div class="session-min">' + s.minutes + 'm</div>'
+      + '<div class="session-xp">+' + s.xpGain + ' XP</div>'
+      + '</div></div>';
   }).join('');
 }
-
 // ============================================================
-//  TIPS LIBRARY
+// TIPS LIBRARY
 // ============================================================
 const TIPS_LIBRARY = {
   Languages: [
@@ -1284,14 +1393,14 @@ const TIPS_LIBRARY = {
     "Shadow native speakers: repeat phrases out loud immediately after hearing them.",
     "Change your phone interface language. Passive daily exposure adds up faster than it seems.",
     "Write one sentence in your target language every day. Short and consistent beats long and rare.",
-    "Read children's books in your target language — the vocabulary is practical and the frequency is high."
+    "Read children's books in your target language — the vocabulary is practical and frequency is high."
   ],
   Focus: [
-    "Set a single specific goal before each session. 'Practice scales for 20 minutes' beats 'practice piano'.",
+    "Set a single specific goal before each session. '20 minutes of scales' beats 'practice piano'.",
     "Work in fixed blocks — even 20 focused minutes beats 90 distracted ones.",
     "Log your session immediately after. The act of tracking reinforces the habit.",
     "Remove your phone from the room during heavy practice. Interruptions cost more time than you think.",
-    "Energy matters as much as time. Schedule hard practice when you're alert, light sessions when tired."
+    "Energy matters as much as time. Schedule hard practice when alert, light sessions when tired."
   ],
   Movement: [
     "Light language listening works well during movement — walking, cycling, household tasks.",
@@ -1304,31 +1413,29 @@ const TIPS_LIBRARY = {
     "Consistency over intensity. 15 minutes daily compounds faster than 3 hours once a week.",
     "When motivation drops, lower the session goal — even 5 minutes resets the pattern.",
     "Missing a day is not failure. Starting again the next day is what matters.",
-    "Stacking a new skill onto an existing habit (e.g. vocabulary review with morning coffee) reduces friction.",
+    "Stacking a new skill onto an existing habit reduces friction significantly.",
     "Progress rarely feels linear. What looks like a plateau is often consolidation before a jump."
   ]
 };
-
 function renderTipsLibrary() {
   const el = document.getElementById('tips-content');
   if (!el) return;
   el.innerHTML = Object.entries(TIPS_LIBRARY).map(([cat, tips]) =>
-    `<div class="tips-section">
-      <div class="tips-section-label">${cat}</div>
-      ${tips.map(t => `<div class="tip-item">${t}</div>`).join('')}
-    </div>`
+    '<div class="tips-section">'
+    + '<div class="tips-section-label">' + cat + '</div>'
+    + tips.map(t => '<div class="tip-item">' + t + '</div>').join('')
+    + '</div>'
   ).join('');
 }
-
 // ============================================================
-//  INIT
+// INIT
 // ============================================================
 function init() {
   if (state.user) {
     document.getElementById('onboarding').classList.add('done');
     document.getElementById('app').style.display = 'block';
     document.getElementById('bottom-nav').style.display = 'flex';
-    document.getElementById('log-fab-wrap').style.display = 'flex';
+    document.getElementById('fab-stack').style.display = 'flex';
     initObProgress();
     renderAll();
   } else {
