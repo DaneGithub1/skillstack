@@ -101,7 +101,6 @@
   .fab-btn { width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform .15s; flex-shrink: 0; }
   .fab-btn:active { transform: scale(.9); }
   .fab-btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow: 0 4px 16px rgba(124,106,247,.4); font-size: 24px; color: white; }
-  .fab-btn-secondary { background: var(--surface); border: 1.5px solid var(--border); box-shadow: 0 2px 10px rgba(0,0,0,.3); font-size: 18px; color: var(--muted); }
   /* MODALS */
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.75); z-index: 200; align-items: flex-end; justify-content: center; }
   .modal-overlay.open { display: flex; }
@@ -143,7 +142,6 @@
   .d-xp-bar-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--accent), var(--accent2)); width: 0; transition: width 1s ease .2s; }
   .d-hint { margin-top: 22px; font-size: 11px; color: #3a3a55; }
   @keyframes pop { 0%{transform:scale(0)} 70%{transform:scale(1.1)} 100%{transform:scale(1)} }
-  .d-plan-bonus { margin-top: 8px; font-size: 12px; color: var(--gold); display: none; }
   /* TOAST NOTIFICATION */
   .toast {
     position: fixed; top: 16px; left: 50%; transform: translateX(-50%) translateY(-80px);
@@ -172,6 +170,8 @@
   .ob-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
   .chip { padding: 7px 13px; border-radius: 99px; border: 1.5px solid var(--border); background: var(--surface); color: var(--text); font-size: 13px; cursor: pointer; transition: all .2s; }
   .chip.selected { border-color: var(--accent); background: rgba(124,106,247,.15); color: var(--accent2); }
+  /* All onboarding buttons: same compact pill width */
+  .ob-step .btn { width: auto; align-self: center; padding: 13px 52px; }
   .ob-progress { display: flex; gap: 5px; margin-bottom: 24px; }
   .ob-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--border); transition: background .3s; }
   .ob-dot.done { background: var(--accent2); }
@@ -231,35 +231,6 @@
   /* ADD SKILL BTN */
   .add-skill-btn { margin: 4px 16px 20px; padding: 12px; border: 2px dashed var(--border); border-radius: 13px; background: transparent; color: var(--muted); font-size: 13px; cursor: pointer; width: calc(100% - 32px); font-family: inherit; transition: border-color .2s, color .2s; }
   .add-skill-btn:hover { border-color: var(--accent); color: var(--accent2); }
-  /* PLAN MODAL */
-  .plan-skill-row { display: flex; align-items: center; gap: 10px; padding: 11px 13px; background: var(--surface2); border-radius: 11px; margin-bottom: 8px; }
-  .plan-skill-row .ps-check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: all .2s; }
-  .plan-skill-row.selected .ps-check { border-color: var(--accent2); background: rgba(167,139,250,.2); }
-  .plan-skill-row.selected .ps-check::after { content: '✓'; font-size: 10px; color: var(--accent2); font-weight: 900; }
-  .plan-skill-row .ps-icon { font-size: 18px; flex-shrink: 0; }
-  .plan-skill-row .ps-name { font-size: 14px; font-weight: 600; flex: 1; }
-  .plan-skill-row .ps-mins { width: 64px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; color: var(--text); padding: 6px 8px; font-size: 14px; text-align: center; outline: none; font-family: inherit; -webkit-appearance: none; margin-bottom: 0; display: none; }
-  .plan-skill-row.selected .ps-mins { display: block; }
-  .plan-skill-row .ps-min-label { font-size: 10px; color: var(--muted); flex-shrink: 0; display: none; }
-  .plan-skill-row.selected .ps-min-label { display: block; }
-  .plan-checklist-row { display: flex; align-items: center; gap: 12px; padding: 13px 14px; background: var(--surface2); border-radius: 12px; margin-bottom: 8px; cursor: pointer; transition: opacity .2s; }
-  .plan-checklist-row.done { opacity: .55; }
-  .plan-check-circle { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .25s; }
-  .plan-checklist-row.done .plan-check-circle { border-color: var(--accent2); background: rgba(167,139,250,.25); }
-  .plan-check-tick { font-size: 11px; color: var(--accent2); font-weight: 900; opacity: 0; transition: opacity .2s; }
-  .plan-checklist-row.done .plan-check-tick { opacity: 1; }
-  .plan-checklist-icon { font-size: 19px; }
-  .plan-checklist-info { flex: 1; }
-  .plan-checklist-name { font-size: 14px; font-weight: 600; }
-  .plan-checklist-target { font-size: 11px; color: var(--muted); margin-top: 1px; }
-  .plan-complete-banner { background: rgba(167,139,250,.1); border: 1px solid rgba(167,139,250,.25); border-radius: 12px; padding: 14px 16px; margin-bottom: 16px; text-align: center; }
-  .plan-complete-banner .pcb-title { font-size: 14px; font-weight: 700; color: var(--accent2); margin-bottom: 3px; }
-  .plan-complete-banner .pcb-sub { font-size: 12px; color: var(--muted); }
-  .plan-section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 10px; }
-  .plan-mode-tabs { display: flex; margin-bottom: 20px; background: var(--surface2); border-radius: 9px; padding: 3px; width: fit-content; }
-  .plan-mode-tab { padding: 6px 18px; border-radius: 7px; border: none; background: none; color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all .2s; }
-  .plan-mode-tab.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,.3); }
-
   /* ── STATISTICS TAB ── */
   .stat-lifetime-box { margin: 0 16px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 16px; }
   .stat-lifetime-headline { font-size: 15px; font-weight: 700; line-height: 1.5; color: var(--text); margin-bottom: 10px; }
@@ -335,7 +306,7 @@
     <div style="font-size:13px;color:#8888aa;font-weight:600;line-height:1.6;margin-bottom:36px">
       Log practice sessions in seconds.<br>Build real learning momentum.
     </div>
-    <button class="btn btn-primary" style="width:auto;padding:13px 36px" onclick="obNext(0)">Get started →</button>
+    <button class="btn btn-primary" onclick="obNext(0)">Get started →</button>
   </div>
 
   <!-- STEP 1: Name -->
@@ -397,7 +368,7 @@
       <div class="chip" onclick="selectOne(this,'emoji')">🤿</div>
       <div class="chip" onclick="selectOne(this,'emoji')">✈️</div>
     </div>
-    <button class="btn btn-primary" onclick="obFinish()" style="margin-top:8px">Start tracking →</button>
+    <button class="btn btn-primary" onclick="obFinish()">Start tracking →</button>
   </div>
 </div>
 
@@ -456,15 +427,11 @@
   </div>
 </div>
 
-<!-- DUAL FAB -->
+<!-- FAB -->
 <div class="fab-stack" id="fab-stack" style="display:none">
   <div class="fab-item">
     <span class="fab-label">Quick log</span>
     <button class="fab-btn fab-btn-primary" onclick="openLogSession()">+</button>
-  </div>
-  <div class="fab-item">
-    <span class="fab-label">Plan today</span>
-    <button class="fab-btn fab-btn-secondary" onclick="openPlanModal()">☑</button>
   </div>
 </div>
 
@@ -572,14 +539,6 @@
     <button class="btn btn-secondary" onclick="closeModal('modal-add-skill')">Cancel</button>
   </div>
 </div>
-<!-- PLAN TODAY MODAL -->
-<div class="modal-overlay" id="modal-plan">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <h2>Plan today</h2>
-    <div id="plan-modal-body"></div>
-  </div>
-</div>
 <!-- DOPAMINE -->
 <div class="dopamine" id="dopamine" onclick="closeDopamine()">
   <div class="d-icon" id="d-emoji">✓</div>
@@ -587,7 +546,6 @@
   <div class="d-title" id="d-title">Done</div>
   <div class="d-sub" id="d-subtitle"></div>
   <div class="d-levelup" id="d-level-up" style="display:none"></div>
-  <div class="d-plan-bonus" id="d-plan-bonus"></div>
   <div class="d-xp-bar-wrap">
     <div class="d-xp-bar-bg"><div class="d-xp-bar-fill" id="d-xp-bar"></div></div>
   </div>
@@ -607,7 +565,6 @@ let state = {
   user: DB.get('ss_user', null),
   skills: DB.get('ss_skills', []),
   sessions: DB.get('ss_sessions', []),
-  plan: DB.get('ss_plan', { date: '', items: [], bonusGiven: false }),
   seenAchievements: DB.get('ss_seen_ach', [])
 };
 // Migration: ensure active flag
@@ -617,22 +574,7 @@ function save() {
   DB.set('ss_user', state.user);
   DB.set('ss_skills', state.skills);
   DB.set('ss_sessions', state.sessions);
-  DB.set('ss_plan', state.plan);
   DB.set('ss_seen_ach', state.seenAchievements);
-}
-function ensurePlan() {
-  if (!state.plan) { state.plan = { date: '', items: [], bonusGiven: false }; return; }
-  if (!Array.isArray(state.plan.items)) state.plan.items = [];
-  if (typeof state.plan.bonusGiven === 'undefined') state.plan.bonusGiven = false;
-}
-function getPlan() {
-  ensurePlan();
-  const today = new Date().toDateString();
-  if (state.plan.date !== today) {
-    state.plan = { date: today, items: [], bonusGiven: false };
-    DB.set('ss_plan', state.plan);
-  }
-  return state.plan;
 }
 function activeSkills() { return state.skills.filter(s => s.active !== false); }
 
@@ -1078,7 +1020,7 @@ function updateStreak() {
     ? (state.user.streak || 0) + 1 : 1;
   state.user.lastSessionDate = today;
 }
-function showDopamine(skill, xpGain, oldLvl, newLvl, minutes, planBonusXP) {
+function showDopamine(skill, xpGain, oldLvl, newLvl, minutes) {
   const lvlUp = newLvl > oldLvl;
   document.getElementById('d-emoji').textContent = lvlUp ? '↑' : skill.icon;
   document.getElementById('d-xp').textContent = '+' + xpGain + ' XP';
@@ -1087,9 +1029,6 @@ function showDopamine(skill, xpGain, oldLvl, newLvl, minutes, planBonusXP) {
   const lu = document.getElementById('d-level-up');
   lu.style.display = lvlUp ? 'block' : 'none';
   if (lvlUp) lu.textContent = levelLabel(newLvl);
-  const pb = document.getElementById('d-plan-bonus');
-  if (planBonusXP) { pb.style.display = 'block'; pb.textContent = '+' + planBonusXP + ' plan bonus XP'; }
-  else { pb.style.display = 'none'; }
   const { remainingXP, xpNeeded } = getLevelInfo(skill);
   const pct = Math.min(100, Math.round((remainingXP / xpNeeded) * 100));
   const bar = document.getElementById('d-xp-bar');
@@ -1098,123 +1037,6 @@ function showDopamine(skill, xpGain, oldLvl, newLvl, minutes, planBonusXP) {
   setTimeout(() => { bar.style.width = pct + '%'; }, 100);
 }
 function closeDopamine() { document.getElementById('dopamine').classList.remove('show'); }
-
-// ============================================================
-// PLAN TODAY
-// ============================================================
-let planMode = 'checklist';
-function openPlanModal() {
-  const plan = getPlan();
-  planMode = plan.items.length === 0 ? 'setup' : 'checklist';
-  renderPlanModal();
-  openModal('modal-plan');
-}
-function renderPlanModal() {
-  const plan = getPlan();
-  const hasItems = plan.items.length > 0;
-  const allChecked = hasItems && plan.items.every(it => it.checked);
-  const body = document.getElementById('plan-modal-body');
-  const checklistTabHtml = hasItems
-    ? '<button class="plan-mode-tab' + (planMode === 'checklist' ? ' active' : '') + '" onclick="switchPlanMode(\'checklist\')">Check off</button>'
-    : '';
-  let content = '';
-  if (planMode === 'setup') {
-    const plannable = activeSkills();
-    if (!plannable.length) {
-      content = '<p style="color:var(--muted);font-size:13px">Add skills first.</p>';
-    } else {
-      content = '<div class="plan-section-label">Select skills and set a target</div>';
-      content += plannable.map(sk => {
-        const existing = plan.items.find(it => it.skillId === sk.id);
-        const isSelected = !!existing;
-        const targetVal = existing ? existing.targetMins : '';
-        return '<div class="plan-skill-row' + (isSelected ? ' selected' : '') + '" id="psr-' + sk.id + '" onclick="togglePlanSkill(' + sk.id + ')">'
-          + '<div class="ps-check"></div>'
-          + '<span class="ps-icon">' + sk.icon + '</span>'
-          + '<span class="ps-name">' + sk.name + '</span>'
-          + '<input class="ps-mins" type="number" placeholder="min" min="1" max="480"'
-          + ' value="' + targetVal + '"'
-          + ' onclick="event.stopPropagation()"'
-          + ' onchange="updatePlanTarget(' + sk.id + ', this.value)"'
-          + ' id="pt-' + sk.id + '">'
-          + '<span class="ps-min-label">min</span>'
-          + '</div>';
-      }).join('');
-      content += '<button class="btn btn-primary" style="margin-top:16px" onclick="savePlanSetup()">Save plan</button>';
-      content += '<button class="btn btn-secondary" onclick="closeModal(\'modal-plan\')">Close</button>';
-    }
-  } else {
-    if (allChecked && !plan.bonusGiven) {
-      const BONUS_PER_SKILL = 20;
-      plan.items.forEach(it => { const s = state.skills.find(x => x.id === it.skillId); if (s) s.xp = (s.xp || 0) + BONUS_PER_SKILL; });
-      plan.bonusGiven = true;
-      state.plan = plan;
-      DB.set('ss_skills', state.skills);
-      DB.set('ss_plan', state.plan);
-    }
-    if (allChecked) {
-      const total = plan.items.length * 20;
-      content += '<div class="plan-complete-banner"><div class="pcb-title">Plan complete</div><div class="pcb-sub">+' + total + ' bonus XP distributed across ' + plan.items.length + ' skill' + (plan.items.length > 1 ? 's' : '') + '</div></div>';
-    }
-    content += '<div class="plan-section-label">Today\'s plan</div>';
-    content += plan.items.map(it => {
-      const s = state.skills.find(x => x.id === it.skillId);
-      if (!s) return '';
-      return '<div class="plan-checklist-row' + (it.checked ? ' done' : '') + '" onclick="togglePlanCheck(' + it.skillId + ')">'
-        + '<div class="plan-check-circle"><span class="plan-check-tick">✓</span></div>'
-        + '<span class="plan-checklist-icon">' + s.icon + '</span>'
-        + '<div class="plan-checklist-info"><div class="plan-checklist-name">' + s.name + '</div>'
-        + (it.targetMins ? '<div class="plan-checklist-target">Target: ' + it.targetMins + ' min</div>' : '')
-        + '</div></div>';
-    }).join('');
-    content += '<button class="btn btn-secondary" style="margin-top:16px" onclick="switchPlanMode(\'setup\')">Edit plan</button>';
-    content += '<button class="btn btn-secondary" onclick="closeModal(\'modal-plan\')" style="margin-top:8px">Close</button>';
-  }
-  const tabsHtml = '<div class="plan-mode-tabs"><button class="plan-mode-tab' + (planMode === 'setup' ? ' active' : '') + '" onclick="switchPlanMode(\'setup\')">Set up</button>' + checklistTabHtml + '</div>';
-  body.innerHTML = (hasItems || planMode === 'setup' ? tabsHtml : '') + content;
-}
-function switchPlanMode(mode) { planMode = mode; renderPlanModal(); }
-function togglePlanSkill(skillId) {
-  const id = Number(skillId);
-  const plan = getPlan();
-  const idx = plan.items.findIndex(it => it.skillId === id);
-  if (idx >= 0) { plan.items.splice(idx, 1); } else { plan.items.push({ skillId: id, targetMins: null, checked: false }); }
-  state.plan = plan; renderPlanModal();
-}
-function updatePlanTarget(skillId, val) {
-  const id = Number(skillId);
-  const plan = getPlan();
-  const item = plan.items.find(it => it.skillId === id);
-  if (item) item.targetMins = parseInt(val) || null;
-  state.plan = plan;
-}
-function savePlanSetup() {
-  const plan = getPlan();
-  plan.items.forEach(it => { const inp = document.getElementById('pt-' + it.skillId); if (inp) it.targetMins = parseInt(inp.value) || null; });
-  plan.items.forEach(it => { it.checked = false; });
-  plan.bonusGiven = false;
-  state.plan = plan;
-  DB.set('ss_plan', state.plan);
-  if (plan.items.length > 0) { planMode = 'checklist'; renderPlanModal(); } else { closeModal('modal-plan'); }
-}
-function togglePlanCheck(skillId) {
-  const id = Number(skillId);
-  const plan = getPlan();
-  const item = plan.items.find(it => it.skillId === id);
-  if (!item) return;
-  item.checked = !item.checked;
-  state.plan = plan;
-  const allChecked = plan.items.length > 0 && plan.items.every(it => it.checked);
-  if (allChecked && !plan.bonusGiven) {
-    const BONUS_PER_SKILL = 20;
-    plan.items.forEach(it => { const s = state.skills.find(x => x.id === it.skillId); if (s) s.xp = (s.xp || 0) + BONUS_PER_SKILL; });
-    plan.bonusGiven = true;
-    DB.set('ss_skills', state.skills);
-  }
-  DB.set('ss_plan', state.plan);
-  renderPlanModal();
-  renderSkillsTab();
-}
 
 // ============================================================
 // MODALS
