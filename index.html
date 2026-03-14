@@ -323,42 +323,33 @@
 
 <!-- ONBOARDING -->
 <div id="onboarding">
-  <div class="ob-logo">SkillStack</div>
-  <div class="ob-tagline">Build consistency across everything you want to learn.</div>
   <div class="ob-progress" id="ob-progress"></div>
-  <div class="ob-step active" id="ob-step-0">
+
+  <!-- STEP 0: Welcome -->
+  <div class="ob-step active" id="ob-step-0" style="justify-content:center;text-align:center">
+    <div style="font-size:44px;margin-bottom:18px">📚</div>
+    <div class="ob-q" style="font-size:24px;margin-bottom:12px">Welcome to SkillStack</div>
+    <div style="font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:10px">
+      Start tracking your skills today.
+    </div>
+    <div style="font-size:13px;color:var(--muted2);line-height:1.6;margin-bottom:36px">
+      Log practice sessions in seconds.<br>Build real learning momentum.
+    </div>
+    <button class="btn btn-primary" onclick="obNext(0)">Get started →</button>
+  </div>
+
+  <!-- STEP 1: Name -->
+  <div class="ob-step" id="ob-step-1">
     <div class="ob-q">What should we call you?</div>
     <div class="ob-hint">A name or nickname is fine.</div>
     <input type="text" id="ob-name" placeholder="Your name..." maxlength="30">
-    <button class="btn btn-primary" onclick="obNext(0)">Continue →</button>
-  </div>
-  <div class="ob-step" id="ob-step-1">
-    <div class="ob-q">What makes consistency hard for you?</div>
-    <div class="ob-hint">Pick all that apply.</div>
-    <div class="ob-chips">
-      <div class="chip" onclick="toggleChip(this)">I lose motivation quickly</div>
-      <div class="chip" onclick="toggleChip(this)">Too many things at once</div>
-      <div class="chip" onclick="toggleChip(this)">I don't feel progress</div>
-      <div class="chip" onclick="toggleChip(this)">Life gets in the way</div>
-      <div class="chip" onclick="toggleChip(this)">I forget to practice</div>
-      <div class="chip" onclick="toggleChip(this)">I get bored easily</div>
-    </div>
     <button class="btn btn-primary" onclick="obNext(1)">Continue →</button>
   </div>
+
+  <!-- STEP 2: First skill -->
   <div class="ob-step" id="ob-step-2">
-    <div class="ob-q">How much time can you give per day?</div>
-    <div class="ob-hint">Be honest — even 10 minutes adds up.</div>
-    <div class="ob-chips">
-      <div class="chip" onclick="selectOne(this,'time')">5–10 min</div>
-      <div class="chip" onclick="selectOne(this,'time')">15–30 min</div>
-      <div class="chip" onclick="selectOne(this,'time')">30–60 min</div>
-      <div class="chip" onclick="selectOne(this,'time')">1+ hours</div>
-    </div>
-    <button class="btn btn-primary" onclick="obNext(2)">Continue →</button>
-  </div>
-  <div class="ob-step" id="ob-step-3">
     <div class="ob-q">Add your first skill.</div>
-    <div class="ob-hint">Start with one. You can add more later.</div>
+    <div class="ob-hint">Start with one. You can always add more later.</div>
     <label>What do you want to learn or build?</label>
     <input type="text" id="ob-skill-name" placeholder="e.g. Spanish, Piano, Running...">
     <label>Type</label>
@@ -370,17 +361,43 @@
     <label>Pick an emoji</label>
     <div class="ob-chips" id="ob-emoji-chips">
       <div class="chip" onclick="selectOne(this,'emoji')">🎸</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🎹</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🎵</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🎙️</div>
       <div class="chip" onclick="selectOne(this,'emoji')">🗣️</div>
       <div class="chip" onclick="selectOne(this,'emoji')">💻</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🖥️</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">📱</div>
       <div class="chip" onclick="selectOne(this,'emoji')">📚</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🏃</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🎨</div>
       <div class="chip" onclick="selectOne(this,'emoji')">✍️</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">📝</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🎨</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🖌️</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">📷</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🏃</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🚴</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🏋️</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🧘</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">⚽</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🎾</div>
       <div class="chip" onclick="selectOne(this,'emoji')">🧮</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🎵</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🔬</div>
       <div class="chip" onclick="selectOne(this,'emoji')">🌍</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🍳</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">☕</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🌱</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🎭</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🎬</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">♟️</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🧩</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">💡</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🚀</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🏛️</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🎤</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">🤿</div>
+      <div class="chip" onclick="selectOne(this,'emoji')">✈️</div>
     </div>
-    <button class="btn btn-primary" onclick="obFinish()">Start tracking</button>
+    <button class="btn btn-primary" onclick="obFinish()" style="margin-top:8px">Start tracking →</button>
   </div>
 </div>
 
@@ -515,17 +532,41 @@
     <label>Pick an emoji</label>
     <div class="ob-chips" style="margin-bottom:18px">
       <div class="chip" onclick="selectOne(this,'add-emoji')">🎸</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🎹</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🎵</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🎙️</div>
       <div class="chip" onclick="selectOne(this,'add-emoji')">🗣️</div>
       <div class="chip" onclick="selectOne(this,'add-emoji')">💻</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🖥️</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">📱</div>
       <div class="chip" onclick="selectOne(this,'add-emoji')">📚</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🏃</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🎨</div>
       <div class="chip" onclick="selectOne(this,'add-emoji')">✍️</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">📝</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🎨</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🖌️</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">📷</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🏃</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🚴</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🏋️</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🧘</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">⚽</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🎾</div>
       <div class="chip" onclick="selectOne(this,'add-emoji')">🧮</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🎵</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🔬</div>
       <div class="chip" onclick="selectOne(this,'add-emoji')">🌍</div>
       <div class="chip" onclick="selectOne(this,'add-emoji')">🍳</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🧘</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">☕</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🌱</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🎭</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🎬</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">♟️</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🧩</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">💡</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🚀</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🏛️</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🎤</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">🤿</div>
+      <div class="chip" onclick="selectOne(this,'add-emoji')">✈️</div>
     </div>
     <button class="btn btn-primary" onclick="submitAddSkill()">Add skill</button>
     <button class="btn btn-secondary" onclick="closeModal('modal-add-skill')">Cancel</button>
@@ -849,11 +890,12 @@ function getDistribData() {
 // ============================================================
 // ONBOARDING
 // ============================================================
-let obStep = 0, OB_STEPS = 4, selectedEmoji = '⭐';
+let obStep = 0, OB_STEPS = 3, selectedEmoji = '⭐';
 function initObProgress() {
   const el = document.getElementById('ob-progress');
   el.innerHTML = '';
-  for (let i = 0; i < OB_STEPS; i++) {
+  // Only show dots for steps 1 and 2 (name + skill), not the welcome screen
+  for (let i = 1; i < OB_STEPS; i++) {
     const d = document.createElement('div');
     d.className = 'ob-dot' + (i < obStep ? ' done' : '');
     el.appendChild(d);
@@ -866,7 +908,7 @@ function selectOne(el, group) {
   if (group === 'emoji' || group === 'add-emoji') selectedEmoji = el.textContent.trim();
 }
 function obNext(step) {
-  if (step === 0) {
+  if (step === 1) {
     const name = document.getElementById('ob-name').value.trim();
     if (!name) { alert('Please enter your name.'); return; }
     state.user = { name, createdAt: Date.now(), streak: 0, lastSessionDate: null };
@@ -879,6 +921,8 @@ function obNext(step) {
 function obFinish() {
   const name = document.getElementById('ob-skill-name').value.trim();
   if (!name) { alert('Please enter a skill name.'); return; }
+  // Ensure user was saved (step 1 sets it, but guard just in case)
+  if (!state.user) { alert('Please enter your name first.'); return; }
   addSkillToState(name, document.getElementById('ob-skill-type').value, selectedEmoji || '⭐');
   document.getElementById('onboarding').classList.add('done');
   document.getElementById('app').style.display = 'block';
