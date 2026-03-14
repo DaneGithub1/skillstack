@@ -51,26 +51,14 @@
   .page-header h1 { font-size: 22px; font-weight: 700; letter-spacing: -.4px; }
   /* STAT ROW */
   .stat-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; padding: 0 16px 6px; }
-  .stat-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 13px; padding: 13px 10px; text-align: center;
-  }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 13px; padding: 13px 10px; text-align: center; }
   .stat-card .val { font-size: 24px; font-weight: 800; color: var(--accent2); }
   .stat-card .lbl { font-size: 9px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: .6px; }
   .streak-line { padding: 7px 16px 12px; font-size: 12px; color: var(--muted); }
   .streak-line strong { color: var(--gold); }
   /* DAY/WEEK TOGGLE */
-  .view-toggle {
-    display: flex; margin: 0 16px 14px;
-    background: var(--surface2); border-radius: 9px;
-    padding: 3px; width: fit-content;
-  }
-  .toggle-btn {
-    padding: 6px 16px; border-radius: 7px;
-    border: none; background: none; color: var(--muted);
-    font-size: 12px; font-weight: 600; cursor: pointer;
-    font-family: inherit; transition: all .2s; letter-spacing: .2px;
-  }
+  .view-toggle { display: flex; margin: 0 16px 14px; background: var(--surface2); border-radius: 9px; padding: 3px; width: fit-content; }
+  .toggle-btn { padding: 6px 16px; border-radius: 7px; border: none; background: none; color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all .2s; letter-spacing: .2px; }
   .toggle-btn.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,.3); }
   /* AI RECOMMENDATION */
   .rec-line { margin: 0 16px 14px; font-size: 13px; color: #c0c0da; line-height: 1.5; }
@@ -90,17 +78,9 @@
   .wh-cell-label { font-size: 8px; color: var(--muted2); text-align: center; margin-top: 4px; letter-spacing: .3px; }
   .wh-col { display: flex; flex-direction: column; gap: 2px; }
   /* SECTION TITLE */
-  .section-title {
-    font-size: 10px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1.2px; color: var(--muted); padding: 0 16px 8px;
-  }
+  .section-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); padding: 0 16px 8px; }
   /* SKILL CARD */
-  .skill-card {
-    margin: 0 16px 8px;
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 13px; padding: 13px 14px;
-    cursor: pointer; transition: border-color .2s;
-  }
+  .skill-card { margin: 0 16px 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 13px; padding: 13px 14px; cursor: pointer; transition: border-color .2s; }
   .skill-card:hover { border-color: var(--accent); }
   .skill-card-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 9px; }
   .skill-card-left { display: flex; align-items: center; gap: 10px; }
@@ -111,145 +91,77 @@
   .xp-bar-bg { background: var(--surface2); border-radius: 99px; height: 3px; overflow: hidden; }
   .xp-bar-fill { height: 100%; border-radius: 99px; transition: width .5s ease; }
   /* PAUSED BADGE */
-  .paused-badge {
-    display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: .5px; color: var(--muted); background: var(--surface2);
-    border: 1px solid var(--border); border-radius: 4px; padding: 2px 6px;
-    margin-left: 6px; vertical-align: middle;
-  }
-  /* INACTIVE SKILLS SECTION */
-  .inactive-section-title {
-    font-size: 10px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1.2px; color: var(--muted2); padding: 16px 16px 8px;
-  }
+  .paused-badge { display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 2px 6px; margin-left: 6px; vertical-align: middle; }
+  .inactive-section-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted2); padding: 16px 16px 8px; }
   .skill-card.paused { opacity: .6; }
   /* DUAL FAB */
-  .fab-stack {
-    position: fixed; bottom: 80px; right: 16px;
-    display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
-    z-index: 99;
-  }
+  .fab-stack { position: fixed; bottom: 80px; right: 16px; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; z-index: 99; }
   .fab-item { display: flex; align-items: center; gap: 8px; }
-  .fab-label {
-    font-size: 10px; color: var(--muted);
-    background: var(--surface); border: 1px solid var(--border);
-    padding: 4px 9px; border-radius: 99px;
-    letter-spacing: .3px; white-space: nowrap;
-    box-shadow: 0 2px 8px rgba(0,0,0,.3);
-  }
-  .fab-btn {
-    width: 48px; height: 48px; border-radius: 50%;
-    border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: transform .15s; flex-shrink: 0;
-  }
+  .fab-label { font-size: 10px; color: var(--muted); background: var(--surface); border: 1px solid var(--border); padding: 4px 9px; border-radius: 99px; letter-spacing: .3px; white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+  .fab-btn { width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform .15s; flex-shrink: 0; }
   .fab-btn:active { transform: scale(.9); }
-  .fab-btn-primary {
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    box-shadow: 0 4px 16px rgba(124,106,247,.4);
-    font-size: 24px; color: white;
-  }
-  .fab-btn-secondary {
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    box-shadow: 0 2px 10px rgba(0,0,0,.3);
-    font-size: 18px; color: var(--muted);
-  }
+  .fab-btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow: 0 4px 16px rgba(124,106,247,.4); font-size: 24px; color: white; }
+  .fab-btn-secondary { background: var(--surface); border: 1.5px solid var(--border); box-shadow: 0 2px 10px rgba(0,0,0,.3); font-size: 18px; color: var(--muted); }
   /* MODALS */
-  .modal-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,.75); z-index: 200;
-    align-items: flex-end; justify-content: center;
-  }
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.75); z-index: 200; align-items: flex-end; justify-content: center; }
   .modal-overlay.open { display: flex; }
-  .modal {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 22px 22px 0 0; padding: 20px 18px 40px;
-    width: 100%; max-width: 480px; max-height: 92vh; overflow-y: auto;
-  }
+  .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 22px 22px 0 0; padding: 20px 18px 40px; width: 100%; max-width: 480px; max-height: 92vh; overflow-y: auto; }
   .modal-handle { width: 34px; height: 4px; background: var(--border); border-radius: 99px; margin: 0 auto 18px; }
   .modal h2 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
-  .modal-sub { font-size: 12px; color: var(--muted); margin-bottom: 20px; line-height: 1.5; }
   /* FORMS */
   label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 5px; }
-  input[type="text"], input[type="number"], select, textarea {
-    width: 100%; background: var(--surface2);
-    border: 1px solid var(--border); border-radius: 11px;
-    color: var(--text); padding: 12px 13px; font-size: 16px;
-    margin-bottom: 14px; outline: none;
-    -webkit-appearance: none; font-family: inherit;
-  }
+  input[type="text"], input[type="number"], select, textarea { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 11px; color: var(--text); padding: 12px 13px; font-size: 16px; margin-bottom: 14px; outline: none; -webkit-appearance: none; font-family: inherit; }
   input:focus, select:focus { border-color: var(--accent); }
   select option { background: var(--surface2); }
   textarea { resize: vertical; min-height: 72px; }
-  .btn {
-    width: 100%; padding: 13px; border: none; border-radius: 12px;
-    font-size: 15px; font-weight: 700; cursor: pointer;
-    transition: opacity .2s, transform .1s; font-family: inherit;
-  }
+  .btn { width: 100%; padding: 13px; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; transition: opacity .2s, transform .1s; font-family: inherit; }
   .btn:active { transform: scale(.98); }
   .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; }
   .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); margin-top: 8px; }
-  .btn-ghost-danger {
-    background: none; border: none; color: var(--muted);
-    font-size: 13px; cursor: pointer; padding: 10px 0 0;
-    font-family: inherit; text-decoration: underline;
-    text-underline-offset: 3px; display: block;
-    width: 100%; text-align: center; transition: color .2s;
-  }
+  .btn-ghost-danger { background: none; border: none; color: var(--muted); font-size: 13px; cursor: pointer; padding: 10px 0 0; font-family: inherit; text-decoration: underline; text-underline-offset: 3px; display: block; width: 100%; text-align: center; transition: color .2s; }
   .btn-ghost-danger:hover { color: var(--red); }
-  .btn-ghost-pause {
-    background: none; border: none; color: var(--muted);
-    font-size: 13px; cursor: pointer; padding: 6px 0 0;
-    font-family: inherit; text-decoration: underline;
-    text-underline-offset: 3px; display: block;
-    width: 100%; text-align: center; transition: color .2s;
-  }
+  .btn-ghost-pause { background: none; border: none; color: var(--muted); font-size: 13px; cursor: pointer; padding: 6px 0 0; font-family: inherit; text-decoration: underline; text-underline-offset: 3px; display: block; width: 100%; text-align: center; transition: color .2s; }
   .btn-ghost-pause:hover { color: var(--text); }
   /* INTENSITY */
   .intensity-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
-  .intensity-option {
-    padding: 12px; border-radius: 11px;
-    border: 2px solid var(--border); background: var(--surface2);
-    cursor: pointer; text-align: center; transition: all .2s;
-  }
+  .intensity-option { padding: 12px; border-radius: 11px; border: 2px solid var(--border); background: var(--surface2); cursor: pointer; text-align: center; transition: all .2s; }
   .intensity-option.selected.light { border-color: #3b82f6; background: rgba(59,130,246,.1); }
   .intensity-option.selected.heavy { border-color: #a855f7; background: rgba(168,85,247,.1); }
   .intensity-option .i-icon { font-size: 18px; }
   .intensity-option .i-label { font-size: 13px; font-weight: 700; margin: 3px 0 1px; }
   .intensity-option .i-desc { font-size: 10px; color: var(--muted); }
   /* DOPAMINE */
-  .dopamine {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,.92); z-index: 300;
-    align-items: center; justify-content: center;
-    flex-direction: column; text-align: center; padding: 40px;
-  }
+  .dopamine { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.92); z-index: 300; align-items: center; justify-content: center; flex-direction: column; text-align: center; padding: 40px; }
   .dopamine.show { display: flex; }
   .d-icon { font-size: 52px; margin-bottom: 12px; animation: pop .3s ease; }
   .d-xp { font-size: 20px; font-weight: 800; color: var(--accent2); margin-bottom: 4px; }
   .d-title { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
   .d-sub { font-size: 13px; color: var(--muted); }
-  .d-levelup {
-    font-size: 15px; font-weight: 700; margin-top: 6px;
-    background: linear-gradient(135deg, var(--gold), #f97316);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
+  .d-levelup { font-size: 15px; font-weight: 700; margin-top: 6px; background: linear-gradient(135deg, var(--gold), #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .d-xp-bar-wrap { width: 160px; margin: 14px auto 0; }
   .d-xp-bar-bg { background: var(--surface2); border-radius: 99px; height: 5px; overflow: hidden; }
-  .d-xp-bar-fill {
-    height: 100%; border-radius: 99px;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    width: 0; transition: width 1s ease .2s;
-  }
+  .d-xp-bar-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--accent), var(--accent2)); width: 0; transition: width 1s ease .2s; }
   .d-hint { margin-top: 22px; font-size: 11px; color: #3a3a55; }
   @keyframes pop { 0%{transform:scale(0)} 70%{transform:scale(1.1)} 100%{transform:scale(1)} }
   .d-plan-bonus { margin-top: 8px; font-size: 12px; color: var(--gold); display: none; }
-  /* ONBOARDING */
-  #onboarding {
-    position: fixed; inset: 0; background: var(--bg); z-index: 400;
-    display: flex; flex-direction: column; padding: 44px 22px 36px; overflow-y: auto;
+  /* TOAST NOTIFICATION */
+  .toast {
+    position: fixed; top: 16px; left: 50%; transform: translateX(-50%) translateY(-80px);
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 11px 16px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; z-index: 500; max-width: 340px; width: calc(100% - 32px);
+    box-shadow: 0 4px 24px rgba(0,0,0,.5);
+    transition: transform .3s cubic-bezier(.34,1.56,.64,1), opacity .3s;
+    opacity: 0;
   }
+  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  .toast-icon { font-size: 18px; flex-shrink: 0; }
+  .toast-body { flex: 1; }
+  .toast-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--gold); margin-bottom: 1px; }
+  .toast-text { font-size: 13px; color: var(--text); font-weight: 600; }
+  /* ONBOARDING */
+  #onboarding { position: fixed; inset: 0; background: var(--bg); z-index: 400; display: flex; flex-direction: column; padding: 44px 22px 36px; overflow-y: auto; }
   #onboarding.done { display: none; }
   .ob-logo { font-size: 28px; font-weight: 900; color: var(--accent2); margin-bottom: 3px; }
   .ob-tagline { color: var(--muted); font-size: 13px; margin-bottom: 32px; }
@@ -258,21 +170,13 @@
   .ob-q { font-size: 20px; font-weight: 800; line-height: 1.3; margin-bottom: 8px; }
   .ob-hint { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
   .ob-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
-  .chip {
-    padding: 7px 13px; border-radius: 99px;
-    border: 1.5px solid var(--border); background: var(--surface);
-    color: var(--text); font-size: 13px; cursor: pointer; transition: all .2s;
-  }
+  .chip { padding: 7px 13px; border-radius: 99px; border: 1.5px solid var(--border); background: var(--surface); color: var(--text); font-size: 13px; cursor: pointer; transition: all .2s; }
   .chip.selected { border-color: var(--accent); background: rgba(124,106,247,.15); color: var(--accent2); }
   .ob-progress { display: flex; gap: 5px; margin-bottom: 24px; }
   .ob-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--border); transition: background .3s; }
   .ob-dot.done { background: var(--accent2); }
   /* SKILL DETAIL */
-  .detail-back {
-    background: none; border: none; color: var(--muted);
-    font-size: 13px; cursor: pointer; padding: 20px 16px 6px;
-    display: flex; align-items: center; gap: 5px; font-family: inherit; transition: color .2s;
-  }
+  .detail-back { background: none; border: none; color: var(--muted); font-size: 13px; cursor: pointer; padding: 20px 16px 6px; display: flex; align-items: center; gap: 5px; font-family: inherit; transition: color .2s; }
   .detail-back:hover { color: var(--text); }
   .detail-header { padding: 4px 16px 16px; }
   .detail-icon { font-size: 34px; margin-bottom: 6px; }
@@ -293,12 +197,7 @@
   .tree-path::before { content: ''; position: absolute; left: 9px; top: 10px; bottom: 10px; width: 2px; background: var(--border); }
   .tree-node { position: relative; padding: 0 0 14px; display: flex; align-items: flex-start; }
   .tree-node:last-child { padding-bottom: 0; }
-  .tree-dot {
-    position: absolute; left: -28px; top: 2px;
-    width: 18px; height: 18px; border-radius: 50%;
-    border: 2px solid var(--border); background: var(--surface2);
-    display: flex; align-items: center; justify-content: center; transition: all .3s;
-  }
+  .tree-dot { position: absolute; left: -28px; top: 2px; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--border); background: var(--surface2); display: flex; align-items: center; justify-content: center; transition: all .3s; }
   .tree-node.unlocked .tree-dot { border-color: var(--accent2); background: rgba(167,139,250,.2); }
   .tree-dot-check { font-size: 9px; color: var(--accent2); font-weight: 900; display: none; }
   .tree-node.unlocked .tree-dot-check { display: block; }
@@ -310,32 +209,15 @@
   .tree-effect { font-size: 11px; color: var(--muted); line-height: 1.4; }
   .tree-unlock-at { font-size: 10px; color: var(--muted2); margin-top: 2px; }
   .tree-node.unlocked .tree-unlock-at { color: rgba(167,139,250,.55); }
-  .tree-meta-badge {
-    display: inline-block; font-size: 9px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: .5px;
-    color: var(--gold); border: 1px solid rgba(245,158,11,.3);
-    border-radius: 4px; padding: 1px 5px; margin-left: 6px; vertical-align: middle;
-  }
+  .tree-meta-badge { display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--gold); border: 1px solid rgba(245,158,11,.3); border-radius: 4px; padding: 1px 5px; margin-left: 6px; vertical-align: middle; }
   /* DETAIL TIP */
   .detail-tip-wrap { padding: 16px 16px 0; }
-  .detail-tip-box {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 11px; padding: 12px 13px;
-    font-size: 12px; color: #b0b0cc; line-height: 1.55; margin-bottom: 8px;
-  }
-  .detail-tip-refresh {
-    background: none; border: none; color: var(--muted);
-    font-size: 11px; cursor: pointer; padding: 0; font-family: inherit; transition: color .2s;
-  }
+  .detail-tip-box { background: var(--surface); border: 1px solid var(--border); border-radius: 11px; padding: 12px 13px; font-size: 12px; color: #b0b0cc; line-height: 1.55; margin-bottom: 8px; }
+  .detail-tip-refresh { background: none; border: none; color: var(--muted); font-size: 11px; cursor: pointer; padding: 0; font-family: inherit; transition: color .2s; }
   .detail-tip-refresh:hover { color: var(--accent2); }
   .detail-actions { padding: 16px 16px 0; }
   /* HISTORY */
-  .session-item {
-    margin: 0 16px 7px;
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 12px; padding: 12px 13px;
-    display: flex; align-items: center; gap: 11px;
-  }
+  .session-item { margin: 0 16px 7px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 13px; display: flex; align-items: center; gap: 11px; }
   .session-icon { font-size: 19px; }
   .session-info { flex: 1; }
   .session-name { font-size: 13px; font-weight: 600; }
@@ -346,58 +228,23 @@
   .badge { display: inline-block; font-size: 9px; padding: 1px 6px; border-radius: 99px; margin-left: 3px; }
   .badge-light { background: #1e2d4a; color: #93c5fd; }
   .badge-heavy { background: #2d1a40; color: #d8b4fe; }
-  /* TIPS LIBRARY */
-  .tips-section { padding: 0 16px 6px; margin-top: 6px; }
-  .tips-section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; }
-  .tip-item {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 11px; padding: 11px 13px;
-    font-size: 12px; color: #b0b0cc; line-height: 1.5; margin-bottom: 7px;
-  }
   /* ADD SKILL BTN */
-  .add-skill-btn {
-    margin: 4px 16px 20px; padding: 12px;
-    border: 2px dashed var(--border); border-radius: 13px;
-    background: transparent; color: var(--muted);
-    font-size: 13px; cursor: pointer; width: calc(100% - 32px);
-    font-family: inherit; transition: border-color .2s, color .2s;
-  }
+  .add-skill-btn { margin: 4px 16px 20px; padding: 12px; border: 2px dashed var(--border); border-radius: 13px; background: transparent; color: var(--muted); font-size: 13px; cursor: pointer; width: calc(100% - 32px); font-family: inherit; transition: border-color .2s, color .2s; }
   .add-skill-btn:hover { border-color: var(--accent); color: var(--accent2); }
   /* PLAN MODAL */
-  .plan-skill-row {
-    display: flex; align-items: center; gap: 10px;
-    padding: 11px 13px; background: var(--surface2); border-radius: 11px; margin-bottom: 8px;
-  }
-  .plan-skill-row .ps-check {
-    width: 20px; height: 20px; border-radius: 50%;
-    border: 2px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer; flex-shrink: 0; transition: all .2s;
-  }
+  .plan-skill-row { display: flex; align-items: center; gap: 10px; padding: 11px 13px; background: var(--surface2); border-radius: 11px; margin-bottom: 8px; }
+  .plan-skill-row .ps-check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: all .2s; }
   .plan-skill-row.selected .ps-check { border-color: var(--accent2); background: rgba(167,139,250,.2); }
   .plan-skill-row.selected .ps-check::after { content: '✓'; font-size: 10px; color: var(--accent2); font-weight: 900; }
   .plan-skill-row .ps-icon { font-size: 18px; flex-shrink: 0; }
   .plan-skill-row .ps-name { font-size: 14px; font-weight: 600; flex: 1; }
-  .plan-skill-row .ps-mins {
-    width: 64px; background: var(--surface); border: 1px solid var(--border);
-    border-radius: 8px; color: var(--text); padding: 6px 8px;
-    font-size: 14px; text-align: center; outline: none; font-family: inherit;
-    -webkit-appearance: none; margin-bottom: 0; display: none;
-  }
+  .plan-skill-row .ps-mins { width: 64px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; color: var(--text); padding: 6px 8px; font-size: 14px; text-align: center; outline: none; font-family: inherit; -webkit-appearance: none; margin-bottom: 0; display: none; }
   .plan-skill-row.selected .ps-mins { display: block; }
   .plan-skill-row .ps-min-label { font-size: 10px; color: var(--muted); flex-shrink: 0; display: none; }
   .plan-skill-row.selected .ps-min-label { display: block; }
-  .plan-checklist-row {
-    display: flex; align-items: center; gap: 12px;
-    padding: 13px 14px; background: var(--surface2); border-radius: 12px;
-    margin-bottom: 8px; cursor: pointer; transition: opacity .2s;
-  }
+  .plan-checklist-row { display: flex; align-items: center; gap: 12px; padding: 13px 14px; background: var(--surface2); border-radius: 12px; margin-bottom: 8px; cursor: pointer; transition: opacity .2s; }
   .plan-checklist-row.done { opacity: .55; }
-  .plan-check-circle {
-    width: 22px; height: 22px; border-radius: 50%;
-    border: 2px solid var(--border); flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center; transition: all .25s;
-  }
+  .plan-check-circle { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .25s; }
   .plan-checklist-row.done .plan-check-circle { border-color: var(--accent2); background: rgba(167,139,250,.25); }
   .plan-check-tick { font-size: 11px; color: var(--accent2); font-weight: 900; opacity: 0; transition: opacity .2s; }
   .plan-checklist-row.done .plan-check-tick { opacity: 1; }
@@ -405,66 +252,57 @@
   .plan-checklist-info { flex: 1; }
   .plan-checklist-name { font-size: 14px; font-weight: 600; }
   .plan-checklist-target { font-size: 11px; color: var(--muted); margin-top: 1px; }
-  .plan-complete-banner {
-    background: rgba(167,139,250,.1); border: 1px solid rgba(167,139,250,.25);
-    border-radius: 12px; padding: 14px 16px; margin-bottom: 16px; text-align: center;
-  }
+  .plan-complete-banner { background: rgba(167,139,250,.1); border: 1px solid rgba(167,139,250,.25); border-radius: 12px; padding: 14px 16px; margin-bottom: 16px; text-align: center; }
   .plan-complete-banner .pcb-title { font-size: 14px; font-weight: 700; color: var(--accent2); margin-bottom: 3px; }
   .plan-complete-banner .pcb-sub { font-size: 12px; color: var(--muted); }
   .plan-section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 10px; }
-  .plan-mode-tabs {
-    display: flex; margin-bottom: 20px;
-    background: var(--surface2); border-radius: 9px; padding: 3px; width: fit-content;
-  }
-  .plan-mode-tab {
-    padding: 6px 18px; border-radius: 7px; border: none;
-    background: none; color: var(--muted); font-size: 12px; font-weight: 600;
-    cursor: pointer; font-family: inherit; transition: all .2s;
-  }
+  .plan-mode-tabs { display: flex; margin-bottom: 20px; background: var(--surface2); border-radius: 9px; padding: 3px; width: fit-content; }
+  .plan-mode-tab { padding: 6px 18px; border-radius: 7px; border: none; background: none; color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all .2s; }
   .plan-mode-tab.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,.3); }
-  .plan-tab-content { display: none; }
-  .plan-tab-content.active { display: block; }
 
   /* ── STATISTICS TAB ── */
-  .stat-lifetime-box {
-    margin: 0 16px 20px;
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 14px; padding: 18px 16px;
-  }
-  .stat-lifetime-headline {
-    font-size: 15px; font-weight: 700; line-height: 1.5; color: var(--text);
-    margin-bottom: 10px;
-  }
-  .stat-lifetime-sub {
-    font-size: 12px; color: var(--muted); line-height: 1.6;
-  }
+  .stat-lifetime-box { margin: 0 16px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 16px; }
+  .stat-lifetime-headline { font-size: 15px; font-weight: 700; line-height: 1.5; color: var(--text); margin-bottom: 10px; }
+  .stat-lifetime-sub { font-size: 12px; color: var(--muted); line-height: 1.6; }
   .stat-lifetime-sub strong { color: var(--accent2); }
 
   /* ACHIEVEMENTS */
-  .achievement-card {
-    margin: 0 16px 8px;
-    border-radius: 13px; padding: 13px 14px;
-    display: flex; align-items: center; gap: 13px;
-    border: 1px solid var(--border); background: var(--surface);
-    transition: border-color .2s;
-  }
-  .achievement-card.unlocked { border-color: rgba(245,158,11,.35); background: rgba(245,158,11,.05); }
-  .achievement-icon {
-    font-size: 26px; width: 36px; text-align: center; flex-shrink: 0;
-    opacity: .3;
-  }
+  .ach-category { margin: 0 0 6px; }
+  .ach-category-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted2); padding: 12px 16px 6px; }
+  .achievement-card { margin: 0 16px 6px; border-radius: 12px; padding: 12px 13px; display: flex; align-items: center; gap: 12px; border: 1px solid var(--border); background: var(--surface); }
+  .achievement-card.unlocked { border-color: rgba(245,158,11,.3); background: rgba(245,158,11,.04); }
+  .achievement-icon { font-size: 22px; width: 32px; text-align: center; flex-shrink: 0; opacity: .25; }
   .achievement-card.unlocked .achievement-icon { opacity: 1; }
-  .achievement-body { flex: 1; }
+  .achievement-body { flex: 1; min-width: 0; }
   .achievement-title { font-size: 13px; font-weight: 700; color: var(--muted2); }
   .achievement-card.unlocked .achievement-title { color: var(--text); }
-  .achievement-desc { font-size: 11px; color: var(--muted2); margin-top: 2px; line-height: 1.4; }
+  .achievement-desc { font-size: 11px; color: var(--muted2); margin-top: 1px; line-height: 1.4; }
   .achievement-card.unlocked .achievement-desc { color: var(--muted); }
-  .achievement-value {
-    font-size: 12px; font-weight: 700; color: var(--gold);
-    text-align: right; flex-shrink: 0;
-    display: none;
-  }
-  .achievement-card.unlocked .achievement-value { display: block; }
+  /* progress bar inside locked achievement */
+  .ach-progress-wrap { margin-top: 5px; }
+  .ach-progress-bg { background: var(--surface2); border-radius: 99px; height: 3px; overflow: hidden; }
+  .ach-progress-fill { height: 100%; border-radius: 99px; background: var(--accent); transition: width .5s ease; }
+  .ach-progress-label { font-size: 10px; color: var(--muted2); margin-top: 3px; }
+  .achievement-check { font-size: 16px; color: var(--gold); flex-shrink: 0; display: none; }
+  .achievement-card.unlocked .achievement-check { display: block; }
+
+  /* ── TIPS TAB REDESIGN ── */
+  .smart-tip-box { margin: 0 16px 16px; background: rgba(124,106,247,.08); border: 1px solid rgba(124,106,247,.2); border-radius: 13px; padding: 14px 15px; }
+  .smart-tip-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent2); margin-bottom: 6px; }
+  .smart-tip-text { font-size: 13px; color: #c8c8e8; line-height: 1.55; }
+  /* collapsible tip sections */
+  .tip-section { margin: 0 16px 6px; border: 1px solid var(--border); border-radius: 13px; overflow: hidden; background: var(--surface); }
+  .tip-section-header { display: flex; justify-content: space-between; align-items: center; padding: 13px 14px; cursor: pointer; user-select: none; }
+  .tip-section-title { font-size: 13px; font-weight: 700; }
+  .tip-section-arrow { font-size: 11px; color: var(--muted); transition: transform .25s; }
+  .tip-section.open .tip-section-arrow { transform: rotate(180deg); }
+  .tip-section-body { display: none; border-top: 1px solid var(--border); }
+  .tip-section.open .tip-section-body { display: block; }
+  .tip-card { padding: 13px 14px; border-bottom: 1px solid var(--border); }
+  .tip-card:last-child { border-bottom: none; }
+  .tip-card-title { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .tip-card-body { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 4px; }
+  .tip-card-action { font-size: 11px; color: var(--accent2); }
 
   /* MISC */
   .empty { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 13px; line-height: 1.7; }
@@ -473,6 +311,16 @@
 </style>
 </head>
 <body>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-icon" id="toast-icon">🏆</div>
+  <div class="toast-body">
+    <div class="toast-label">Achievement unlocked</div>
+    <div class="toast-text" id="toast-text"></div>
+  </div>
+</div>
+
 <!-- ONBOARDING -->
 <div id="onboarding">
   <div class="ob-logo">SkillStack</div>
@@ -535,6 +383,7 @@
     <button class="btn btn-primary" onclick="obFinish()">Start tracking</button>
   </div>
 </div>
+
 <!-- APP -->
 <div id="app" style="display:none">
   <!-- HOME -->
@@ -575,19 +424,21 @@
     <div id="session-list"></div>
     <div id="log-empty" class="empty" style="display:none">No sessions yet.</div>
   </div>
-  <!-- STATISTICS TAB (new) -->
+  <!-- STATISTICS TAB -->
   <div id="screen-stats" class="screen">
     <div class="page-header"><h1>Statistics</h1></div>
     <div id="stats-lifetime"></div>
     <div class="section-title" style="margin-top:4px">Achievements</div>
     <div id="stats-achievements"></div>
   </div>
-  <!-- TIPS LIBRARY -->
+  <!-- TIPS TAB (redesigned) -->
   <div id="screen-tips" class="screen">
-    <div class="page-header"><h1>Learning Tips</h1></div>
-    <div id="tips-content"></div>
+    <div class="page-header"><h1>Tips</h1></div>
+    <div id="tips-smart-tip"></div>
+    <div id="tips-sections"></div>
   </div>
 </div>
+
 <!-- DUAL FAB -->
 <div class="fab-stack" id="fab-stack" style="display:none">
   <div class="fab-item">
@@ -599,7 +450,8 @@
     <button class="fab-btn fab-btn-secondary" onclick="openPlanModal()">☑</button>
   </div>
 </div>
-<!-- NAV — now 5 items -->
+
+<!-- NAV -->
 <nav class="bottom-nav" id="bottom-nav" style="display:none">
   <button class="nav-btn active" onclick="showScreen('home',this)">
     <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></svg>
@@ -622,6 +474,7 @@
     Tips
   </button>
 </nav>
+
 <!-- LOG MODAL -->
 <div class="modal-overlay" id="modal-log">
   <div class="modal">
@@ -699,6 +552,7 @@
   </div>
   <div class="d-hint">Tap to continue</div>
 </div>
+
 <script>
 // ============================================================
 // DATA
@@ -712,9 +566,10 @@ let state = {
   user: DB.get('ss_user', null),
   skills: DB.get('ss_skills', []),
   sessions: DB.get('ss_sessions', []),
-  plan: DB.get('ss_plan', { date: '', items: [], bonusGiven: false })
+  plan: DB.get('ss_plan', { date: '', items: [], bonusGiven: false }),
+  seenAchievements: DB.get('ss_seen_ach', [])
 };
-// Ensure all skills have the active flag (migration for existing data)
+// Migration: ensure active flag
 state.skills.forEach(s => { if (typeof s.active === 'undefined') s.active = true; });
 
 function save() {
@@ -722,6 +577,7 @@ function save() {
   DB.set('ss_skills', state.skills);
   DB.set('ss_sessions', state.sessions);
   DB.set('ss_plan', state.plan);
+  DB.set('ss_seen_ach', state.seenAchievements);
 }
 function ensurePlan() {
   if (!state.plan) { state.plan = { date: '', items: [], bonusGiven: false }; return; }
@@ -737,20 +593,20 @@ function getPlan() {
   }
   return state.plan;
 }
-// Helper: only active skills
 function activeSkills() { return state.skills.filter(s => s.active !== false); }
 
 // ============================================================
-// LEVEL SYSTEM
+// LEVEL SYSTEM — cap 100, progressively harder
 // ============================================================
 function xpForLevel(lvl) {
   if (lvl <= 0) return 0;
-  return Math.floor(30 * Math.pow(1.10, lvl));
+  // Steeper curve: base 40, exponent 1.13
+  return Math.floor(40 * Math.pow(1.13, lvl));
 }
 function getLevelFromXP(xp) {
   let lvl = 0;
-  while (lvl < 99 && xp >= xpForLevel(lvl + 1)) { xp -= xpForLevel(lvl + 1); lvl++; }
-  return { level: Math.min(lvl, 99), remainingXP: xp, xpNeeded: xpForLevel(lvl + 1) };
+  while (lvl < 100 && xp >= xpForLevel(lvl + 1)) { xp -= xpForLevel(lvl + 1); lvl++; }
+  return { level: Math.min(lvl, 100), remainingXP: xp, xpNeeded: xpForLevel(Math.min(lvl + 1, 100)) };
 }
 function getLevelInfo(skill) { return getLevelFromXP(skill.xp || 0); }
 function levelLabel(lvl) {
@@ -760,7 +616,8 @@ function levelLabel(lvl) {
   if (lvl < 50) return 'Advanced';
   if (lvl < 75) return 'Expert';
   if (lvl < 90) return 'Master';
-  return 'Legend';
+  if (lvl < 100) return 'Legend';
+  return 'Grandmaster';
 }
 function levelColor(lvl) {
   if (lvl < 5) return '#6b6b8a';
@@ -771,6 +628,7 @@ function levelColor(lvl) {
   if (lvl < 90) return '#ef4444';
   return '#a855f7';
 }
+
 // ============================================================
 // PERKS
 // ============================================================
@@ -807,6 +665,122 @@ function computeXP(skill, minutes, intensity) {
   PERK_DEFS.filter(p => p.meta && metaPerks[p.id]).forEach(p => { ctx.xp = p.apply(ctx); });
   return Math.max(1, ctx.xp);
 }
+
+// ============================================================
+// TOAST NOTIFICATION
+// ============================================================
+let toastTimer = null;
+function showToast(icon, text) {
+  const el = document.getElementById('toast');
+  document.getElementById('toast-icon').textContent = icon;
+  document.getElementById('toast-text').textContent = text;
+  el.classList.add('show');
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 3200);
+}
+
+// ============================================================
+// ACHIEVEMENTS DEFINITION (expanded, with categories)
+// ============================================================
+function getAchievementDefs() {
+  const sessions = state.sessions;
+  const totalMins = sessions.reduce((a, s) => a + s.minutes, 0);
+  const totalHours = totalMins / 60;
+  const totalSessions = sessions.length;
+  const activeSkillCount = activeSkills().length;
+  const allSkillCount = state.skills.length;
+
+  // Streak
+  const streak = state.user ? (state.user.streak || 0) : 0;
+  // Longest streak (recalculate from sessions)
+  const activeDays = [...new Set(sessions.map(s => new Date(s.date).toDateString()))].map(ds => new Date(ds)).sort((a, b) => a - b);
+  let longestStreak = 0, curStreak = 0, prevDay = null;
+  activeDays.forEach(d => {
+    if (prevDay && (d - prevDay) === 86400000) { curStreak++; } else { curStreak = 1; }
+    if (curStreak > longestStreak) longestStreak = curStreak;
+    prevDay = d;
+  });
+
+  // Per-day maps
+  const dayMinsMap = {};
+  const dayCountMap = {};
+  sessions.forEach(s => {
+    const k = new Date(s.date).toDateString();
+    dayMinsMap[k] = (dayMinsMap[k] || 0) + s.minutes;
+    dayCountMap[k] = (dayCountMap[k] || 0) + 1;
+  });
+  const bestDayMins = Object.values(dayMinsMap).length ? Math.max(...Object.values(dayMinsMap)) : 0;
+  const bestDayCount = Object.values(dayCountMap).length ? Math.max(...Object.values(dayCountMap)) : 0;
+
+  // Max level in any skill
+  const maxSkillLevel = state.skills.length ? Math.max(...state.skills.map(s => getLevelInfo(s).level)) : 0;
+
+  return [
+    {
+      category: 'Consistency',
+      items: [
+        { id: 'first_session', icon: '🌱', title: 'The First Step', desc: 'Log your first learning session.', unlocked: totalSessions >= 1, progress: Math.min(totalSessions, 1), total: 1 },
+        { id: 'streak_2', icon: '📅', title: 'Back Tomorrow', desc: 'Log sessions two days in a row.', unlocked: longestStreak >= 2, progress: Math.min(longestStreak, 2), total: 2 },
+        { id: 'streak_7', icon: '🔥', title: 'Momentum', desc: 'Reach a 7 day streak.', unlocked: longestStreak >= 7, progress: Math.min(longestStreak, 7), total: 7 },
+        { id: 'streak_30', icon: '⚡', title: 'Relentless', desc: 'Reach a 30 day streak.', unlocked: longestStreak >= 30, progress: Math.min(longestStreak, 30), total: 30 },
+      ]
+    },
+    {
+      category: 'Effort',
+      items: [
+        { id: 'one_hour', icon: '⏱️', title: 'First Hour', desc: 'Log your first hour of learning.', unlocked: totalHours >= 1, progress: Math.min(totalMins, 60), total: 60 },
+        { id: 'ten_hours', icon: '🏅', title: '10 Hours', desc: 'Reach 10 total hours of learning.', unlocked: totalHours >= 10, progress: Math.min(totalHours, 10), total: 10 },
+        { id: 'fifty_hours', icon: '🥈', title: '50 Hours', desc: 'Reach 50 total hours of learning.', unlocked: totalHours >= 50, progress: Math.min(totalHours, 50), total: 50 },
+        { id: 'hundred_hours', icon: '🥇', title: '100 Hours', desc: 'Reach 100 total hours of learning.', unlocked: totalHours >= 100, progress: Math.min(totalHours, 100), total: 100 },
+        { id: 'master_learner', icon: '🎓', title: 'Master Learner', desc: '500 hours of total learning.', unlocked: totalHours >= 500, progress: Math.min(totalHours, 500), total: 500 },
+        { id: 'grandmaster', icon: '🏆', title: 'Grandmaster', desc: '1000 hours. A true dedication.', unlocked: totalHours >= 1000, progress: Math.min(totalHours, 1000), total: 1000 },
+      ]
+    },
+    {
+      category: 'Focus',
+      items: [
+        { id: 'tiny_mighty', icon: '🐜', title: 'Tiny but Mighty', desc: 'Log a session shorter than 5 minutes.', unlocked: sessions.some(s => s.minutes < 5), progress: sessions.some(s => s.minutes < 5) ? 1 : 0, total: 1 },
+        { id: 'sessions_5_day', icon: '🎯', title: 'On a Roll', desc: 'Log 5 sessions in a single day.', unlocked: bestDayCount >= 5, progress: Math.min(bestDayCount, 5), total: 5 },
+        { id: 'sessions_100', icon: '💯', title: 'The 100 Club', desc: 'Log 100 total sessions.', unlocked: totalSessions >= 100, progress: Math.min(totalSessions, 100), total: 100 },
+      ]
+    },
+    {
+      category: 'Deep Work',
+      items: [
+        { id: 'deep_3h', icon: '🧠', title: 'Deep Focus', desc: 'Log 3 hours of learning in one day.', unlocked: bestDayMins >= 180, progress: Math.min(bestDayMins, 180), total: 180 },
+        { id: 'deep_5h', icon: '🔬', title: 'Flow State', desc: 'Log 5 hours of learning in one day.', unlocked: bestDayMins >= 300, progress: Math.min(bestDayMins, 300), total: 300 },
+        { id: 'marathon', icon: '🏃', title: 'Marathon Mind', desc: 'Log 8 hours of learning in one day.', unlocked: bestDayMins >= 480, progress: Math.min(bestDayMins, 480), total: 480 },
+      ]
+    },
+    {
+      category: 'Explorer',
+      items: [
+        { id: 'skills_3', icon: '🗺️', title: 'Skill Explorer', desc: 'Have 3 active skills.', unlocked: allSkillCount >= 3, progress: Math.min(allSkillCount, 3), total: 3 },
+        { id: 'skills_5', icon: '🌐', title: 'Skill Architect', desc: 'Create 5 skills.', unlocked: allSkillCount >= 5, progress: Math.min(allSkillCount, 5), total: 5 },
+        { id: 'level_25', icon: '⭐', title: 'Level 25', desc: 'Reach level 25 in any skill.', unlocked: maxSkillLevel >= 25, progress: Math.min(maxSkillLevel, 25), total: 25 },
+      ]
+    }
+  ];
+}
+
+// Flat list for toast checking
+function flatAchievements() {
+  return getAchievementDefs().flatMap(cat => cat.items);
+}
+
+function checkAndToastAchievements() {
+  const all = flatAchievements();
+  const newlyUnlocked = all.filter(a => a.unlocked && !state.seenAchievements.includes(a.id));
+  if (!newlyUnlocked.length) return;
+  // Mark all as seen
+  newlyUnlocked.forEach(a => state.seenAchievements.push(a.id));
+  DB.set('ss_seen_ach', state.seenAchievements);
+  // Show first one (queue rest with delay if multiple)
+  newlyUnlocked.forEach((a, i) => {
+    setTimeout(() => showToast(a.icon, a.title), i * 3600);
+  });
+}
+
 // ============================================================
 // VIEW STATE
 // ============================================================
@@ -818,8 +792,9 @@ function setView(v) {
   renderRec();
   renderDistrib();
 }
+
 // ============================================================
-// AI RECOMMENDATIONS — uses only active skills
+// AI RECOMMENDATIONS
 // ============================================================
 function generateRec() {
   const active = activeSkills();
@@ -855,8 +830,9 @@ function generateRec() {
   }
   return null;
 }
+
 // ============================================================
-// SKILL DISTRIBUTION — uses only active skills
+// SKILL DISTRIBUTION
 // ============================================================
 function getDistribData() {
   const now = Date.now(), WEEK = 7 * 86400000;
@@ -869,120 +845,7 @@ function getDistribData() {
     }).reduce((a, s) => a + s.minutes, 0)
   }));
 }
-// ============================================================
-// ACHIEVEMENTS
-// ============================================================
-function computeAchievements() {
-  const sessions = state.sessions; // all sessions, including inactive skills
-  const totalMins = sessions.reduce((a, s) => a + s.minutes, 0);
-  const totalHours = totalMins / 60;
-  const totalSessions = sessions.length;
 
-  // Minutes per calendar day
-  const dayMap = {};
-  sessions.forEach(s => {
-    const key = new Date(s.date).toDateString();
-    dayMap[key] = (dayMap[key] || 0) + s.minutes;
-  });
-  const dayEntries = Object.entries(dayMap); // [dateStr, mins]
-  const bestDayEntry = dayEntries.length ? dayEntries.reduce((a, b) => b[1] > a[1] ? b : a) : null;
-  const bestDayMins = bestDayEntry ? bestDayEntry[1] : 0;
-  const bestDayHours = bestDayMins / 60;
-  const bestDayLabel = bestDayEntry ? new Date(bestDayEntry[0]).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '—';
-
-  // Most sessions in one day
-  const sessionDayMap = {};
-  sessions.forEach(s => {
-    const key = new Date(s.date).toDateString();
-    sessionDayMap[key] = (sessionDayMap[key] || 0) + 1;
-  });
-  const sessionDayEntries = Object.entries(sessionDayMap);
-  const bestSessionDayEntry = sessionDayEntries.length ? sessionDayEntries.reduce((a, b) => b[1] > a[1] ? b : a) : null;
-  const bestSessionDayCount = bestSessionDayEntry ? bestSessionDayEntry[1] : 0;
-
-  // Best week (sum minutes in any Mon–Sun window)
-  let bestWeekMins = 0;
-  const allDates = [...new Set(sessions.map(s => new Date(s.date).toDateString()))];
-  allDates.forEach(ds => {
-    const d = new Date(ds);
-    const dow = d.getDay();
-    const mon = new Date(d); mon.setDate(d.getDate() - ((dow + 6) % 7));
-    const sun = new Date(mon); sun.setDate(mon.getDate() + 6);
-    const weekMins = sessions.filter(s => {
-      const sd = new Date(s.date); return sd >= mon && sd <= sun;
-    }).reduce((a, s) => a + s.minutes, 0);
-    if (weekMins > bestWeekMins) bestWeekMins = weekMins;
-  });
-  const bestWeekHours = bestWeekMins / 60;
-
-  // Longest streak (calendar days with ≥1 session, consecutive)
-  const activeDays = [...new Set(sessions.map(s => new Date(s.date).toDateString()))].map(ds => new Date(ds)).sort((a, b) => a - b);
-  let longestStreak = 0, curStreak = 0, prevDay = null;
-  activeDays.forEach(d => {
-    if (prevDay && (d - prevDay) === 86400000) { curStreak++; } else { curStreak = 1; }
-    if (curStreak > longestStreak) longestStreak = curStreak;
-    prevDay = d;
-  });
-
-  return [
-    {
-      id: 'best_day_time',
-      icon: '⏱️',
-      title: 'Best Day',
-      desc: 'Most time spent learning in a single day.',
-      value: bestDayHours.toFixed(1) + 'h on ' + bestDayLabel,
-      unlocked: bestDayMins > 0
-    },
-    {
-      id: 'longest_streak',
-      icon: '🔥',
-      title: 'Longest Streak',
-      desc: 'Most consecutive days with at least one session.',
-      value: longestStreak + ' day' + (longestStreak !== 1 ? 's' : ''),
-      unlocked: longestStreak >= 2
-    },
-    {
-      id: 'best_week',
-      icon: '📅',
-      title: 'Best Week',
-      desc: 'Most hours learned in a single week.',
-      value: bestWeekHours.toFixed(1) + 'h',
-      unlocked: bestWeekMins > 0
-    },
-    {
-      id: 'most_sessions_day',
-      icon: '⚡',
-      title: 'Most Sessions in a Day',
-      desc: 'Highest number of sessions logged in one day.',
-      value: bestSessionDayCount + ' session' + (bestSessionDayCount !== 1 ? 's' : ''),
-      unlocked: bestSessionDayCount >= 3
-    },
-    {
-      id: 'ten_hours',
-      icon: '🏅',
-      title: 'First 10 Hours',
-      desc: 'Reached 10 total hours of learning.',
-      value: totalHours.toFixed(1) + 'h total',
-      unlocked: totalHours >= 10
-    },
-    {
-      id: 'fifty_hours',
-      icon: '🥇',
-      title: 'First 50 Hours',
-      desc: 'Reached 50 total hours of learning.',
-      value: totalHours.toFixed(1) + 'h total',
-      unlocked: totalHours >= 50
-    },
-    {
-      id: 'hundred_sessions',
-      icon: '💯',
-      title: '100 Sessions',
-      desc: 'Logged 100 total sessions across all skills.',
-      value: totalSessions + ' sessions',
-      unlocked: totalSessions >= 100
-    }
-  ];
-}
 // ============================================================
 // ONBOARDING
 // ============================================================
@@ -1022,12 +885,13 @@ function obFinish() {
   document.getElementById('bottom-nav').style.display = 'flex';
   document.getElementById('fab-stack').style.display = 'flex';
   save(); renderAll();
+  checkAndToastAchievements();
 }
+
 // ============================================================
 // NAVIGATION
 // ============================================================
 let detailSkillId = null, detailTip = null, prevScreen = 'skills';
-// navMap updated for 5 tabs: home=0, skills=1, log=2, stats=3, tips=4
 function showScreen(name, btn) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -1053,6 +917,7 @@ function goBackFromDetail() {
   const idx = navMap[prevScreen] !== undefined ? navMap[prevScreen] : 1;
   showScreen(prevScreen, document.querySelectorAll('.nav-btn')[idx]);
 }
+
 // ============================================================
 // SKILLS CRUD
 // ============================================================
@@ -1070,6 +935,7 @@ function submitAddSkill() {
   if (!name) { alert('Please enter a skill name.'); return; }
   addSkillToState(name, document.getElementById('new-skill-type').value, selectedEmoji || '⭐');
   save(); closeModal('modal-add-skill'); renderAll();
+  checkAndToastAchievements();
 }
 function deleteSkill(skillId) {
   const id = Number(skillId);
@@ -1093,7 +959,6 @@ function togglePauseSkill(skillId) {
   const skill = state.skills.find(s => s.id === id);
   if (!skill) return;
   skill.active = skill.active === false ? true : false;
-  // If pausing: remove from plan
   if (!skill.active) {
     const plan = getPlan();
     plan.items = plan.items.filter(it => it.skillId !== id);
@@ -1107,8 +972,9 @@ function togglePauseSkill(skillId) {
   renderDistrib();
   renderRec();
 }
+
 // ============================================================
-// LOGGING — only log to active skills
+// LOGGING
 // ============================================================
 let selectedIntensity = 'light';
 function openLogSession() {
@@ -1150,7 +1016,12 @@ function submitLog() {
   save();
   closeModal('modal-log');
   renderAll();
+  // Level-up toast
+  if (newLvl > oldLvl) {
+    setTimeout(() => showToast('⬆️', skill.name + ' reached Level ' + newLvl), 400);
+  }
   showDopamine(skill, xpGain, oldLvl, newLvl, minutes);
+  checkAndToastAchievements();
 }
 function updateStreak() {
   const today = new Date().toDateString();
@@ -1183,8 +1054,9 @@ function showDopamine(skill, xpGain, oldLvl, newLvl, minutes, planBonusXP) {
   setTimeout(() => { bar.style.width = pct + '%'; }, 100);
 }
 function closeDopamine() { document.getElementById('dopamine').classList.remove('show'); }
+
 // ============================================================
-// PLAN TODAY — uses only active skills
+// PLAN TODAY
 // ============================================================
 let planMode = 'checklist';
 function openPlanModal() {
@@ -1230,22 +1102,15 @@ function renderPlanModal() {
   } else {
     if (allChecked && !plan.bonusGiven) {
       const BONUS_PER_SKILL = 20;
-      plan.items.forEach(it => {
-        const s = state.skills.find(x => x.id === it.skillId);
-        if (s) s.xp = (s.xp || 0) + BONUS_PER_SKILL;
-      });
+      plan.items.forEach(it => { const s = state.skills.find(x => x.id === it.skillId); if (s) s.xp = (s.xp || 0) + BONUS_PER_SKILL; });
       plan.bonusGiven = true;
       state.plan = plan;
       DB.set('ss_skills', state.skills);
       DB.set('ss_plan', state.plan);
     }
     if (allChecked) {
-      const BONUS_PER_SKILL = 20;
-      const total = plan.items.length * BONUS_PER_SKILL;
-      content += '<div class="plan-complete-banner">'
-        + '<div class="pcb-title">Plan complete</div>'
-        + '<div class="pcb-sub">+' + total + ' bonus XP distributed across ' + plan.items.length + ' skill' + (plan.items.length > 1 ? 's' : '') + '</div>'
-        + '</div>';
+      const total = plan.items.length * 20;
+      content += '<div class="plan-complete-banner"><div class="pcb-title">Plan complete</div><div class="pcb-sub">+' + total + ' bonus XP distributed across ' + plan.items.length + ' skill' + (plan.items.length > 1 ? 's' : '') + '</div></div>';
     }
     content += '<div class="plan-section-label">Today\'s plan</div>';
     content += plan.items.map(it => {
@@ -1254,19 +1119,14 @@ function renderPlanModal() {
       return '<div class="plan-checklist-row' + (it.checked ? ' done' : '') + '" onclick="togglePlanCheck(' + it.skillId + ')">'
         + '<div class="plan-check-circle"><span class="plan-check-tick">✓</span></div>'
         + '<span class="plan-checklist-icon">' + s.icon + '</span>'
-        + '<div class="plan-checklist-info">'
-        + '<div class="plan-checklist-name">' + s.name + '</div>'
+        + '<div class="plan-checklist-info"><div class="plan-checklist-name">' + s.name + '</div>'
         + (it.targetMins ? '<div class="plan-checklist-target">Target: ' + it.targetMins + ' min</div>' : '')
-        + '</div>'
-        + '</div>';
+        + '</div></div>';
     }).join('');
     content += '<button class="btn btn-secondary" style="margin-top:16px" onclick="switchPlanMode(\'setup\')">Edit plan</button>';
     content += '<button class="btn btn-secondary" onclick="closeModal(\'modal-plan\')" style="margin-top:8px">Close</button>';
   }
-  const tabsHtml = '<div class="plan-mode-tabs">'
-    + '<button class="plan-mode-tab' + (planMode === 'setup' ? ' active' : '') + '" onclick="switchPlanMode(\'setup\')">Set up</button>'
-    + checklistTabHtml
-    + '</div>';
+  const tabsHtml = '<div class="plan-mode-tabs"><button class="plan-mode-tab' + (planMode === 'setup' ? ' active' : '') + '" onclick="switchPlanMode(\'setup\')">Set up</button>' + checklistTabHtml + '</div>';
   body.innerHTML = (hasItems || planMode === 'setup' ? tabsHtml : '') + content;
 }
 function switchPlanMode(mode) { planMode = mode; renderPlanModal(); }
@@ -1275,8 +1135,7 @@ function togglePlanSkill(skillId) {
   const plan = getPlan();
   const idx = plan.items.findIndex(it => it.skillId === id);
   if (idx >= 0) { plan.items.splice(idx, 1); } else { plan.items.push({ skillId: id, targetMins: null, checked: false }); }
-  state.plan = plan;
-  renderPlanModal();
+  state.plan = plan; renderPlanModal();
 }
 function updatePlanTarget(skillId, val) {
   const id = Number(skillId);
@@ -1287,10 +1146,7 @@ function updatePlanTarget(skillId, val) {
 }
 function savePlanSetup() {
   const plan = getPlan();
-  plan.items.forEach(it => {
-    const inp = document.getElementById('pt-' + it.skillId);
-    if (inp) it.targetMins = parseInt(inp.value) || null;
-  });
+  plan.items.forEach(it => { const inp = document.getElementById('pt-' + it.skillId); if (inp) it.targetMins = parseInt(inp.value) || null; });
   plan.items.forEach(it => { it.checked = false; });
   plan.bonusGiven = false;
   state.plan = plan;
@@ -1307,10 +1163,7 @@ function togglePlanCheck(skillId) {
   const allChecked = plan.items.length > 0 && plan.items.every(it => it.checked);
   if (allChecked && !plan.bonusGiven) {
     const BONUS_PER_SKILL = 20;
-    plan.items.forEach(it => {
-      const s = state.skills.find(x => x.id === it.skillId);
-      if (s) s.xp = (s.xp || 0) + BONUS_PER_SKILL;
-    });
+    plan.items.forEach(it => { const s = state.skills.find(x => x.id === it.skillId); if (s) s.xp = (s.xp || 0) + BONUS_PER_SKILL; });
     plan.bonusGiven = true;
     DB.set('ss_skills', state.skills);
   }
@@ -1318,6 +1171,7 @@ function togglePlanCheck(skillId) {
   renderPlanModal();
   renderSkillsTab();
 }
+
 // ============================================================
 // MODALS
 // ============================================================
@@ -1326,6 +1180,7 @@ function closeModal(id) { document.getElementById(id).classList.remove('open'); 
 document.querySelectorAll('.modal-overlay').forEach(o => {
   o.addEventListener('click', function(e) { if (e.target === o) o.classList.remove('open'); });
 });
+
 // ============================================================
 // RENDER
 // ============================================================
@@ -1338,7 +1193,7 @@ function renderAll() {
   renderSkillsTab();
   renderHistory();
   renderStatisticsTab();
-  renderTipsLibrary();
+  renderTipsTab();
   if (detailSkillId && document.getElementById('screen-detail').classList.contains('active')) {
     renderSkillDetail();
   }
@@ -1351,7 +1206,6 @@ function renderGreeting() {
   if (el) el.textContent = g + ', ' + state.user.name;
 }
 function renderStats() {
-  // Homepage stats use only active skill session data for Hours and active counts
   const active = activeSkills();
   const activeIds = new Set(active.map(s => s.id));
   const activeSessions = state.sessions.filter(s => activeIds.has(s.skillId));
@@ -1385,18 +1239,14 @@ function renderDistrib() {
   }
   const pcts = data.map(x => Math.round((x.m / tot) * 100));
   el.innerHTML = '<div class="distrib-wrap">' + data.map((x, i) =>
-    '<div class="distrib-row">'
-    + '<span class="distrib-icon">' + x.sk.icon + '</span>'
-    + '<span class="distrib-name">' + x.sk.name + '</span>'
+    '<div class="distrib-row"><span class="distrib-icon">' + x.sk.icon + '</span><span class="distrib-name">' + x.sk.name + '</span>'
     + '<div class="distrib-bar-bg"><div class="distrib-bar-fill" style="width:' + pcts[i] + '%;background:' + (x.m ? colors[i % 6] : 'var(--border)') + '"></div></div>'
-    + '<span class="distrib-pct">' + pcts[i] + '%</span>'
-    + '</div>'
+    + '<span class="distrib-pct">' + pcts[i] + '%</span></div>'
   ).join('') + '</div>';
 }
 function renderHeatmap() {
   const el = document.getElementById('heatmap-area');
   if (!el) return;
-  // Heatmap uses only active skill sessions
   const activeIds = new Set(activeSkills().map(s => s.id));
   const now = new Date();
   const dow = now.getDay();
@@ -1405,8 +1255,7 @@ function renderHeatmap() {
   const days = ['M','T','W','T','F','S','S'];
   const weekDays = [];
   for (let i = 0; i < 7; i++) {
-    const d = new Date(monday);
-    d.setDate(monday.getDate() + i);
+    const d = new Date(monday); d.setDate(monday.getDate() + i);
     const dStr = d.toDateString();
     const mins = state.sessions.filter(s => activeIds.has(s.skillId) && new Date(s.date).toDateString() === dStr).reduce((a, s) => a + s.minutes, 0);
     weekDays.push({ label: days[i], mins, isFuture: d > now });
@@ -1421,12 +1270,7 @@ function renderHeatmap() {
     return 'rgba(236,72,153,.95)';
   }
   el.innerHTML = '<div class="week-heatmap"><div class="week-heatmap-grid">'
-    + weekDays.map(d =>
-        '<div class="wh-col">'
-        + '<div class="wh-cell" style="background:' + cellColor(d.mins) + (d.isFuture ? ';opacity:.3' : '') + '" title="' + d.mins + 'min"></div>'
-        + '<div class="wh-cell-label">' + d.label + '</div>'
-        + '</div>'
-      ).join('')
+    + weekDays.map(d => '<div class="wh-col"><div class="wh-cell" style="background:' + cellColor(d.mins) + (d.isFuture ? ';opacity:.3' : '') + '" title="' + d.mins + 'min"></div><div class="wh-cell-label">' + d.label + '</div></div>').join('')
     + '</div></div>';
 }
 function skillCardHTML(skill, from) {
@@ -1435,15 +1279,10 @@ function skillCardHTML(skill, from) {
   const color = levelColor(level);
   const pausedBadge = skill.active === false ? '<span class="paused-badge">Paused</span>' : '';
   return '<div class="skill-card' + (skill.active === false ? ' paused' : '') + '" onclick="openSkillDetail(' + skill.id + ',\'' + from + '\')">'
-    + '<div class="skill-card-row">'
-    + '<div class="skill-card-left">'
-    + '<span class="skill-icon">' + skill.icon + '</span>'
-    + '<div><div class="skill-name">' + skill.name + pausedBadge + '</div><div class="skill-sublabel">' + levelLabel(level) + '</div></div>'
-    + '</div>'
-    + '<div class="level-badge" style="color:' + color + '">Lv ' + level + '</div>'
-    + '</div>'
-    + '<div class="xp-bar-bg"><div class="xp-bar-fill" style="width:' + pct + '%;background:' + color + '"></div></div>'
-    + '</div>';
+    + '<div class="skill-card-row"><div class="skill-card-left"><span class="skill-icon">' + skill.icon + '</span>'
+    + '<div><div class="skill-name">' + skill.name + pausedBadge + '</div><div class="skill-sublabel">' + levelLabel(level) + '</div></div></div>'
+    + '<div class="level-badge" style="color:' + color + '">Lv ' + level + '</div></div>'
+    + '<div class="xp-bar-bg"><div class="xp-bar-fill" style="width:' + pct + '%;background:' + color + '"></div></div></div>';
 }
 function renderSkillsTab() {
   const active = state.skills.filter(s => s.active !== false);
@@ -1474,11 +1313,9 @@ function renderSkillDetail() {
     const metaBadge = p.meta ? '<span class="tree-meta-badge">Global</span>' : '';
     return '<div class="tree-node ' + (unlocked ? 'unlocked' : '') + '">'
       + '<div class="tree-dot"><span class="tree-dot-check">✓</span><span class="tree-dot-lock">·</span></div>'
-      + '<div class="tree-body">'
-      + '<div class="tree-name">' + p.name + metaBadge + '</div>'
+      + '<div class="tree-body"><div class="tree-name">' + p.name + metaBadge + '</div>'
       + '<div class="tree-effect">' + p.effect + '</div>'
-      + '<div class="tree-unlock-at">' + (unlocked ? 'Unlocked' : 'Level ' + p.unlockLevel) + '</div>'
-      + '</div></div>';
+      + '<div class="tree-unlock-at">' + (unlocked ? 'Unlocked' : 'Level ' + p.unlockLevel) + '</div></div></div>';
   }).join('');
   const isPaused = skill.active === false;
   const pauseLabel = isPaused ? 'Resume tracking' : 'Pause tracking';
@@ -1495,11 +1332,9 @@ function renderSkillDetail() {
     + '<div class="detail-stat"><div class="ds-val">Lv ' + level + '</div><div class="ds-lbl">Level</div></div>'
     + '</div></div>'
     + '<div class="detail-divider"></div>'
-    + '<div class="detail-tip-wrap">'
-    + '<div class="section-title" style="padding:14px 0 8px">Tip</div>'
+    + '<div class="detail-tip-wrap"><div class="section-title" style="padding:14px 0 8px">Tip</div>'
     + '<div class="detail-tip-box" id="detail-tip-box">' + detailTip + '</div>'
-    + '<button class="detail-tip-refresh" onclick="refreshDetailTip()">Another tip</button>'
-    + '</div>'
+    + '<button class="detail-tip-refresh" onclick="refreshDetailTip()">Another tip</button></div>'
     + '<div class="detail-divider"></div>'
     + '<div class="tree-wrap"><div class="tree-label">Skill progression</div><div class="tree-path">' + treeHTML + '</div></div>'
     + '<div class="detail-divider"></div>'
@@ -1509,8 +1344,9 @@ function renderSkillDetail() {
     + '<button class="btn-ghost-danger" onclick="deleteSkill(' + skill.id + ')">Delete skill</button>'
     + '</div>';
 }
+
 // ============================================================
-// STATISTICS TAB RENDER
+// STATISTICS TAB
 // ============================================================
 function renderStatisticsTab() {
   renderLifetimeStats();
@@ -1519,7 +1355,7 @@ function renderStatisticsTab() {
 function renderLifetimeStats() {
   const el = document.getElementById('stats-lifetime');
   if (!el) return;
-  const sessions = state.sessions; // all sessions, incl. inactive
+  const sessions = state.sessions;
   if (!sessions.length) {
     el.innerHTML = '<div class="stat-lifetime-box"><div class="stat-lifetime-sub">No sessions logged yet. Start tracking to see your progress here.</div></div>';
     return;
@@ -1528,13 +1364,8 @@ function renderLifetimeStats() {
   const totalHours = (totalMins / 60).toFixed(1);
   const firstSession = Math.min(...sessions.map(s => s.date));
   const daysSince = Math.max(1, Math.floor((Date.now() - firstSession) / 86400000));
-
-  // Best day (all skills, including inactive)
   const dayMap = {};
-  sessions.forEach(s => {
-    const key = new Date(s.date).toDateString();
-    dayMap[key] = (dayMap[key] || 0) + s.minutes;
-  });
+  sessions.forEach(s => { const k = new Date(s.date).toDateString(); dayMap[k] = (dayMap[k] || 0) + s.minutes; });
   const dayEntries = Object.entries(dayMap);
   let bestDayStr = '';
   if (dayEntries.length) {
@@ -1543,7 +1374,6 @@ function renderLifetimeStats() {
     const bestLabel = new Date(best[0]).toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
     bestDayStr = 'You spent the most time learning on <strong>' + bestLabel + '</strong>, with <strong>' + bestHours + ' hours</strong> that day.';
   }
-
   el.innerHTML = '<div class="stat-lifetime-box">'
     + '<div class="stat-lifetime-headline">You\'ve spent <strong style="color:var(--accent2)">' + totalHours + ' hours</strong> learning since you started tracking <strong style="color:var(--accent2)">' + daysSince + ' day' + (daysSince !== 1 ? 's' : '') + '</strong> ago.</div>'
     + (bestDayStr ? '<div class="stat-lifetime-sub">' + bestDayStr + '</div>' : '')
@@ -1552,20 +1382,137 @@ function renderLifetimeStats() {
 function renderAchievements() {
   const el = document.getElementById('stats-achievements');
   if (!el) return;
-  const achievements = computeAchievements();
-  // Sort: unlocked first
-  const sorted = [...achievements].sort((a, b) => (b.unlocked ? 1 : 0) - (a.unlocked ? 1 : 0));
-  el.innerHTML = sorted.map(a =>
-    '<div class="achievement-card' + (a.unlocked ? ' unlocked' : '') + '">'
-    + '<div class="achievement-icon">' + a.icon + '</div>'
-    + '<div class="achievement-body">'
-    + '<div class="achievement-title">' + a.title + '</div>'
-    + '<div class="achievement-desc">' + a.desc + '</div>'
-    + '</div>'
-    + '<div class="achievement-value">' + (a.unlocked ? a.value : '') + '</div>'
-    + '</div>'
-  ).join('');
+  const categories = getAchievementDefs();
+  el.innerHTML = categories.map(cat => {
+    const items = cat.items.map(a => {
+      const progressPct = a.total > 0 ? Math.round((a.progress / a.total) * 100) : 0;
+      const showProgress = !a.unlocked && a.total > 1;
+      const progressLabel = a.total <= 1 ? '' : (typeof a.progress === 'number' && a.progress % 1 !== 0
+        ? a.progress.toFixed(1) + ' / ' + a.total
+        : Math.floor(a.progress) + ' / ' + a.total);
+      return '<div class="achievement-card' + (a.unlocked ? ' unlocked' : '') + '">'
+        + '<div class="achievement-icon">' + a.icon + '</div>'
+        + '<div class="achievement-body">'
+        + '<div class="achievement-title">' + a.title + '</div>'
+        + '<div class="achievement-desc">' + a.desc + '</div>'
+        + (showProgress ? '<div class="ach-progress-wrap"><div class="ach-progress-bg"><div class="ach-progress-fill" style="width:' + progressPct + '%"></div></div><div class="ach-progress-label">' + progressLabel + '</div></div>' : '')
+        + '</div>'
+        + '<div class="achievement-check">🏆</div>'
+        + '</div>';
+    }).join('');
+    return '<div class="ach-category"><div class="ach-category-title">' + cat.category + '</div>' + items + '</div>';
+  }).join('');
 }
+
+// ============================================================
+// TIPS TAB — smart tip + collapsible sections
+// ============================================================
+function generateSmartTip() {
+  const active = activeSkills();
+  if (!active.length) return null;
+  const now = Date.now(), DAY = 86400000;
+  // Find most neglected active skill
+  let worst = null, worstDays = 0;
+  active.forEach(s => {
+    const ss = state.sessions.filter(x => x.skillId === s.id);
+    const last = ss.length ? Math.max(...ss.map(x => x.date)) : null;
+    const days = last ? Math.floor((now - last) / DAY) : 999;
+    if (days > worstDays) { worstDays = days; worst = s; }
+  });
+  if (worst && worstDays >= 3) {
+    return `${worst.icon} ${worst.name} hasn't had a session in ${worstDays === 999 ? 'a while' : worstDays + ' days'}. Even a 5 minute session would restart your momentum.`;
+  }
+  // Check if total sessions today is 0
+  const today = new Date().toDateString();
+  const todaySessions = state.sessions.filter(s => new Date(s.date).toDateString() === today).length;
+  if (todaySessions === 0 && state.sessions.length > 0) {
+    return 'You haven\'t logged anything today yet. A single quick session keeps your streak alive.';
+  }
+  return null;
+}
+
+const TIPS_DATA = [
+  {
+    title: 'Starting',
+    tips: [
+      { title: 'Pick one skill first', body: 'Starting with multiple skills fragments your focus. Commit to one for 30 days before adding more.', action: 'Choose the skill that matters most right now and log a session today.' },
+      { title: 'Set a minimum session length', body: 'Even 5 minutes counts. The goal is showing up, not perfection. Short sessions beat no sessions every time.', action: 'Log a 5 minute session the next time you feel resistance.' },
+      { title: 'Attach it to a habit', body: 'Stack your practice onto something you already do — morning coffee, after lunch, before bed. Existing habits carry new ones.', action: 'Identify one existing habit you can attach your skill practice to.' },
+      { title: 'Make starting frictionless', body: 'The first 2 minutes are the hardest. Keep your materials out, your app open, your instrument in view.', action: 'Remove one obstacle that slows you down before practicing.' },
+      { title: 'Log the session, not the result', body: 'Don\'t judge the quality. Log it, close it. Judgment kills consistency.', action: 'Log your next session as soon as it ends, without rating it.' },
+    ]
+  },
+  {
+    title: 'Daily Practice',
+    tips: [
+      { title: 'Same time, same place', body: 'Context cues are powerful. Practicing at the same time and location each day builds automatic behavior.', action: 'Schedule a recurring slot in your calendar, even if it\'s just 10 minutes.' },
+      { title: 'Vary intensity deliberately', body: 'Alternate light and heavy sessions. Heavy sessions build skill; light sessions build volume and prevent burnout.', action: 'If your last session was heavy, log a light one next time.' },
+      { title: 'Log immediately after', body: 'The longer you wait, the less likely you are to log. Open SkillStack before you put your instrument down.', action: 'Log your next session within 60 seconds of finishing.' },
+      { title: 'Don\'t break the chain', body: 'A streak is a powerful visual cue. Missing one day is fine. Never miss two in a row.', action: 'If you missed yesterday, make today non-negotiable — even 5 minutes.' },
+      { title: 'Review your week on Sunday', body: 'Spend 2 minutes looking at your heatmap. Seeing gaps motivates filling them next week.', action: 'Open the Home tab and look at the heatmap. What does next week look like?' },
+    ]
+  },
+  {
+    title: 'Deep Learning',
+    tips: [
+      { title: 'Define the session goal first', body: 'Vague sessions produce vague progress. "Practice piano" is worse than "nail the chord transition in bar 12."', action: 'Before your next heavy session, write one specific goal in the note field.' },
+      { title: 'Use the 25-minute block', body: 'Twenty-five focused minutes with a 5 minute break beats 90 distracted minutes. Your brain consolidates learning during breaks.', action: 'Set a timer for 25 minutes. No phone. No notifications.' },
+      { title: 'Struggle is the signal', body: 'If a session felt hard, that\'s correct. Difficulty is where learning actually happens. Easy sessions maintain; hard sessions grow.', action: 'Log a heavy session and note specifically what felt hardest.' },
+      { title: 'Sleep on it', body: 'Memory consolidation happens during sleep. A hard session followed by a full night\'s sleep accelerates retention.', action: 'Schedule your hardest practice session at least 2 hours before bed.' },
+      { title: 'Teach what you learned', body: 'Explaining a concept forces you to find the gaps in your understanding. Write a note, explain to a friend, or record yourself.', action: 'After your next session, write one sentence about what you learned.' },
+    ]
+  },
+  {
+    title: 'Long-Term Mastery',
+    tips: [
+      { title: 'Plateaus are normal', body: 'Progress is not linear. What feels like stagnation is often consolidation — your brain is organizing what it learned before the next jump.', action: 'If you feel stuck, keep logging anyway. The plateau always ends.' },
+      { title: 'Review your old sessions', body: 'Looking back at your History tab reminds you how far you\'ve come. Progress feels invisible when you\'re in it.', action: 'Open History and scroll to your earliest sessions. Notice what changed.' },
+      { title: 'Add a harder challenge', body: 'When something becomes easy, it stops being learning. Deliberately seek the edge of your ability.', action: 'Identify one thing in your skill that you\'ve been avoiding because it\'s hard.' },
+      { title: 'Rest is part of training', body: 'Recovery sessions and complete rest days are not laziness. They are part of the process. Use the Pause feature when life demands it.', action: 'If you\'ve been training intensely for weeks, take one full rest day guilt-free.' },
+      { title: 'Measure the right things', body: 'Hours practiced matters more than hours elapsed. Five focused hours beats fifty passive ones. Use heavy sessions for real growth.', action: 'Look at your session history. What ratio of light to heavy are you logging?' },
+    ]
+  }
+];
+
+// Track which sections are open
+const openTipSections = new Set([0]); // first section open by default
+
+function toggleTipSection(idx) {
+  if (openTipSections.has(idx)) { openTipSections.delete(idx); } else { openTipSections.add(idx); }
+  renderTipsTab();
+}
+
+function renderTipsTab() {
+  // Smart tip
+  const smartEl = document.getElementById('tips-smart-tip');
+  if (smartEl) {
+    const tip = generateSmartTip();
+    smartEl.innerHTML = tip
+      ? '<div class="smart-tip-box"><div class="smart-tip-label">Smart tip</div><div class="smart-tip-text">' + tip + '</div></div>'
+      : '';
+  }
+  // Sections
+  const sectionsEl = document.getElementById('tips-sections');
+  if (!sectionsEl) return;
+  sectionsEl.innerHTML = TIPS_DATA.map((sec, i) => {
+    const isOpen = openTipSections.has(i);
+    const cardsHtml = sec.tips.map(t =>
+      '<div class="tip-card">'
+      + '<div class="tip-card-title">' + t.title + '</div>'
+      + '<div class="tip-card-body">' + t.body + '</div>'
+      + '<div class="tip-card-action">→ ' + t.action + '</div>'
+      + '</div>'
+    ).join('');
+    return '<div class="tip-section' + (isOpen ? ' open' : '') + '">'
+      + '<div class="tip-section-header" onclick="toggleTipSection(' + i + ')">'
+      + '<span class="tip-section-title">' + sec.title + '</span>'
+      + '<span class="tip-section-arrow">▼</span>'
+      + '</div>'
+      + '<div class="tip-section-body">' + cardsHtml + '</div>'
+      + '</div>';
+  }).join('');
+}
+
 function generateSkillTip(skill) {
   const now = Date.now(), DAY = 86400000;
   const sessions = state.sessions.filter(s => s.skillId === skill.id);
@@ -1590,6 +1537,7 @@ function refreshDetailTip() {
   const el = document.getElementById('detail-tip-box');
   if (el) el.textContent = detailTip;
 }
+
 function renderHistory() {
   const el = document.getElementById('session-list');
   const empty = document.getElementById('log-empty');
@@ -1598,62 +1546,15 @@ function renderHistory() {
   if (empty) empty.style.display = 'none';
   el.innerHTML = state.sessions.map(s => {
     const d = new Date(s.date).toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
-    return '<div class="session-item">'
-      + '<div class="session-icon">' + s.skillIcon + '</div>'
-      + '<div class="session-info">'
-      + '<div class="session-name">' + s.skillName + '</div>'
+    return '<div class="session-item"><div class="session-icon">' + s.skillIcon + '</div>'
+      + '<div class="session-info"><div class="session-name">' + s.skillName + '</div>'
       + '<div class="session-meta">' + d + '<span class="badge badge-' + s.intensity + '">' + s.intensity + '</span></div>'
       + (s.note ? '<div style="font-size:10px;color:#55556a;margin-top:2px">' + s.note + '</div>' : '')
-      + '</div>'
-      + '<div class="session-right">'
-      + '<div class="session-min">' + s.minutes + 'm</div>'
-      + '<div class="session-xp">+' + s.xpGain + ' XP</div>'
-      + '</div></div>';
+      + '</div><div class="session-right"><div class="session-min">' + s.minutes + 'm</div>'
+      + '<div class="session-xp">+' + s.xpGain + ' XP</div></div></div>';
   }).join('');
 }
-// ============================================================
-// TIPS LIBRARY
-// ============================================================
-const TIPS_LIBRARY = {
-  Languages: [
-    "Listen to podcasts in the target language during low-focus tasks — commuting, cooking, walking.",
-    "Shadow native speakers: repeat phrases out loud immediately after hearing them.",
-    "Change your phone interface language. Passive daily exposure adds up faster than it seems.",
-    "Write one sentence in your target language every day. Short and consistent beats long and rare.",
-    "Read children's books in your target language — the vocabulary is practical and frequency is high."
-  ],
-  Focus: [
-    "Set a single specific goal before each session. '20 minutes of scales' beats 'practice piano'.",
-    "Work in fixed blocks — even 20 focused minutes beats 90 distracted ones.",
-    "Log your session immediately after. The act of tracking reinforces the habit.",
-    "Remove your phone from the room during heavy practice. Interruptions cost more time than you think.",
-    "Energy matters as much as time. Schedule hard practice when alert, light sessions when tired."
-  ],
-  Movement: [
-    "Light language listening works well during movement — walking, cycling, household tasks.",
-    "Pair a new skill with physical activity you already do. It lowers resistance and doubles the output.",
-    "Movement breaks between study sessions restore focus faster than passive rest.",
-    "Audiobooks and podcasts during a commute or run are often underestimated as learning tools.",
-    "If a skill feels hard to start, try practicing it during a walk. Context change shifts resistance."
-  ],
-  General: [
-    "Consistency over intensity. 15 minutes daily compounds faster than 3 hours once a week.",
-    "When motivation drops, lower the session goal — even 5 minutes resets the pattern.",
-    "Missing a day is not failure. Starting again the next day is what matters.",
-    "Stacking a new skill onto an existing habit reduces friction significantly.",
-    "Progress rarely feels linear. What looks like a plateau is often consolidation before a jump."
-  ]
-};
-function renderTipsLibrary() {
-  const el = document.getElementById('tips-content');
-  if (!el) return;
-  el.innerHTML = Object.entries(TIPS_LIBRARY).map(([cat, tips]) =>
-    '<div class="tips-section">'
-    + '<div class="tips-section-label">' + cat + '</div>'
-    + tips.map(t => '<div class="tip-item">' + t + '</div>').join('')
-    + '</div>'
-  ).join('');
-}
+
 // ============================================================
 // INIT
 // ============================================================
@@ -1665,6 +1566,8 @@ function init() {
     document.getElementById('fab-stack').style.display = 'flex';
     initObProgress();
     renderAll();
+    // Check for any retroactive achievements on load
+    checkAndToastAchievements();
   } else {
     initObProgress();
   }
