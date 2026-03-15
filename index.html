@@ -102,10 +102,10 @@
   .fab-btn:active { transform: scale(.9); }
   .fab-btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow: 0 4px 16px rgba(124,106,247,.4); font-size: 24px; color: white; }
   /* MODALS */
-  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.75); z-index: 200; align-items: flex-end; justify-content: center; }
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.75); z-index: 200; align-items: center; justify-content: center; padding: 16px; }
   .modal-overlay.open { display: flex; }
-  .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 22px 22px 0 0; padding: 20px 18px 40px; width: 100%; max-width: 480px; max-height: 92vh; overflow-y: auto; }
-  .modal-handle { width: 34px; height: 4px; background: var(--border); border-radius: 99px; margin: 0 auto 18px; }
+  .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 20px 18px 32px; width: 100%; max-width: 480px; max-height: 88vh; overflow-y: auto; }
+  .modal-handle { display: none; }
   .modal h2 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
   /* FORMS */
   label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 5px; }
@@ -159,22 +159,26 @@
   .toast-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--gold); margin-bottom: 1px; }
   .toast-text { font-size: 13px; color: var(--text); font-weight: 600; }
   /* ONBOARDING */
-  #onboarding { position: fixed; inset: 0; background: var(--bg); z-index: 400; display: flex; flex-direction: column; padding: 44px 22px 36px; overflow-y: auto; }
+  #onboarding { position: fixed; inset: 0; background: var(--bg); z-index: 400; display: flex; flex-direction: column; align-items: center; padding: 80px 22px 36px; overflow-y: auto; }
   #onboarding.done { display: none; }
   .ob-logo { font-size: 28px; font-weight: 900; color: var(--accent2); margin-bottom: 3px; }
   .ob-tagline { color: var(--muted); font-size: 13px; margin-bottom: 32px; }
-  .ob-step { display: none; flex-direction: column; flex: 1; }
+  .ob-step { display: none; flex-direction: column; width: 100%; max-width: 420px; }
   .ob-step.active { display: flex; }
   .ob-q { font-size: 20px; font-weight: 800; line-height: 1.3; margin-bottom: 8px; }
   .ob-hint { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
   .ob-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
   .chip { padding: 7px 13px; border-radius: 99px; border: 1.5px solid var(--border); background: var(--surface); color: var(--text); font-size: 13px; cursor: pointer; transition: all .2s; }
   .chip.selected { border-color: var(--accent); background: rgba(124,106,247,.15); color: var(--accent2); }
-  /* All onboarding buttons: same compact pill width */
-  .ob-step .btn { width: auto; align-self: center; padding: 13px 52px; }
+  /* All onboarding buttons: comfortable pill width */
+  .ob-step .btn { width: auto; align-self: center; padding: 13px 64px; min-width: 200px; }
   .ob-progress { display: flex; gap: 5px; margin-bottom: 24px; }
   .ob-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--border); transition: background .3s; }
   .ob-dot.done { background: var(--accent2); }
+  /* DESKTOP: constrain form widths */
+  @media (min-width: 600px) {
+    #onboarding .ob-step { max-width: 480px; }
+  }
   /* SKILL DETAIL */
   .detail-back { background: none; border: none; color: var(--muted); font-size: 13px; cursor: pointer; padding: 20px 16px 6px; display: flex; align-items: center; gap: 5px; font-family: inherit; transition: color .2s; }
   .detail-back:hover { color: var(--text); }
@@ -307,6 +311,46 @@
   .output-stat-val { font-size: 18px; font-weight: 800; color: var(--accent2); }
   .output-stat-label { font-size: 11px; color: var(--muted); margin-top: 1px; }
 
+
+  /* EMOJI PICKER */
+  .emoji-picker-wrap { position: relative; margin-bottom: 14px; }
+  .emoji-picker-trigger {
+    width: 100%; padding: 10px 13px; background: var(--surface2);
+    border: 1px solid var(--border); border-radius: 11px;
+    color: var(--text); font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; gap: 10px; font-family: inherit;
+    transition: border-color .2s;
+  }
+  .emoji-picker-trigger:hover { border-color: var(--accent); }
+  .emoji-picker-trigger .ep-preview { font-size: 22px; }
+  .emoji-picker-trigger .ep-label { font-size: 14px; color: var(--muted); }
+  .emoji-picker-dropdown {
+    display: none; position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    z-index: 50; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,.5);
+  }
+  .emoji-picker-dropdown.open { display: block; }
+  .ep-tabs { display: flex; border-bottom: 1px solid var(--border); overflow-x: auto; scrollbar-width: none; }
+  .ep-tabs::-webkit-scrollbar { display: none; }
+  .ep-tab {
+    flex-shrink: 0; padding: 9px 14px; background: none; border: none;
+    color: var(--muted); font-size: 11px; font-weight: 600; cursor: pointer;
+    font-family: inherit; transition: color .2s; white-space: nowrap;
+    border-bottom: 2px solid transparent; margin-bottom: -1px;
+  }
+  .ep-tab.active { color: var(--accent2); border-bottom-color: var(--accent2); }
+  .ep-grid {
+    display: grid; grid-template-columns: repeat(8, 1fr);
+    gap: 2px; padding: 10px; max-height: 200px; overflow-y: auto;
+  }
+  .ep-emoji {
+    font-size: 22px; text-align: center; padding: 6px 4px;
+    border-radius: 8px; cursor: pointer; transition: background .15s;
+    line-height: 1.2;
+  }
+  .ep-emoji:hover { background: var(--surface2); }
+  .ep-emoji.selected { background: rgba(124,106,247,.25); }
+
   /* MISC */
   .empty { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 13px; line-height: 1.7; }
   ::-webkit-scrollbar { width: 3px; }
@@ -352,9 +396,18 @@
   <!-- STEP 2: First skill -->
   <div class="ob-step" id="ob-step-2">
     <div class="ob-q">Add your first skill.</div>
-    <div class="ob-hint">Start with one. You can always add more later.</div>
+    <div class="ob-hint">Track the skills you're learning. See how much time you really invest.</div>
     <label>What do you want to learn or build?</label>
     <input type="text" id="ob-skill-name" placeholder="e.g. Spanish, Piano, Running...">
+    <label>Category</label>
+    <select id="ob-skill-category">
+      <option value="language">Language</option>
+      <option value="fitness">Fitness</option>
+      <option value="reading">Reading</option>
+      <option value="knowledge">Knowledge</option>
+      <option value="creative">Creative</option>
+      <option value="other">Other</option>
+    </select>
     <label>Type</label>
     <select id="ob-skill-type">
       <option value="skill">Skill (e.g. language, coding)</option>
@@ -362,43 +415,15 @@
       <option value="habit">Habit (e.g. daily reading)</option>
     </select>
     <label>Pick an emoji</label>
-    <div class="ob-chips" id="ob-emoji-chips">
-      <div class="chip" onclick="selectOne(this,'emoji')">🎸</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🎹</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🎵</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🎙️</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🗣️</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">💻</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🖥️</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">📱</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">📚</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">✍️</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">📝</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🎨</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🖌️</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">📷</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🏃</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🚴</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🏋️</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🧘</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">⚽</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🎾</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🧮</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🔬</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🌍</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🍳</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">☕</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🌱</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🎭</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🎬</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">♟️</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🧩</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">💡</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🚀</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🏛️</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🎤</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">🤿</div>
-      <div class="chip" onclick="selectOne(this,'emoji')">✈️</div>
+    <div class="emoji-picker-wrap" id="ep-wrap-ob">
+      <button type="button" class="emoji-picker-trigger" onclick="toggleEmojiPicker('ob')">
+        <span class="ep-preview" id="ep-preview-ob">⭐</span>
+        <span class="ep-label">Choose an emoji</span>
+      </button>
+      <div class="emoji-picker-dropdown" id="ep-dropdown-ob">
+        <div class="ep-tabs" id="ep-tabs-ob"></div>
+        <div id="ep-grid-ob"></div>
+      </div>
     </div>
     <button class="btn btn-primary" onclick="obFinish()">Start tracking →</button>
   </div>
@@ -563,43 +588,15 @@
       <option value="other">Other</option>
     </select>
     <label>Pick an emoji</label>
-    <div class="ob-chips" style="margin-bottom:18px">
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🎸</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🎹</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🎵</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🎙️</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🗣️</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">💻</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🖥️</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">📱</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">📚</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">✍️</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">📝</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🎨</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🖌️</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">📷</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🏃</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🚴</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🏋️</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🧘</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">⚽</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🎾</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🧮</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🔬</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🌍</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🍳</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">☕</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🌱</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🎭</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🎬</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">♟️</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🧩</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">💡</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🚀</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🏛️</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🎤</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">🤿</div>
-      <div class="chip" onclick="selectOne(this,'add-emoji')">✈️</div>
+    <div class="emoji-picker-wrap" id="ep-wrap-modal">
+      <button type="button" class="emoji-picker-trigger" onclick="toggleEmojiPicker('modal')">
+        <span class="ep-preview" id="ep-preview-modal">⭐</span>
+        <span class="ep-label">Choose an emoji</span>
+      </button>
+      <div class="emoji-picker-dropdown" id="ep-dropdown-modal">
+        <div class="ep-tabs" id="ep-tabs-modal"></div>
+        <div id="ep-grid-modal"></div>
+      </div>
     </div>
     <button class="btn btn-primary" onclick="submitAddSkill()">Add skill</button>
     <button class="btn btn-secondary" onclick="closeModal('modal-add-skill')">Cancel</button>
@@ -971,7 +968,6 @@ function obNext(step) {
 function obFinish() {
   const name = document.getElementById('ob-skill-name').value.trim();
   if (!name) { alert('Please enter a skill name.'); return; }
-  // Ensure user was saved (step 1 sets it, but guard just in case)
   if (!state.user) { alert('Please enter your name first.'); return; }
   addSkillToState(name, document.getElementById('ob-skill-type').value, selectedEmoji || '⭐', document.getElementById('ob-skill-category') ? document.getElementById('ob-skill-category').value : 'other');
   document.getElementById('onboarding').classList.add('done');
@@ -980,6 +976,8 @@ function obFinish() {
   document.getElementById('fab-stack').style.display = 'flex';
   save(); renderAll();
   checkAndToastAchievements();
+  // Post-onboarding welcome toast
+  setTimeout(() => showToast('🌱', 'Your learning journey has started. Log your first session!'), 600);
 }
 
 // ============================================================
@@ -1021,7 +1019,11 @@ function addSkillToState(name, type, emoji, category) {
 function openAddSkill() {
   document.getElementById('new-skill-name').value = '';
   selectedEmoji = '⭐';
-  document.querySelectorAll('[onclick*="add-emoji"]').forEach(c => c.classList.remove('selected'));
+  // Reset modal emoji picker
+  const prev = document.getElementById('ep-preview-modal');
+  if (prev) prev.textContent = '⭐';
+  const dd = document.getElementById('ep-dropdown-modal');
+  if (dd) dd.classList.remove('open');
   openModal('modal-add-skill');
 }
 function submitAddSkill() {
@@ -1220,7 +1222,13 @@ function openTodayPlan() {
     return Math.floor((now - Math.max(...ss.map(s => s.date))) / DAY);
   }
 
-  // Score: higher = more needs practice today
+  // If user has no sessions at all, show a starter message
+  if (!state.sessions.length) {
+    const el = document.getElementById('today-plan-content');
+    if (el) el.innerHTML = '<div style="text-align:center;padding:16px 0;color:var(--muted);font-size:14px;line-height:1.7">Your learning journey just started.<br>Log your first session today to begin<br>tracking progress.</div>';
+    openModal('modal-today-plan');
+    return;
+  }
   const scored = active.map(s => {
     const wm = weekMins(s.id);
     const ds = daysSince(s.id);
@@ -1238,7 +1246,8 @@ function openTodayPlan() {
     if (mins > 60) mins = 45;
     // Round to nearest 5
     mins = Math.round(mins / 5) * 5;
-    const reason = p.ds >= 7 ? 'Not practiced in ' + p.ds + ' days'
+    const reason = p.ds >= 999 ? 'No sessions yet — start here today'
+      : p.ds >= 7 ? 'Not practiced in ' + p.ds + ' days'
       : p.ds >= 3 ? 'Last practiced ' + p.ds + ' days ago'
       : p.wm < 30 ? 'Low this week (' + Math.round(p.wm) + ' min)'
       : 'Keep the momentum going';
@@ -1698,6 +1707,94 @@ function renderHistory() {
       + '<div class="session-xp">+' + s.xpGain + ' XP</div></div></div>';
   }).join('');
 }
+
+
+// ============================================================
+// EMOJI PICKER
+// ============================================================
+const EMOJI_BANK = {
+  'Languages': ['🌍','🌎','🌏','🗣️','💬','🔤','📖','🇪🇸','🇫🇷','🇩🇪','🇮🇹','🇵🇹','🇬🇧','🇺🇸','🇯🇵','🇰🇷','🇨🇳','🇳🇱','🇧🇷','🇷🇺','🇦🇷','🇲🇽','🇨🇦','🇦🇺','🇸🇪','🇳🇴','🇩🇰','🇵🇱','🇹🇷','🇬🇷','🇸🇦','🇮🇳','🇹🇭','🇻🇳','🇮🇩'],
+  'Learning': ['📚','📖','✍️','🧠','🎓','📝','📓','📒','📔','📕','📗','📘','📙','🔬','🔭','🧪','🧫','🧬','📐','📏','🖊️','🖋️','📌','📍','🗂️','📊','📈','📉'],
+  'Fitness': ['🏃','💪','🏋️','🚴','🧘','🥊','⚽','🏀','🎾','🏊','🤸','🏇','🧗','🤺','🏄','🛹','🎿','🏂','🚵','🤾','⛹️','🏌️','🤼','🥋','🥅','🏆','🥇','🥈','🥉','🎯','🏹'],
+  'Creative': ['🎹','🎸','🎨','🎭','✏️','🎬','📷','📸','🖌️','🎺','🎻','🥁','🎷','🎤','🎧','🎼','🎵','🎶','🎙️','📻','🎮','🕹️','🧶','🪡','🧵','🪢','🖼️','🗿','🏺'],
+  'Knowledge': ['💻','🖥️','📱','⌨️','🖱️','💡','🔍','📡','🛰️','⚡','🔋','💾','💿','📀','🖨️','📠','☎️','📟','🧮','🔧','🔨','⚙️','🔩','🔑','🗝️'],
+  'Nature': ['🌱','🌿','🍀','🌸','🌺','🌻','🌹','🌷','🌲','🌳','🌴','🌵','🍄','🐾','🦋','🐝','🦊','🐶','🐱','🐻','🐼','🦁','🐯','🦄'],
+  'General': ['⭐','🔥','🚀','🎯','🧩','💎','👑','🏅','🏆','🎖️','🥊','🎪','🎢','🎠','🌟','✨','💫','⚡','🌈','🎉','🎊','🎁','🎀','🎗️','🎟️','🎫','🧲','🔮','🪄','🪸']
+};
+
+let activeEmojiPicker = null;
+
+function initEmojiPicker(id) {
+  const tabsEl = document.getElementById('ep-tabs-' + id);
+  const gridEl = document.getElementById('ep-grid-' + id);
+  if (!tabsEl || tabsEl.children.length > 0) return; // already initialised
+  const cats = Object.keys(EMOJI_BANK);
+  tabsEl.innerHTML = cats.map((cat, i) =>
+    '<button class="ep-tab' + (i === 0 ? ' active' : '') + '" onclick="switchEmojiTab(\'' + id + '\',\'' + cat + '\',this)">' + cat + '</button>'
+  ).join('');
+  renderEmojiGrid(id, cats[0]);
+}
+
+function renderEmojiGrid(id, cat) {
+  const gridEl = document.getElementById('ep-grid-' + id);
+  if (!gridEl) return;
+  const emojis = EMOJI_BANK[cat] || [];
+  let rows = '<div class="ep-grid">';
+  emojis.forEach(function(e) {
+    const sel = selectedEmoji === e ? ' selected' : '';
+    rows += '<div class="ep-emoji' + sel + '" onclick="pickEmoji(\'' + id + '\',\'' + e + '\')">'+e+'</div>';
+  });
+  rows += '</div>';
+  gridEl.innerHTML = rows;
+}
+
+function switchEmojiTab(id, cat, btn) {
+  document.querySelectorAll('#ep-tabs-' + id + ' .ep-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderEmojiGrid(id, cat);
+}
+
+function toggleEmojiPicker(id) {
+  initEmojiPicker(id);
+  const dd = document.getElementById('ep-dropdown-' + id);
+  if (!dd) return;
+  const isOpen = dd.classList.contains('open');
+  // Close any other open picker
+  document.querySelectorAll('.emoji-picker-dropdown.open').forEach(d => d.classList.remove('open'));
+  if (!isOpen) {
+    dd.classList.add('open');
+    activeEmojiPicker = id;
+  } else {
+    activeEmojiPicker = null;
+  }
+}
+
+function pickEmoji(id, emoji) {
+  selectedEmoji = emoji;
+  // Update preview
+  const prev = document.getElementById('ep-preview-' + id);
+  if (prev) prev.textContent = emoji;
+  // Update selected state in grid
+  const gridEl = document.getElementById('ep-grid-' + id);
+  if (gridEl) {
+    gridEl.querySelectorAll('.ep-emoji').forEach(el => {
+      el.classList.toggle('selected', el.textContent === emoji);
+    });
+  }
+  // Close picker
+  const dd = document.getElementById('ep-dropdown-' + id);
+  if (dd) dd.classList.remove('open');
+  activeEmojiPicker = null;
+}
+
+// Close picker when clicking outside
+document.addEventListener('click', function(e) {
+  if (activeEmojiPicker && !e.target.closest('.emoji-picker-wrap')) {
+    const dd = document.getElementById('ep-dropdown-' + activeEmojiPicker);
+    if (dd) dd.classList.remove('open');
+    activeEmojiPicker = null;
+  }
+});
 
 // ============================================================
 // INIT
