@@ -351,6 +351,35 @@
   .ep-emoji:hover { background: var(--surface2); }
   .ep-emoji.selected { background: rgba(124,106,247,.25); }
 
+
+  /* LEVEL CONTEXT BADGE */
+  .level-context { margin: 8px 0 0; padding: 9px 12px; background: rgba(124,106,247,.08); border: 1px solid rgba(124,106,247,.18); border-radius: 9px; font-size: 12px; color: #b8b0f0; line-height: 1.5; }
+  .level-context strong { color: var(--accent2); }
+
+  /* WEEKLY SUMMARY MODAL */
+  .week-summary-header { text-align: center; padding: 8px 0 20px; }
+  .week-summary-title { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+  .week-summary-sub { font-size: 13px; color: var(--muted); }
+  .week-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+  .week-stat-card { background: var(--surface2); border-radius: 11px; padding: 13px 12px; text-align: center; }
+  .week-stat-val { font-size: 22px; font-weight: 800; color: var(--accent2); }
+  .week-stat-lbl { font-size: 10px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: .5px; }
+  .week-delta { font-size: 11px; font-weight: 700; margin-top: 3px; }
+  .week-delta.up { color: var(--green); }
+  .week-delta.down { color: var(--red); }
+  .week-delta.same { color: var(--muted); }
+  .week-top-skill { display: flex; align-items: center; gap: 10px; background: var(--surface2); border-radius: 11px; padding: 13px 14px; margin-bottom: 16px; }
+  .week-top-icon { font-size: 24px; }
+  .week-top-body { flex: 1; }
+  .week-top-name { font-size: 14px; font-weight: 700; }
+  .week-top-mins { font-size: 12px; color: var(--muted); margin-top: 1px; }
+  .week-tip-box { background: rgba(124,106,247,.07); border: 1px solid rgba(124,106,247,.18); border-radius: 11px; padding: 12px 14px; font-size: 12px; color: #b8b0f0; line-height: 1.55; }
+
+  /* SHARE CARD MODAL */
+  #share-card-canvas { display: block; border-radius: 16px; overflow: hidden; margin: 0 auto 16px; max-width: 100%; }
+  .share-card-actions { display: flex; gap: 10px; }
+  .share-card-actions .btn { flex: 1; }
+
   /* MISC */
   .empty { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 13px; line-height: 1.7; }
   ::-webkit-scrollbar { width: 3px; }
@@ -474,6 +503,7 @@
     <div class="page-header"><h1>Statistics</h1></div>
     <div id="stats-lifetime"></div>
     <div id="stats-output"></div>
+    <button class="btn btn-secondary" onclick="openShareCard()" style="margin:4px 16px 16px;width:calc(100% - 32px)">✦ Share my progress</button>
     <div class="section-title" style="margin-top:4px">Achievements</div>
     <div id="stats-achievements"></div>
   </div>
@@ -1452,6 +1482,7 @@ function renderSkillDetail() {
     + '<div class="detail-lvl-line">Level ' + level + ' · ' + levelLabel(level) + '</div>'
     + '<div class="detail-xp-bg"><div class="detail-xp-fill" style="width:' + pct + '%;background:' + color + '"></div></div>'
     + '<div class="detail-xp-label"><span>' + levelLabel(level) + '</span><span>' + remainingXP + ' / ' + xpNeeded + ' XP</span></div>'
+    + '<div class="level-context">' + getLevelContext(skill) + '</div>'
     + '<div class="detail-stats-row">'
     + '<div class="detail-stat"><div class="ds-val">' + (skillMins / 60).toFixed(1) + 'h</div><div class="ds-lbl">Total time</div></div>'
     + '<div class="detail-stat"><div class="ds-val">' + skillSessions.length + '</div><div class="ds-lbl">Sessions</div></div>'
@@ -1796,6 +1827,295 @@ document.addEventListener('click', function(e) {
   }
 });
 
+
+// ============================================================
+// LEVEL CONTEXT — meaningful translation of hours invested
+// ============================================================
+function getLevelContext(skill) {
+  const sessions = state.sessions.filter(s => s.skillId === skill.id);
+  const totalMins = sessions.reduce((a, s) => a + s.minutes, 0);
+  const h = totalMins / 60;
+  const cat = skill.category || 'other';
+  if (cat === 'language') {
+    if (h < 10)  return "You're at the very start. Even 10 minutes a day adds up fast.";
+    if (h < 25)  return '<strong>~A1 level</strong> — basic words and phrases are forming.';
+    if (h < 60)  return '<strong>~A2 level</strong> — you can handle simple, familiar topics.';
+    if (h < 150) return '<strong>~B1 level</strong> — everyday conversations are within reach.';
+    if (h < 300) return '<strong>~B2 level</strong> — you can discuss most topics with confidence.';
+    if (h < 600) return '<strong>~C1 level</strong> — near-fluent, nuanced understanding.';
+    return '<strong>~C2 level</strong> — mastery. You think in this language.';
+  }
+  if (cat === 'fitness') {
+    if (h < 5)   return "Just getting started — every session builds the habit.";
+    if (h < 20)  return "You've built a base. Your body is adapting.";
+    if (h < 50)  return '<strong>' + Math.round(h) + ' hours</strong> of training — solid consistency.';
+    if (h < 100) return 'The equivalent of roughly <strong>' + Math.round(h * 6) + ' km</strong> of effort logged.';
+    if (h < 200) return 'Serious athlete level. <strong>' + Math.round(h) + ' hours</strong> of focused training.';
+    return '<strong>' + Math.round(h) + "</strong> hours — elite dedication. You've earned every level.";
+  }
+  if (cat === 'reading') {
+    const estPages = Math.round(h * 35);
+    if (h < 2)   return "Just getting started — keep turning pages.";
+    if (h < 10)  return "Roughly <strong>" + estPages + "</strong> pages read. A short book's worth.";
+    if (h < 30)  return "Roughly <strong>" + estPages + "</strong> pages — you've read a full novel's worth.";
+    if (h < 80)  return "<strong>" + estPages + "</strong> pages — that's a small library.";
+    return '<strong>' + estPages + '</strong> pages read. A dedicated reader by any measure.';
+  }
+  if (cat === 'knowledge') {
+    if (h < 10)  return 'Early exploration — the foundation is being laid.';
+    if (h < 40)  return '<strong>' + Math.round(h) + ' hours</strong> of focused study — a strong foundation.';
+    if (h < 100) return 'Comparable to a <strong>university semester</strong> of focused study.';
+    if (h < 300) return "You've invested more than most professionals spend on continuing education.";
+    return '<strong>' + Math.round(h) + ' hours</strong> — deep expertise. You know this subject.';
+  }
+  if (cat === 'creative') {
+    if (h < 10)  return 'Every creative skill starts with these first hours. Keep showing up.';
+    if (h < 50)  return '<strong>' + Math.round(h) + ' hours</strong> of practice — your style is forming.';
+    if (h < 100) return 'Past the beginner phase. <strong>' + Math.round(h) + ' hours</strong> of real craft.';
+    if (h < 300) return 'Approaching the famed <strong>10,000-hour</strong> path. Serious craft.';
+    return '<strong>' + Math.round(h) + ' hours</strong> — master level creative dedication.';
+  }
+  if (h < 5)   return "The first hours are always the hardest. You're doing it.";
+  if (h < 20)  return '<strong>' + Math.round(h) + ' hours</strong> invested — the habit is forming.';
+  if (h < 60)  return '<strong>' + Math.round(h) + ' hours</strong> — real progress you can feel.';
+  if (h < 150) return "<strong>" + Math.round(h) + " hours</strong> — you're well past casual interest.";
+  return '<strong>' + Math.round(h) + " hours</strong> — this is a genuine part of who you are.";
+}
+
+// ============================================================
+// SHARE CARD
+// ============================================================
+function openShareCard() {
+  openModal('modal-share');
+  setTimeout(drawShareCard, 80);
+}
+function drawShareCard() {
+  const canvas = document.getElementById('share-card-canvas');
+  if (!canvas) return;
+  const dpr = window.devicePixelRatio || 1;
+  // Square-ish card: looks great as screenshot and download
+  const W = 560, H = 560;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  // CSS: fill modal width, auto height to preserve ratio
+  canvas.style.width = '100%';
+  canvas.style.height = 'auto';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  // Background
+  const bg = ctx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0, '#0d0d16');
+  bg.addColorStop(1, '#13112a');
+  ctx.fillStyle = bg;
+  ctx.roundRect(0, 0, W, H, 20);
+  ctx.fill();
+
+  // Subtle grid dots
+  ctx.fillStyle = 'rgba(124,106,247,0.06)';
+  for (let x = 20; x < W; x += 30) {
+    for (let y = 20; y < H; y += 30) {
+      ctx.beginPath(); ctx.arc(x, y, 1.5, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+
+  // Accent top bar
+  const bar = ctx.createLinearGradient(0, 0, W, 0);
+  bar.addColorStop(0, '#7c6af7'); bar.addColorStop(1, '#a78bfa');
+  ctx.fillStyle = bar;
+  ctx.roundRect(0, 0, W, 5, [20, 20, 0, 0]);
+  ctx.fill();
+
+  // Logo top-left
+  ctx.font = 'bold 14px -apple-system, sans-serif';
+  ctx.fillStyle = 'rgba(167,139,250,0.7)';
+  ctx.fillText('SkillStack', 30, 42);
+
+  // User name
+  const name = state.user ? state.user.name : 'Learner';
+  ctx.font = 'bold 30px -apple-system, sans-serif';
+  ctx.fillStyle = '#f0f0ff';
+  ctx.fillText(name + "'s Progress", 30, 92);
+
+  // Divider line
+  ctx.strokeStyle = 'rgba(124,106,247,0.2)';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(30, 108); ctx.lineTo(W - 30, 108); ctx.stroke();
+
+  // Total hours — big
+  const allMins = state.sessions.reduce((a, s) => a + s.minutes, 0);
+  const totalH = (allMins / 60).toFixed(1);
+  const grad2 = ctx.createLinearGradient(30, 115, 220, 175);
+  grad2.addColorStop(0, '#a78bfa'); grad2.addColorStop(1, '#7c6af7');
+  ctx.font = 'bold 64px -apple-system, sans-serif';
+  ctx.fillStyle = grad2;
+  ctx.fillText(totalH + 'h', 30, 178);
+  ctx.font = '15px -apple-system, sans-serif';
+  ctx.fillStyle = 'rgba(167,139,250,0.6)';
+  ctx.fillText('total learning time', 30, 202);
+
+  // Stats row: sessions + streak
+  const totalSessions = state.sessions.length;
+  const streak = state.user ? (state.user.streak || 0) : 0;
+  ctx.font = 'bold 22px -apple-system, sans-serif';
+  ctx.fillStyle = '#f59e0b';
+  ctx.fillText('🔥 ' + streak + ' day streak', 30, 248);
+  ctx.font = '15px -apple-system, sans-serif';
+  ctx.fillStyle = 'rgba(167,139,250,0.5)';
+  ctx.fillText(totalSessions + ' sessions logged', 30, 272);
+
+  // Divider
+  ctx.strokeStyle = 'rgba(124,106,247,0.2)';
+  ctx.beginPath(); ctx.moveTo(30, 292); ctx.lineTo(W - 30, 292); ctx.stroke();
+
+  // Skills section label
+  ctx.font = 'bold 11px -apple-system, sans-serif';
+  ctx.fillStyle = 'rgba(107,107,138,0.8)';
+  ctx.fillText('SKILLS', 30, 314);
+
+  // Skills bars (max 4 for square card)
+  const active = activeSkills().slice(0, 4);
+  const totalMinsAll = active.map(s => state.sessions.filter(x => x.skillId === s.id).reduce((a, x) => a + x.minutes, 0));
+  const maxMins = Math.max(...totalMinsAll, 1);
+  const barColors = ['#7c6af7','#10b981','#f59e0b','#3b82f6'];
+  active.forEach((sk, i) => {
+    const mins = totalMinsAll[i];
+    const hrs = (mins / 60).toFixed(1);
+    const barW = Math.max(4, Math.round((mins / maxMins) * (W - 140)));
+    const y = 328 + i * 48;
+    // Skill name row
+    ctx.font = '14px -apple-system, sans-serif';
+    ctx.fillStyle = '#d0d0e8';
+    ctx.fillText(sk.icon + ' ' + sk.name, 30, y);
+    ctx.fillStyle = 'rgba(167,139,250,0.6)';
+    ctx.fillText(hrs + 'h', W - 50, y);
+    // Bar bg
+    ctx.fillStyle = 'rgba(255,255,255,0.05)';
+    ctx.roundRect(30, y + 7, W - 60, 10, 5); ctx.fill();
+    // Bar fill
+    ctx.fillStyle = barColors[i % 4];
+    ctx.roundRect(30, y + 7, barW, 10, 5); ctx.fill();
+  });
+
+  // Bottom tagline
+  ctx.font = '11px -apple-system, sans-serif';
+  ctx.fillStyle = 'rgba(107,107,138,0.5)';
+  ctx.fillText('skillstack.app', W - 100, H - 20);
+}
+function downloadShareCard() {
+  const canvas = document.getElementById('share-card-canvas');
+  if (!canvas) return;
+  // Works on both desktop and mobile
+  canvas.toBlob(function(blob) {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'skillstack-progress.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }, 'image/png');
+}
+
+// ============================================================
+// WEEKLY SUMMARY
+// ============================================================
+function getWeekMins(offsetWeeks) {
+  // offsetWeeks: 0 = this week (Mon–Sun), 1 = last week
+  const now = new Date();
+  const dow = now.getDay();
+  const monday = new Date(now);
+  monday.setDate(now.getDate() - ((dow + 6) % 7) - offsetWeeks * 7);
+  monday.setHours(0, 0, 0, 0);
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 7);
+  return state.sessions.filter(s => s.date >= monday.getTime() && s.date < sunday.getTime())
+    .reduce((a, s) => a + s.minutes, 0);
+}
+function checkWeeklySummary() {
+  if (!state.user || !state.sessions.length) return;
+  const today = new Date().toDateString();
+  const lastShown = DB.get('ss_weekly_shown', '');
+  // Show on Monday if not already shown this week
+  const isMonday = new Date().getDay() === 1;
+  if (!isMonday || lastShown === today) return;
+  // Need at least some sessions last week
+  const lastWeekMins = getWeekMins(1);
+  if (!lastWeekMins) return;
+  DB.set('ss_weekly_shown', today);
+  setTimeout(showWeeklySummary, 1200);
+}
+function showWeeklySummary() {
+  const lastWeekMins = getWeekMins(1);
+  const prevWeekMins = getWeekMins(2);
+  const lastWeekH = (lastWeekMins / 60).toFixed(1);
+
+  // Best day last week
+  const now = new Date();
+  const dow = now.getDay();
+  const monday = new Date(now);
+  monday.setDate(now.getDate() - ((dow + 6) % 7) - 7);
+  monday.setHours(0, 0, 0, 0);
+  const sunday = new Date(monday); sunday.setDate(monday.getDate() + 7);
+  const lastWeekSessions = state.sessions.filter(s => s.date >= monday.getTime() && s.date < sunday.getTime());
+  const dayMap = {};
+  lastWeekSessions.forEach(s => {
+    const k = new Date(s.date).toLocaleDateString('en-US', { weekday: 'long' });
+    dayMap[k] = (dayMap[k] || 0) + s.minutes;
+  });
+  const bestDay = Object.entries(dayMap).reduce((a, b) => b[1] > a[1] ? b : a, ['—', 0]);
+
+  // Top skill last week
+  const skillMap = {};
+  lastWeekSessions.forEach(s => {
+    skillMap[s.skillId] = (skillMap[s.skillId] || 0) + s.minutes;
+  });
+  const topSkillId = Object.entries(skillMap).sort((a, b) => b[1] - a[1])[0];
+  const topSkill = topSkillId ? state.skills.find(s => s.id === Number(topSkillId[0])) : null;
+  const topSkillMins = topSkillId ? topSkillId[1] : 0;
+
+  // Week delta
+  let deltaHtml = '';
+  if (prevWeekMins > 0) {
+    const pct = Math.round(((lastWeekMins - prevWeekMins) / prevWeekMins) * 100);
+    if (pct > 0) deltaHtml = '<div class="week-delta up">↑ ' + pct + '% more than the week before</div>';
+    else if (pct < 0) deltaHtml = '<div class="week-delta down">↓ ' + Math.abs(pct) + '% less than the week before</div>';
+    else deltaHtml = '<div class="week-delta same">Same as the week before</div>';
+  }
+
+  // Streak
+  const streak = state.user.streak || 0;
+
+  // Data-driven tip
+  let tip = '';
+  const totalSessions = lastWeekSessions.length;
+  const avgSession = totalSessions ? Math.round(lastWeekMins / totalSessions) : 0;
+  if (totalSessions === 1) tip = "One session is a start. Can you add one more day this week?";
+  else if (avgSession < 15) tip = "Your sessions are short. Consistency beats duration.";
+  else if (avgSession > 60) tip = "Long sessions show focus. Try adding a shorter session on off-days too.";
+  else if (streak >= 7) tip = "A " + streak + "-day streak is serious momentum. Keep it going this week.";
+  else if (Object.keys(dayMap).length >= 5) tip = "You practiced " + Object.keys(dayMap).length + " days last week — almost a perfect week. Push for 7.";
+  else tip = "You showed up " + totalSessions + " times last week. Each session compounds.";
+
+  const el = document.getElementById('weekly-summary-content');
+  if (!el) return;
+  el.innerHTML = '<div class="week-summary-header">'
+    + '<div style="font-size:32px;margin-bottom:10px">📊</div>'
+    + "<div class=\"week-summary-title\">Last week recap</div>"
+    + "<div class=\"week-summary-sub\">Here is how you did</div>"
+    + '</div>'
+    + '<div class="week-stat-grid">'
+    + '<div class="week-stat-card"><div class="week-stat-val">' + lastWeekH + 'h</div><div class="week-stat-lbl">Hours learned</div>' + deltaHtml + '</div>'
+    + '<div class="week-stat-card"><div class="week-stat-val">' + totalSessions + '</div><div class="week-stat-lbl">Sessions</div></div>'
+    + '<div class="week-stat-card"><div class="week-stat-val">' + bestDay[0].substring(0, 3) + '</div><div class="week-stat-lbl">Best day</div></div>'
+    + '<div class="week-stat-card"><div class="week-stat-val">🔥 ' + streak + '</div><div class="week-stat-lbl">Day streak</div></div>'
+    + '</div>'
+    + (topSkill ? '<div class="week-top-skill"><span class="week-top-icon">' + topSkill.icon + '</span><div class="week-top-body"><div class="week-top-name">' + topSkill.name + '</div><div class="week-top-mins">Most time this week — ' + (topSkillMins / 60).toFixed(1) + 'h</div></div></div>' : '')
+    + '<div class="week-tip-box">' + tip + '</div>';
+
+  openModal('modal-weekly');
+}
 // ============================================================
 // INIT
 // ============================================================
@@ -1809,11 +2129,35 @@ function init() {
     renderAll();
     // Check for any retroactive achievements on load
     checkAndToastAchievements();
+    checkWeeklySummary();
   } else {
     initObProgress();
   }
 }
 init();
 </script>
+
+<!-- SHARE CARD MODAL -->
+<div class="modal-overlay" id="modal-share">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h2 style="margin-bottom:16px">Your progress</h2>
+    <canvas id="share-card-canvas" style="display:block;width:100%;border-radius:14px;margin:0 auto 16px"></canvas>
+    <div class="share-card-actions">
+      <button class="btn btn-primary" onclick="downloadShareCard()">Download</button>
+      <button class="btn btn-secondary" onclick="closeModal('modal-share')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- WEEKLY SUMMARY MODAL -->
+<div class="modal-overlay" id="modal-weekly">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div id="weekly-summary-content"></div>
+    <button class="btn btn-primary" onclick="closeModal('modal-weekly')" style="margin-top:8px">Let's go</button>
+  </div>
+</div>
+
 </body>
 </html>
