@@ -275,6 +275,38 @@
   .tip-card-body { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 4px; }
   .tip-card-action { font-size: 11px; color: var(--accent2); }
 
+
+  /* MORE OPTIONS IN LOG MODAL */
+  .more-options-toggle { font-size: 12px; color: var(--accent2); cursor: pointer; padding: 4px 0 12px; user-select: none; display: inline-block; }
+  .source-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .source-chip { padding: 5px 11px; border-radius: 99px; font-size: 12px; border: 1.5px solid var(--border); background: var(--surface2); color: var(--muted); cursor: pointer; transition: all .2s; font-family: inherit; }
+  .source-chip.selected { border-color: var(--accent); background: rgba(124,106,247,.15); color: var(--accent2); }
+
+  /* DUAL FAB */
+  .fab-stack { position: fixed; bottom: 80px; right: 16px; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; z-index: 99; }
+  .fab-item { display: flex; align-items: center; gap: 8px; }
+  .fab-label { font-size: 10px; color: var(--muted); background: var(--surface); border: 1px solid var(--border); padding: 4px 9px; border-radius: 99px; letter-spacing: .3px; white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+  .fab-btn-secondary { background: var(--surface); border: 1.5px solid var(--border); box-shadow: 0 2px 10px rgba(0,0,0,.3); font-size: 20px; color: var(--muted); }
+
+  /* MOTIVATION CARD */
+  .motivation-card { margin: 0 16px 14px; padding: 14px 15px; background: rgba(239,68,68,.06); border: 1px solid rgba(239,68,68,.2); border-radius: 13px; }
+  .motivation-headline { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 5px; line-height: 1.4; }
+  .motivation-sub { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* TODAY PLAN MODAL */
+  .plan-item-row { display: flex; align-items: center; gap: 12px; padding: 13px 14px; background: var(--surface2); border-radius: 11px; margin-bottom: 8px; }
+  .plan-item-icon { font-size: 22px; flex-shrink: 0; }
+  .plan-item-body { flex: 1; }
+  .plan-item-name { font-size: 14px; font-weight: 700; }
+  .plan-item-reason { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .plan-item-mins { font-size: 16px; font-weight: 800; color: var(--accent2); white-space: nowrap; }
+
+  /* OUTPUT STATS */
+  .output-stat-row { display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 11px; padding: 12px 14px; margin: 0 16px 8px; }
+  .output-stat-icon { font-size: 20px; flex-shrink: 0; }
+  .output-stat-val { font-size: 18px; font-weight: 800; color: var(--accent2); }
+  .output-stat-label { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
   /* MISC */
   .empty { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 13px; line-height: 1.7; }
   ::-webkit-scrollbar { width: 3px; }
@@ -416,6 +448,7 @@
   <div id="screen-stats" class="screen">
     <div class="page-header"><h1>Statistics</h1></div>
     <div id="stats-lifetime"></div>
+    <div id="stats-output"></div>
     <div class="section-title" style="margin-top:4px">Achievements</div>
     <div id="stats-achievements"></div>
   </div>
@@ -432,6 +465,10 @@
   <div class="fab-item">
     <span class="fab-label">Quick log</span>
     <button class="fab-btn fab-btn-primary" onclick="openLogSession()">+</button>
+  </div>
+  <div class="fab-item">
+    <span class="fab-label">Today's plan</span>
+    <button class="fab-btn fab-btn-secondary" onclick="openTodayPlan()">📋</button>
   </div>
 </div>
 
@@ -477,9 +514,29 @@
         <div class="i-icon">🔥</div><div class="i-label">Heavy</div><div class="i-desc">Active practice, building</div>
       </div>
     </div>
-    <label>Note (optional)</label>
-    <textarea id="log-note" placeholder="What did you work on?"></textarea>
-    <button class="btn btn-primary" onclick="submitLog()">Log it</button>
+    <span class="more-options-toggle" id="more-options-toggle" onclick="toggleMoreOptions()">+ More options</span>
+    <div id="more-options-body" style="display:none">
+      <label>Source <span style="color:var(--muted2);font-weight:400">(optional)</span></label>
+      <div class="source-chips" id="source-chips">
+        <div class="source-chip" onclick="selectSource(this,'YouTube')">YouTube</div>
+        <div class="source-chip" onclick="selectSource(this,'Book')">Book</div>
+        <div class="source-chip" onclick="selectSource(this,'Course')">Course</div>
+        <div class="source-chip" onclick="selectSource(this,'Podcast')">Podcast</div>
+        <div class="source-chip" onclick="selectSource(this,'App')">App</div>
+        <div class="source-chip" onclick="selectSource(this,'Other')">Other</div>
+      </div>
+      <input type="text" id="log-source-custom" placeholder="Or type a custom source..." style="margin-bottom:14px">
+      <div id="log-output-section" style="display:none">
+        <label>Output <span style="color:var(--muted2);font-weight:400">(optional)</span></label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+          <input type="number" id="log-output-amount" placeholder="22" min="0" style="margin-bottom:0">
+          <input type="text" id="log-output-unit" placeholder="pages" style="margin-bottom:0">
+        </div>
+      </div>
+      <label>Note <span style="color:var(--muted2);font-weight:400">(optional)</span></label>
+      <textarea id="log-note" placeholder="What did you work on?"></textarea>
+    </div>
+    <button class="btn btn-primary" style="margin-top:4px" onclick="submitLog()">Log it</button>
     <button class="btn btn-secondary" onclick="closeModal('modal-log')">Cancel</button>
   </div>
 </div>
@@ -495,6 +552,15 @@
       <option value="skill">Skill</option>
       <option value="project">Project</option>
       <option value="habit">Habit</option>
+    </select>
+    <label>Category</label>
+    <select id="new-skill-category">
+      <option value="language">Language</option>
+      <option value="fitness">Fitness</option>
+      <option value="reading">Reading</option>
+      <option value="knowledge">Knowledge</option>
+      <option value="creative">Creative</option>
+      <option value="other">Other</option>
     </select>
     <label>Pick an emoji</label>
     <div class="ob-chips" style="margin-bottom:18px">
@@ -552,6 +618,17 @@
   <div class="d-hint">Tap to continue</div>
 </div>
 
+<!-- TODAY PLAN MODAL -->
+<div class="modal-overlay" id="modal-today-plan">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h2>Today's plan</h2>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.5">Based on your recent activity and weekly balance.</p>
+    <div id="today-plan-content"></div>
+    <button class="btn btn-secondary" onclick="closeModal('modal-today-plan')" style="margin-top:8px">Got it</button>
+  </div>
+</div>
+
 <script>
 // ============================================================
 // DATA
@@ -567,8 +644,11 @@ let state = {
   sessions: DB.get('ss_sessions', []),
   seenAchievements: DB.get('ss_seen_ach', [])
 };
-// Migration: ensure active flag
-state.skills.forEach(s => { if (typeof s.active === 'undefined') s.active = true; });
+// Migration: ensure active flag and category
+state.skills.forEach(s => {
+  if (typeof s.active === 'undefined') s.active = true;
+  if (!s.category) s.category = 'other';
+});
 
 function save() {
   DB.set('ss_user', state.user);
@@ -698,7 +778,7 @@ function getAchievementDefs() {
   // Max level in any skill
   const maxSkillLevel = state.skills.length ? Math.max(...state.skills.map(s => getLevelInfo(s).level)) : 0;
 
-  return [
+  const categories = [
     {
       category: 'Consistency',
       items: [
@@ -744,6 +824,34 @@ function getAchievementDefs() {
       ]
     }
   ];
+  // Append output achievements dynamically
+  const unitMap2 = {};
+  state.sessions.forEach(s => {
+    if (s.outputAmount && s.outputUnit) {
+      const u = s.outputUnit.toLowerCase();
+      unitMap2[u] = (unitMap2[u] || 0) + s.outputAmount;
+    }
+  });
+  const outputAchItems = [];
+  if ('pages' in unitMap2 || state.sessions.some(s => s.outputUnit === 'pages')) {
+    const p = unitMap2['pages'] || 0;
+    outputAchItems.push({ id: 'out_pages_100', icon: '📖', title: 'Read 100 pages', desc: 'Log 100 pages read.', unlocked: p >= 100, progress: Math.min(p, 100), total: 100 });
+    outputAchItems.push({ id: 'out_pages_1000', icon: '📚', title: 'Read 1000 pages', desc: 'Log 1000 pages read.', unlocked: p >= 1000, progress: Math.min(p, 1000), total: 1000 });
+  }
+  if ('km' in unitMap2 || state.sessions.some(s => s.outputUnit === 'km')) {
+    const k = unitMap2['km'] || 0;
+    outputAchItems.push({ id: 'out_km_50', icon: '🏃', title: 'Run 50 km', desc: 'Log 50 km.', unlocked: k >= 50, progress: Math.min(k, 50), total: 50 });
+    outputAchItems.push({ id: 'out_km_200', icon: '🚴', title: 'Run 200 km', desc: 'Log 200 km total distance.', unlocked: k >= 200, progress: Math.min(k, 200), total: 200 });
+  }
+  if ('exercises' in unitMap2 || state.sessions.some(s => s.outputUnit === 'exercises')) {
+    const e = unitMap2['exercises'] || 0;
+    outputAchItems.push({ id: 'out_ex_50', icon: '💪', title: '50 Exercises', desc: 'Complete 50 exercises.', unlocked: e >= 50, progress: Math.min(e, 50), total: 50 });
+    outputAchItems.push({ id: 'out_ex_200', icon: '🏋️', title: '200 Exercises', desc: 'Complete 200 exercises.', unlocked: e >= 200, progress: Math.min(e, 200), total: 200 });
+  }
+  if (outputAchItems.length) {
+    categories.push({ category: 'Output', items: outputAchItems });
+  }
+  return categories;
 }
 
 // Flat list for toast checking
@@ -865,7 +973,7 @@ function obFinish() {
   if (!name) { alert('Please enter a skill name.'); return; }
   // Ensure user was saved (step 1 sets it, but guard just in case)
   if (!state.user) { alert('Please enter your name first.'); return; }
-  addSkillToState(name, document.getElementById('ob-skill-type').value, selectedEmoji || '⭐');
+  addSkillToState(name, document.getElementById('ob-skill-type').value, selectedEmoji || '⭐', document.getElementById('ob-skill-category') ? document.getElementById('ob-skill-category').value : 'other');
   document.getElementById('onboarding').classList.add('done');
   document.getElementById('app').style.display = 'block';
   document.getElementById('bottom-nav').style.display = 'flex';
@@ -907,8 +1015,8 @@ function goBackFromDetail() {
 // ============================================================
 // SKILLS CRUD
 // ============================================================
-function addSkillToState(name, type, emoji) {
-  state.skills.push({ id: Date.now(), name, type, icon: emoji, xp: 0, active: true, createdAt: Date.now() });
+function addSkillToState(name, type, emoji, category) {
+  state.skills.push({ id: Date.now(), name, type, category: category || 'other', icon: emoji, xp: 0, active: true, createdAt: Date.now() });
 }
 function openAddSkill() {
   document.getElementById('new-skill-name').value = '';
@@ -919,7 +1027,7 @@ function openAddSkill() {
 function submitAddSkill() {
   const name = document.getElementById('new-skill-name').value.trim();
   if (!name) { alert('Please enter a skill name.'); return; }
-  addSkillToState(name, document.getElementById('new-skill-type').value, selectedEmoji || '⭐');
+  addSkillToState(name, document.getElementById('new-skill-type').value, selectedEmoji || '⭐', document.getElementById('new-skill-category').value);
   save(); closeModal('modal-add-skill'); renderAll();
   checkAndToastAchievements();
 }
@@ -930,12 +1038,8 @@ function deleteSkill(skillId) {
   if (!confirm('Delete "' + skill.name + '"? All XP and session history will be permanently removed.')) return;
   state.skills = state.skills.filter(s => s.id !== id);
   state.sessions = state.sessions.filter(s => s.skillId !== id);
-  const plan = getPlan();
-  plan.items = plan.items.filter(it => it.skillId !== id);
-  state.plan = plan;
   DB.set('ss_skills', state.skills);
   DB.set('ss_sessions', state.sessions);
-  DB.set('ss_plan', state.plan);
   detailSkillId = null;
   goBackFromDetail();
   renderAll();
@@ -945,12 +1049,7 @@ function togglePauseSkill(skillId) {
   const skill = state.skills.find(s => s.id === id);
   if (!skill) return;
   skill.active = skill.active === false ? true : false;
-  if (!skill.active) {
-    const plan = getPlan();
-    plan.items = plan.items.filter(it => it.skillId !== id);
-    state.plan = plan;
-    DB.set('ss_plan', state.plan);
-  }
+  // (plan removed)
   save();
   renderSkillDetail();
   renderSkillsTab();
@@ -971,7 +1070,23 @@ function openLogSession() {
   document.getElementById('log-minutes').value = '';
   document.getElementById('log-note').value = '';
   selectedIntensity = 'light'; selectIntensity('light');
+  // Reset more-options
+  selectedSource = '';
+  const mob = document.getElementById('more-options-body');
+  if (mob) mob.style.display = 'none';
+  const mot = document.getElementById('more-options-toggle');
+  if (mot) mot.textContent = '+ More options';
+  document.querySelectorAll('.source-chip').forEach(c => c.classList.remove('selected'));
+  const lsc = document.getElementById('log-source-custom');
+  if (lsc) lsc.value = '';
+  const loa = document.getElementById('log-output-amount');
+  if (loa) loa.value = '';
+  const lou = document.getElementById('log-output-unit');
+  if (lou) lou.value = '';
   openModal('modal-log');
+  // When skill changes, update output section visibility
+  const selSkill = document.getElementById('log-skill-select');
+  if (selSkill) selSkill.onchange = updateOutputSection;
 }
 function openLogForSkill(skillId) {
   openLogSession();
@@ -983,6 +1098,36 @@ function selectIntensity(type) {
   document.querySelectorAll('.intensity-option').forEach(el => el.classList.remove('selected'));
   document.querySelector('.intensity-option.' + type).classList.add('selected');
 }
+// Source selection for log modal
+let selectedSource = '';
+function toggleMoreOptions() {
+  const body = document.getElementById('more-options-body');
+  const toggle = document.getElementById('more-options-toggle');
+  const visible = body.style.display !== 'none';
+  body.style.display = visible ? 'none' : 'block';
+  toggle.textContent = visible ? '+ More options' : '− More options';
+  // Show output section based on selected skill's category
+  if (!visible) updateOutputSection();
+}
+function updateOutputSection() {
+  const skillId = parseInt(document.getElementById('log-skill-select').value);
+  const skill = state.skills.find(s => s.id === skillId);
+  const cat = skill ? (skill.category || 'other') : 'other';
+  const showOutput = ['fitness','reading','language','knowledge'].includes(cat);
+  const sec = document.getElementById('log-output-section');
+  if (sec) sec.style.display = showOutput ? 'block' : 'none';
+  // Set default unit placeholder
+  const unitEl = document.getElementById('log-output-unit');
+  if (unitEl && !unitEl.value) {
+    const defaults = { reading: 'pages', fitness: 'km', language: 'lessons', knowledge: 'exercises' };
+    unitEl.placeholder = defaults[cat] || 'unit';
+  }
+}
+function selectSource(el, val) {
+  document.querySelectorAll('.source-chip').forEach(c => c.classList.remove('selected'));
+  if (selectedSource === val) { selectedSource = ''; } else { el.classList.add('selected'); selectedSource = val; }
+}
+
 function submitLog() {
   const skillId = parseInt(document.getElementById('log-skill-select').value);
   const minutes = parseInt(document.getElementById('log-minutes').value);
@@ -994,9 +1139,20 @@ function submitLog() {
   const oldLvl = getLevelInfo(skill).level;
   skill.xp = (skill.xp || 0) + xpGain;
   const newLvl = getLevelInfo(skill).level;
+  // Capture optional source + output
+  const sourceCustom = document.getElementById('log-source-custom') ? document.getElementById('log-source-custom').value.trim() : '';
+  const sessionSource = selectedSource || sourceCustom || '';
+  const outputAmountEl = document.getElementById('log-output-amount');
+  const outputUnitEl = document.getElementById('log-output-unit');
+  const outputAmount = outputAmountEl && outputAmountEl.value ? parseFloat(outputAmountEl.value) : null;
+  const outputUnit = outputUnitEl && outputUnitEl.value.trim() ? outputUnitEl.value.trim().toLowerCase() : null;
   state.sessions.unshift({
     id: Date.now(), skillId, skillName: skill.name, skillIcon: skill.icon,
-    minutes, intensity: selectedIntensity, xpGain, note, date: Date.now()
+    minutes, intensity: selectedIntensity, xpGain, note,
+    source: sessionSource || null,
+    outputAmount: outputAmount,
+    outputUnit: outputUnit,
+    date: Date.now()
   });
   updateStreak();
   save();
@@ -1037,6 +1193,73 @@ function showDopamine(skill, xpGain, oldLvl, newLvl, minutes) {
   setTimeout(() => { bar.style.width = pct + '%'; }, 100);
 }
 function closeDopamine() { document.getElementById('dopamine').classList.remove('show'); }
+
+// ============================================================
+// TODAY PLAN
+// ============================================================
+function openTodayPlan() {
+  const active = activeSkills();
+  if (!active.length) { alert('Add skills first.'); return; }
+  const now = Date.now(), DAY = 86400000, WEEK = 7 * DAY;
+  const today = new Date().toDateString();
+
+  // Minutes logged per skill this week
+  function weekMins(skillId) {
+    return state.sessions.filter(s => s.skillId === skillId && now - s.date < WEEK).reduce((a, s) => a + s.minutes, 0);
+  }
+  // Average session length per skill (last 10 sessions)
+  function avgSession(skillId) {
+    const ss = state.sessions.filter(s => s.skillId === skillId).slice(0, 10);
+    if (!ss.length) return 25;
+    return Math.round(ss.reduce((a, s) => a + s.minutes, 0) / ss.length);
+  }
+  // Days since last session
+  function daysSince(skillId) {
+    const ss = state.sessions.filter(s => s.skillId === skillId);
+    if (!ss.length) return 999;
+    return Math.floor((now - Math.max(...ss.map(s => s.date))) / DAY);
+  }
+
+  // Score: higher = more needs practice today
+  const scored = active.map(s => {
+    const wm = weekMins(s.id);
+    const ds = daysSince(s.id);
+    const avg = avgSession(s.id);
+    // Priority: long gap + low weekly hours
+    const score = (ds * 10) + Math.max(0, 120 - wm);
+    return { s, score, avg: Math.min(Math.max(avg, 15), 60), ds, wm };
+  }).sort((a, b) => b.score - a.score);
+
+  // Pick top 3, realistic minutes (15–60)
+  const picks = scored.slice(0, 3).map(p => {
+    // Adjust minutes to realistic range
+    let mins = p.avg;
+    if (mins < 15) mins = 20;
+    if (mins > 60) mins = 45;
+    // Round to nearest 5
+    mins = Math.round(mins / 5) * 5;
+    const reason = p.ds >= 7 ? 'Not practiced in ' + p.ds + ' days'
+      : p.ds >= 3 ? 'Last practiced ' + p.ds + ' days ago'
+      : p.wm < 30 ? 'Low this week (' + Math.round(p.wm) + ' min)'
+      : 'Keep the momentum going';
+    return { skill: p.s, mins, reason };
+  });
+
+  const el = document.getElementById('today-plan-content');
+  if (el) {
+    el.innerHTML = picks.map(p =>
+      '<div class="plan-item-row">'
+      + '<span class="plan-item-icon">' + p.skill.icon + '</span>'
+      + '<div class="plan-item-body">'
+      + '<div class="plan-item-name">' + p.skill.name + '</div>'
+      + '<div class="plan-item-reason">' + p.reason + '</div>'
+      + '</div>'
+      + '<div class="plan-item-mins">' + p.mins + ' min</div>'
+      + '</div>'
+    ).join('');
+  }
+  openModal('modal-today-plan');
+}
 
 // ============================================================
 // MODALS
@@ -1089,8 +1312,36 @@ function renderStats() {
 function renderRec() {
   const el = document.getElementById('rec-area');
   if (!el) return;
+  // Show guilt motivation if a skill is neglected, else fall back to regular rec
+  const mot = generateMotivation();
+  if (mot) {
+    el.innerHTML = '<div class="motivation-card"><div class="motivation-headline">' + mot.headline + '</div><div class="motivation-sub">' + mot.sub + '</div></div>';
+    return;
+  }
   const rec = generateRec();
   el.innerHTML = rec ? '<div class="rec-line">' + rec + '</div>' : '';
+}
+function generateMotivation() {
+  const active = activeSkills();
+  if (!active.length || !state.sessions.length) return null;
+  const now = Date.now(), DAY = 86400000;
+  // Find most invested skill that hasn't been practiced in 7+ days
+  let worst = null, worstDays = 0;
+  active.forEach(s => {
+    const ss = state.sessions.filter(x => x.skillId === s.id);
+    if (!ss.length) return;
+    const last = Math.max(...ss.map(x => x.date));
+    const days = Math.floor((now - last) / DAY);
+    if (days >= 7 && days > worstDays) { worstDays = days; worst = s; }
+  });
+  if (!worst) return null;
+  const skillSessions = state.sessions.filter(s => s.skillId === worst.id);
+  const totalMins = skillSessions.reduce((a, s) => a + s.minutes, 0);
+  const totalHours = Math.round(totalMins / 60);
+  return {
+    headline: 'You invested ' + totalHours + ' hour' + (totalHours !== 1 ? 's' : '') + ' in ' + worst.name + '.',
+    sub: 'Last practice was ' + worstDays + ' days ago. Don\'t let that progress fade. Even 10 minutes today keeps it alive.'
+  };
 }
 function renderDistrib() {
   const el = document.getElementById('distrib-area');
@@ -1216,7 +1467,32 @@ function renderSkillDetail() {
 // ============================================================
 function renderStatisticsTab() {
   renderLifetimeStats();
+  renderOutputStats();
   renderAchievements();
+}
+function renderOutputStats() {
+  const el = document.getElementById('stats-output');
+  if (!el) return;
+  // Aggregate output by unit across all sessions
+  const unitMap = {}; // unit -> { total, icon }
+  state.sessions.forEach(s => {
+    if (s.outputAmount && s.outputUnit) {
+      const u = s.outputUnit.toLowerCase();
+      if (!unitMap[u]) unitMap[u] = { total: 0, icon: s.skillIcon || '📊' };
+      unitMap[u].total += s.outputAmount;
+    }
+  });
+  const entries = Object.entries(unitMap);
+  if (!entries.length) { el.innerHTML = ''; return; }
+  const rows = entries.map(([unit, data]) => {
+    const val = Number.isInteger(data.total) ? data.total : data.total.toFixed(1);
+    return '<div class="output-stat-row">'
+      + '<span class="output-stat-icon">' + data.icon + '</span>'
+      + '<div><div class="output-stat-val">' + val + ' ' + unit + '</div>'
+      + '<div class="output-stat-label">Total logged</div></div>'
+      + '</div>';
+  }).join('');
+  el.innerHTML = '<div class="section-title" style="margin-top:4px;margin-bottom:2px">Output</div>' + rows;
 }
 function renderLifetimeStats() {
   const el = document.getElementById('stats-lifetime');
@@ -1412,9 +1688,11 @@ function renderHistory() {
   if (empty) empty.style.display = 'none';
   el.innerHTML = state.sessions.map(s => {
     const d = new Date(s.date).toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
+    const sourceBadge = s.source ? '<span style="font-size:9px;color:var(--muted);margin-left:4px">· ' + s.source + '</span>' : '';
+    const outputBadge = (s.outputAmount && s.outputUnit) ? '<span style="font-size:9px;color:var(--green);margin-left:4px">· ' + s.outputAmount + ' ' + s.outputUnit + '</span>' : '';
     return '<div class="session-item"><div class="session-icon">' + s.skillIcon + '</div>'
       + '<div class="session-info"><div class="session-name">' + s.skillName + '</div>'
-      + '<div class="session-meta">' + d + '<span class="badge badge-' + s.intensity + '">' + s.intensity + '</span></div>'
+      + '<div class="session-meta">' + d + '<span class="badge badge-' + s.intensity + '">' + s.intensity + '</span>' + sourceBadge + outputBadge + '</div>'
       + (s.note ? '<div style="font-size:10px;color:#55556a;margin-top:2px">' + s.note + '</div>' : '')
       + '</div><div class="session-right"><div class="session-min">' + s.minutes + 'm</div>'
       + '<div class="session-xp">+' + s.xpGain + ' XP</div></div></div>';
